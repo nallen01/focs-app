@@ -65,7 +65,7 @@ public class CommentatorFragment extends Fragment {
         rootView.findViewById(R.id.button_clear_scores).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toaster.doToast(getActivity().getApplicationContext(), "Not implemented");
+                tcpClient.clearAllScores();
             }
         });
 

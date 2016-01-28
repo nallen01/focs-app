@@ -117,4 +117,20 @@ public class TcpClient {
     public void setHistoryVisible(boolean isVisible) {
         sendFoxCommand(ScoreField.HISTORY, MessageType.SET, isVisible ? 1 : 0);
     }
+
+    public void clearAllScores() {
+        sendFoxCommand(ScoreField.RED_AUTON, MessageType.SET, 0);
+        sendFoxCommand(ScoreField.RED_ELEVATION, MessageType.SET, 0);
+        sendFoxCommand(ScoreField.RED_HIGH_BALLS, MessageType.SET, 0);
+        sendFoxCommand(ScoreField.RED_HIGH_BONUS_BALLS, MessageType.SET, 0);
+        sendFoxCommand(ScoreField.RED_LOW_BALLS, MessageType.SET, 0);
+        sendFoxCommand(ScoreField.RED_LOW_BONUS_BALLS, MessageType.SET, 0);
+
+        sendFoxCommand(ScoreField.BLUE_AUTON, MessageType.SET, 0);
+        sendFoxCommand(ScoreField.BLUE_ELEVATION, MessageType.SET, 0);
+        sendFoxCommand(ScoreField.BLUE_HIGH_BALLS, MessageType.SET, 0);
+        sendFoxCommand(ScoreField.BLUE_HIGH_BONUS_BALLS, MessageType.SET, 0);
+        sendFoxCommand(ScoreField.BLUE_LOW_BALLS, MessageType.SET, 0);
+        sendFoxCommand(ScoreField.BLUE_LOW_BONUS_BALLS, MessageType.SET, 0);
+    }
 }
