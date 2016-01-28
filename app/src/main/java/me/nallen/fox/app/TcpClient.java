@@ -148,4 +148,12 @@ public class TcpClient {
     public void addBlueLowBall() {
         sendFoxCommand(ScoreField.BLUE_LOW_BALLS, MessageType.ADD, 1);
     }
+
+    public void setRedElevatedState(ElevatedState state) {
+        sendFoxCommand(ScoreField.RED_ELEVATION, MessageType.SET, state.getValue());
+    }
+
+    public void setBlueElevatedState(ElevatedState state) {
+        sendFoxCommand(ScoreField.BLUE_ELEVATION, MessageType.SET, state.getValue());
+    }
 }

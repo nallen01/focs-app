@@ -70,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
         else if(scorer_location == ScorerLocation.COMMENTATOR || scorer_location == ScorerLocation.COMMENTATOR_AUTOMATION) {
             fragment = CommentatorFragment.newInstance(scorer_location);
         }
+        else if(scorer_location == ScorerLocation.ELEVATION) {
+            fragment = ElevationScorerFragment.newInstance(scorer_location);
+        }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commitAllowingStateLoss();

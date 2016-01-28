@@ -3,6 +3,7 @@ package me.nallen.fox.app;
 public enum ScorerLocation {
     RED_GOAL(0),
     BLUE_GOAL(1),
+    ELEVATION(4),
     COMMENTATOR(2),
     COMMENTATOR_AUTOMATION(3);
 
@@ -24,6 +25,7 @@ public enum ScorerLocation {
             case BLUE_GOAL: return "Blue Goal";
             case COMMENTATOR: return "Commentator";
             case COMMENTATOR_AUTOMATION: return "Commentator with Automation";
+            case ELEVATION: return "Elevations";
         }
 
         return "";

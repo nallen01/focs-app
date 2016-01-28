@@ -77,7 +77,12 @@ public class ConnectActivity extends AppCompatActivity {
         boolean auto_login = true;
 
         if(getIntent().getIntExtra("scorer_location", -1) != -1) {
-            scorer_location.setSelection(getIntent().getIntExtra("scorer_location", -1));
+            for(int i=0; i<ScorerLocation.values().length; i++) {
+                if(ScorerLocation.values()[i].getValue() == getIntent().getIntExtra("scorer_location", -1)) {
+                    scorer_location.setSelection(i);
+                    break;
+                }
+            }
         }
         else {
             scorer_location.setSelection(0);

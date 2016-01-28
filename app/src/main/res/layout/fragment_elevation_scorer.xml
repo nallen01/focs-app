@@ -1,0 +1,105 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="me.nallen.fox.app.ElevationScorerFragment">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_height="0dp"
+                android:text="RED Alliance"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_vertical_margin"
+                android:gravity="center"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:text="High Elevation (50)"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:id="@+id/button_red_high_elevation"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:text="Low Elevation (25)"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:id="@+id/button_red_low_elevation"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:text="No Elevation (0)"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:id="@+id/button_red_no_elevation"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:layout_height="0dp"
+                android:text="BLUE Alliance"
+                android:textStyle="bold"
+                android:textSize="@dimen/activity_vertical_margin"
+                android:gravity="center"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:text="High Elevation (50)"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:id="@+id/button_blue_high_elevation"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:text="Low Elevation (25)"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:id="@+id/button_blue_low_elevation"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:text="No Elevation (0)"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:id="@+id/button_blue_no_elevation"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
