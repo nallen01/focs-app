@@ -2,6 +2,8 @@ package me.nallen.fox.app;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
                 ed.commit();
 
                 Toaster.doToast(getApplicationContext(), "Successfully Connected as " + scorer_location.getName());
+
+                showScorer();
             }
             else {
                 finish();
@@ -53,6 +57,20 @@ public class MainActivity extends AppCompatActivity {
 
             showConnectPage();
         }
+    }
+
+    private void showScorer() {
+        Fragment fragment = null;
+
+        if(scorer_location == ScorerLocation.RED_GOAL || scorer_location == ScorerLocation.BLUE_GOAL) {
+            fragment = GoalScorerFragment.newInstance(scorer_location);
+        }
+        else if(scorer_location == ScorerLocation.COMMENTATOR || scorer_location == ScorerLocation.COMMENTATOR_AUTOMATION) {
+            fragment = CommentatorFragment.newInstance(scorer_location);
+        }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commitAllowingStateLoss();
     }
 
     private void showConnectPage() {
