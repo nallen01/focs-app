@@ -82,7 +82,6 @@ public class TcpClient {
                 fox_in = new BufferedReader(new InputStreamReader(fox_socket.getInputStream()));
             }
             catch(Exception e) {
-                e.printStackTrace();
                 cleanUp();
                 return CONNECT_FOX_IP_ISSUE;
             }
