@@ -3,4 +3,7 @@
     <color name="colorPrimary">#F44336</color>
     <color name="colorPrimaryDark">#D32F2F</color>
     <color name="colorAccent">#448AFF</color>
+
+    <color name="vexRed">#f44336</color>
+    <color name="vexBlue">#2196f3</color>
 </resources>
