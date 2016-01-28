@@ -121,6 +121,10 @@ public class TcpClient {
         sendFoxCommand(ScoreField.CLEAR, MessageType.SET, 1);
     }
 
+    public void setPaused(boolean isPaused) {
+        sendFoxCommand(ScoreField.PAUSED, MessageType.SET, isPaused ? 1 : 0);
+    }
+
     public void setRedHighBalls(int value) {
         sendFoxCommand(ScoreField.RED_HIGH_BALLS, MessageType.SET, value);
     }

@@ -69,6 +69,20 @@ public class CommentatorFragment extends Fragment {
             }
         });
 
+        rootView.findViewById(R.id.button_pause).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setPaused(true);
+            }
+        });
+
+        rootView.findViewById(R.id.button_resume).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setPaused(false);
+            }
+        });
+
         return rootView;
     }
 }

@@ -7,33 +7,30 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_gravity="center">
 
             <Button
                 android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
-                android:text="Small History"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Small Worm"
                 android:id="@+id/button_small_history"
                 android:layout_gravity="center_horizontal" />
 
             <Button
                 android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
-                android:text="Large History"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Large Worm"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:id="@+id/button_large_history"
                 android:layout_gravity="center_horizontal" />
 
@@ -41,63 +38,90 @@
 
         <Button
             android:layout_width="match_parent"
-            android:layout_weight="0.5"
-            android:layout_height="wrap_content"
-            android:text="Hide History"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Hide Worm"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:id="@+id/button_hide_history"
             android:layout_gravity="center_horizontal" />
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:text="Clear Scores"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:id="@+id/button_clear_scores"
             android:layout_gravity="center_horizontal" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@color/colorPrimary" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_gravity="center">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Pause Worm"
+                android:id="@+id/button_pause"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Resume Worm"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:id="@+id/button_resume"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
             android:id="@+id/automation_section">
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="2dip"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:background="@color/colorPrimary" />
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_gravity="center">
 
                 <Button
                     android:layout_width="0dp"
-                    android:layout_weight="0.5"
-                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
                     android:text="Science"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:id="@+id/button_division_science"
                     android:layout_gravity="center_horizontal" />
 
                 <Button
                     android:layout_width="0dp"
-                    android:layout_weight="0.5"
-                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
                     android:text="Technology"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin"
                     android:id="@+id/button_division_tech"
                     android:layout_gravity="center_horizontal" />
 
@@ -105,12 +129,10 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:text="None"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:id="@+id/button_division_none"
                 android:layout_gravity="center_horizontal" />
 
