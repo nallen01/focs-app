@@ -119,18 +119,22 @@ public class TcpClient {
     }
 
     public void clearAllScores() {
-        sendFoxCommand(ScoreField.RED_AUTON, MessageType.SET, 0);
-        sendFoxCommand(ScoreField.RED_ELEVATION, MessageType.SET, 0);
-        sendFoxCommand(ScoreField.RED_HIGH_BALLS, MessageType.SET, 0);
-        sendFoxCommand(ScoreField.RED_HIGH_BONUS_BALLS, MessageType.SET, 0);
-        sendFoxCommand(ScoreField.RED_LOW_BALLS, MessageType.SET, 0);
-        sendFoxCommand(ScoreField.RED_LOW_BONUS_BALLS, MessageType.SET, 0);
+        sendFoxCommand(ScoreField.CLEAR, MessageType.SET, 1);
+    }
 
-        sendFoxCommand(ScoreField.BLUE_AUTON, MessageType.SET, 0);
-        sendFoxCommand(ScoreField.BLUE_ELEVATION, MessageType.SET, 0);
-        sendFoxCommand(ScoreField.BLUE_HIGH_BALLS, MessageType.SET, 0);
-        sendFoxCommand(ScoreField.BLUE_HIGH_BONUS_BALLS, MessageType.SET, 0);
-        sendFoxCommand(ScoreField.BLUE_LOW_BALLS, MessageType.SET, 0);
-        sendFoxCommand(ScoreField.BLUE_LOW_BONUS_BALLS, MessageType.SET, 0);
+    public void addRedHighBall() {
+        sendFoxCommand(ScoreField.RED_HIGH_BALLS, MessageType.ADD, 1);
+    }
+
+    public void addBlueHighBall() {
+        sendFoxCommand(ScoreField.BLUE_HIGH_BALLS, MessageType.ADD, 1);
+    }
+
+    public void addRedLowBall() {
+        sendFoxCommand(ScoreField.RED_LOW_BALLS, MessageType.ADD, 1);
+    }
+
+    public void addBlueLowBall() {
+        sendFoxCommand(ScoreField.BLUE_LOW_BALLS, MessageType.ADD, 1);
     }
 }

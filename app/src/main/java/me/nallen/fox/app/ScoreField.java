@@ -17,7 +17,9 @@ public enum ScoreField {
 
     PAUSED(12),
     HISTORY(13),
-    LARGE_HISTORY(14);
+    LARGE_HISTORY(14),
+
+    CLEAR(15);
 
     private final int id;
     ScoreField(int id) { this.id = id; }

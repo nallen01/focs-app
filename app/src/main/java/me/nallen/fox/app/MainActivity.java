@@ -62,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
     private void showScorer() {
         Fragment fragment = null;
 
+        setTitle(scorer_location.getName());
+
         if(scorer_location == ScorerLocation.RED_GOAL || scorer_location == ScorerLocation.BLUE_GOAL) {
             fragment = GoalScorerFragment.newInstance(scorer_location);
         }
