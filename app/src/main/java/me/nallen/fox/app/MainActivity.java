@@ -102,10 +102,6 @@ public class MainActivity extends AppCompatActivity {
         showConnectPage();
     }
 
-    private void clearScores() {
-
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -116,13 +112,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.clear:
-                clearScores();
-                break;
             case R.id.logout:
                 logout();
-                break;
+                return true;
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -3,6 +3,9 @@ package me.nallen.fox.app;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -27,6 +30,7 @@ public class GoalScorerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -54,5 +58,29 @@ public class GoalScorerFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.goal_scorer, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.clear:
+                if(scorerLocation == ScorerLocation.RED_GOAL) {
+                    tcpClient.setRedHighBalls(0);
+                    tcpClient.setRedLowBalls(0);
+                }
+                else {
+                    tcpClient.setBlueHighBalls(0);
+                    tcpClient.setBlueLowBalls(0);
+                }
+
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

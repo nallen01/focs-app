@@ -121,18 +121,30 @@ public class TcpClient {
         sendFoxCommand(ScoreField.CLEAR, MessageType.SET, 1);
     }
 
+    public void setRedHighBalls(int value) {
+        sendFoxCommand(ScoreField.RED_HIGH_BALLS, MessageType.SET, value);
+    }
     public void addRedHighBall() {
         sendFoxCommand(ScoreField.RED_HIGH_BALLS, MessageType.ADD, 1);
     }
 
-    public void addBlueHighBall() {
-        sendFoxCommand(ScoreField.BLUE_HIGH_BALLS, MessageType.ADD, 1);
+    public void setRedLowBalls(int value) {
+        sendFoxCommand(ScoreField.RED_LOW_BALLS, MessageType.SET, value);
     }
-
     public void addRedLowBall() {
         sendFoxCommand(ScoreField.RED_LOW_BALLS, MessageType.ADD, 1);
     }
 
+    public void setBlueHighBalls(int value) {
+        sendFoxCommand(ScoreField.BLUE_HIGH_BALLS, MessageType.SET, value);
+    }
+    public void addBlueHighBall() {
+        sendFoxCommand(ScoreField.BLUE_HIGH_BALLS, MessageType.ADD, 1);
+    }
+
+    public void setBlueLowBalls(int value) {
+        sendFoxCommand(ScoreField.BLUE_LOW_BALLS, MessageType.SET, value);
+    }
     public void addBlueLowBall() {
         sendFoxCommand(ScoreField.BLUE_LOW_BALLS, MessageType.ADD, 1);
     }
