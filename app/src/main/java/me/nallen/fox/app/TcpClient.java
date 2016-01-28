@@ -58,6 +58,21 @@ public class TcpClient {
         cleanUp();
     }
 
+    private boolean sendFoxMessage(String paramString) {
+        if (fox_out != null) {
+            try {
+                fox_out.write(paramString + '\n');
+                fox_out.flush();
+                return true;
+            } catch (Exception e) {}
+        }
+        return false;
+    }
+
+    private boolean sendFoxCommand(ScoreField field, MessageType type, int value) {
+        return sendFoxMessage("" + field.getValue() + ((char)29) + type.getValue() + ((char)29) + value);
+    }
+
     public int connect(String fox_ip, ScorerLocation location, String automation_ip) {
         if(!isConnected()) {
             try {
@@ -93,5 +108,13 @@ public class TcpClient {
 
     public boolean isConnected() {
         return isConnected;
+    }
+
+    public void setLargeHistory(boolean isLarge) {
+        sendFoxCommand(ScoreField.LARGE_HISTORY, MessageType.SET, isLarge ? 1 : 0);
+    }
+
+    public void setHistoryVisible(boolean isVisible) {
+        sendFoxCommand(ScoreField.HISTORY, MessageType.SET, isVisible ? 1 : 0);
     }
 }

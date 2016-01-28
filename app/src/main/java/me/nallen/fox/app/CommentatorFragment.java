@@ -33,6 +33,42 @@ public class CommentatorFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_commentator, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_commentator, container, false);
+
+        if(scorerLocation != ScorerLocation.COMMENTATOR_AUTOMATION) {
+            rootView.findViewById(R.id.automation_section).setVisibility(View.GONE);
+        }
+
+        rootView.findViewById(R.id.button_small_history).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setLargeHistory(false);
+                tcpClient.setHistoryVisible(true);
+            }
+        });
+
+        rootView.findViewById(R.id.button_large_history).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setLargeHistory(true);
+                tcpClient.setHistoryVisible(true);
+            }
+        });
+
+        rootView.findViewById(R.id.button_hide_history).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setHistoryVisible(false);
+            }
+        });
+
+        rootView.findViewById(R.id.button_clear_scores).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toaster.doToast(getActivity().getApplicationContext(), "Not implemented");
+            }
+        });
+
+        return rootView;
     }
 }
