@@ -160,4 +160,12 @@ public class TcpClient {
     public void setBlueElevatedState(ElevatedState state) {
         sendFoxCommand(ScoreField.BLUE_ELEVATION, MessageType.SET, state.getValue());
     }
+
+    public void setRedAuton(boolean auton) {
+        sendFoxCommand(ScoreField.RED_AUTON, MessageType.SET, auton ? 1 : 0);
+    }
+
+    public void setBlueAuton(boolean auton) {
+        sendFoxCommand(ScoreField.BLUE_AUTON, MessageType.SET, auton ? 1 : 0);
+    }
 }

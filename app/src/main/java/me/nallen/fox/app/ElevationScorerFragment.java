@@ -79,6 +79,28 @@ public class ElevationScorerFragment extends Fragment {
             }
         });
 
+        rootView.findViewById(R.id.button_red_auton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setRedAuton(true);
+            }
+        });
+
+        rootView.findViewById(R.id.button_blue_auton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setBlueAuton(true);
+            }
+        });
+
+        rootView.findViewById(R.id.button_no_auton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setRedAuton(false);
+                tcpClient.setBlueAuton(false);
+            }
+        });
+
         return rootView;
     }
 
