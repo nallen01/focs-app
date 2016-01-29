@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DataListener {
     private static final String PREFS_NAME = "me.nallen.fox.app";
 
     private SharedPreferences mPrefs;
@@ -51,12 +51,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tcpClient = TcpClient.getInstance();
+        tcpClient.addDataListener(this);
         if(!tcpClient.isConnected()) {
             // We need to try connect
             mPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
             showConnectPage();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        tcpClient.removeDataListener(this);
     }
 
     private void showScorer() {
@@ -89,6 +97,15 @@ public class MainActivity extends AppCompatActivity {
         localIntent.putExtra("scorer_location", scorer_location);
 
         startActivityForResult(localIntent, ConnectActivity.ACTIVITY_REQUEST_CODE);
+    }
+
+    @Override
+    public void connectionDropped() {
+        tcpClient.logout();
+
+        Toaster.doToast(getApplicationContext(), "Connection dropped");
+
+        showConnectPage();
     }
 
     private void logout() {

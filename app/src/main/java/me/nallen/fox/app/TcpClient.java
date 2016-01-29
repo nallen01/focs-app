@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class TcpClient {
     public static final int CONNECT_OK = 0;
@@ -26,6 +28,7 @@ public class TcpClient {
     private BufferedReader automation_in = null;
     private BufferedWriter automation_out = null;
 
+    private LinkedList<DataListener> _listeners = new LinkedList<DataListener>();
     private boolean isConnected = false;
 
     private TcpClient() {
@@ -33,6 +36,20 @@ public class TcpClient {
 
     public static TcpClient getInstance() {
         return singleton;
+    }
+
+    public synchronized void addDataListener(DataListener listener)  {
+        _listeners.add(listener);
+    }
+    public synchronized void removeDataListener(DataListener listener)   {
+        _listeners.remove(listener);
+    }
+
+    private synchronized void connectionDropped() {
+        Iterator<DataListener> i = _listeners.iterator();
+        while(i.hasNext())  {
+            ((DataListener) i.next()).connectionDropped();
+        }
     }
 
     public void cleanUp() {
@@ -73,6 +90,29 @@ public class TcpClient {
         return sendFoxMessage("" + field.getValue() + ((char)29) + type.getValue() + ((char)29) + value);
     }
 
+    private void listener() {
+        new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    try {
+                        String str = fox_in.readLine();
+
+                        if(str == null) {
+                            throw new Exception("Connection Dropped");
+                        }
+
+                        Thread.sleep(10);
+                    }
+                    catch (Exception e) {
+                        logout();
+                        connectionDropped();
+                        break;
+                    }
+                }
+            }
+        }).start();
+    }
+
     public int connect(String fox_ip, ScorerLocation location, String automation_ip) {
         if(!isConnected()) {
             try {
@@ -98,6 +138,8 @@ public class TcpClient {
                     return CONNECT_AUTOMATION_IP_ISSUE;
                 }
             }
+
+            listener();
 
             return CONNECT_OK;
         }
