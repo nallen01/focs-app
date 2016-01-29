@@ -16,7 +16,8 @@ public class TcpClient {
     public static final int CONNECT_ALREADY_CONNECTED = 3;
 
     public static final int SOCKET_TIMEOUT_MS = 1000;
-    public static final int SOCKET_PORT = 5005;
+    public static final int FOX_PORT = 5005;
+    public static final int AUTOMATION_PORT = 5006;
 
     private static TcpClient singleton = new TcpClient();
 
@@ -117,7 +118,7 @@ public class TcpClient {
         if(!isConnected()) {
             try {
                 fox_socket = new Socket();
-                fox_socket.connect(new InetSocketAddress(fox_ip, SOCKET_PORT), SOCKET_TIMEOUT_MS);
+                fox_socket.connect(new InetSocketAddress(fox_ip, FOX_PORT), SOCKET_TIMEOUT_MS);
                 fox_out = new BufferedWriter(new OutputStreamWriter(fox_socket.getOutputStream()));
                 fox_in = new BufferedReader(new InputStreamReader(fox_socket.getInputStream()));
             }
@@ -129,7 +130,7 @@ public class TcpClient {
             if(location == ScorerLocation.COMMENTATOR_AUTOMATION) {
                 try {
                     automation_socket = new Socket();
-                    automation_socket.connect(new InetSocketAddress(fox_ip, SOCKET_PORT), SOCKET_TIMEOUT_MS);
+                    automation_socket.connect(new InetSocketAddress(fox_ip, AUTOMATION_PORT), SOCKET_TIMEOUT_MS);
                     automation_out = new BufferedWriter(new OutputStreamWriter(automation_socket.getOutputStream()));
                     automation_in = new BufferedReader(new InputStreamReader(automation_socket.getInputStream()));
                 }
