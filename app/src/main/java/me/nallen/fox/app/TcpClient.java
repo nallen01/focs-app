@@ -49,18 +49,25 @@ public class TcpClient {
     private synchronized void connectionDropped() {
         Iterator<DataListener> i = _listeners.iterator();
         while(i.hasNext())  {
-            ((DataListener) i.next()).connectionDropped();
+            i.next().connectionDropped();
         }
     }
 
     public void cleanUp() {
         isConnected = false;
+
+        if(foxListener.isAlive())
+            foxListener.interrupt();
+
         try {
             fox_socket.close();
         } catch (Exception e) { }
         fox_socket = null;
         fox_in = null;
         fox_out = null;
+
+        if(automationListener.isAlive())
+            automationListener.interrupt();
 
         try {
             automation_socket.close();
@@ -71,8 +78,6 @@ public class TcpClient {
     }
 
     public void logout() {
-        isConnected = false;
-
         cleanUp();
     }
 
@@ -91,28 +96,66 @@ public class TcpClient {
         return sendFoxMessage("" + field.getValue() + ((char)29) + type.getValue() + ((char)29) + value);
     }
 
-    private void listener() {
-        new Thread(new Runnable() {
-            public void run() {
-                while (true) {
-                    try {
-                        String str = fox_in.readLine();
+    private boolean sendAutomationMessage(String paramString) {
+        if (automation_out != null) {
+            try {
+                automation_out.write(paramString + '\n');
+                automation_out.flush();
+                return true;
+            } catch (Exception e) {}
+        }
+        return false;
+    }
 
-                        if(str == null) {
-                            throw new Exception("Connection Dropped");
-                        }
+    private boolean sendAutomationCommand(int value) {
+        return sendAutomationMessage("" + value);
+    }
 
-                        Thread.sleep(10);
+    private Thread foxListener = new Thread(new Runnable() {
+        public void run() {
+            while (true) {
+                try {
+                    String str = fox_in.readLine();
+
+                    if(str == null) {
+                        throw new Exception("Connection Dropped");
                     }
-                    catch (Exception e) {
+
+                    Thread.sleep(10);
+                }
+                catch (Exception e) {
+                    if(isConnected) {
                         logout();
                         connectionDropped();
-                        break;
                     }
+                    break;
                 }
             }
-        }).start();
-    }
+        }
+    });
+
+    private Thread automationListener = new Thread(new Runnable() {
+        public void run() {
+            while (true) {
+                try {
+                    String str = automation_in.readLine();
+
+                    if(str == null) {
+                        throw new Exception("Connection Dropped");
+                    }
+
+                    Thread.sleep(10);
+                }
+                catch (Exception e) {
+                    if(isConnected) {
+                        logout();
+                        connectionDropped();
+                    }
+                    break;
+                }
+            }
+        }
+    });
 
     public int connect(String fox_ip, ScorerLocation location, String automation_ip) {
         if(!isConnected()) {
@@ -140,7 +183,13 @@ public class TcpClient {
                 }
             }
 
-            listener();
+            foxListener.start();
+
+            if(location == ScorerLocation.COMMENTATOR_AUTOMATION) {
+                automationListener.start();
+            }
+
+            isConnected = true;
 
             return CONNECT_OK;
         }
@@ -210,5 +259,9 @@ public class TcpClient {
 
     public void setBlueAuton(boolean auton) {
         sendFoxCommand(ScoreField.BLUE_AUTON, MessageType.SET, auton ? 1 : 0);
+    }
+
+    public void setFoxDisplay(FoxDisplay display) {
+        sendAutomationCommand(display.getValue());
     }
 }
