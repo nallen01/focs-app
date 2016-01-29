@@ -116,6 +116,8 @@ public class ElevationScorerFragment extends Fragment {
             case R.id.clear:
                 tcpClient.setRedElevatedState(ElevatedState.NONE);
                 tcpClient.setBlueElevatedState(ElevatedState.NONE);
+                tcpClient.setRedAuton(false);
+                tcpClient.setBlueAuton(false);
 
                 return true;
         }
