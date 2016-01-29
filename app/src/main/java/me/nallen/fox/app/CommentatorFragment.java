@@ -83,6 +83,27 @@ public class CommentatorFragment extends Fragment {
             }
         });
 
+        rootView.findViewById(R.id.button_division_science).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setFoxDisplay(FoxDisplay.SCIENCE);
+            }
+        });
+
+        rootView.findViewById(R.id.button_division_tech).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setFoxDisplay(FoxDisplay.TECHNOLOGY);
+            }
+        });
+
+        rootView.findViewById(R.id.button_division_none).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setFoxDisplay(FoxDisplay.NONE);
+            }
+        });
+
         return rootView;
     }
 }
