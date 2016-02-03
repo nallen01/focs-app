@@ -56,18 +56,12 @@ public class TcpClient {
     public void cleanUp() {
         isConnected = false;
 
-        if(foxListener.isAlive())
-            foxListener.interrupt();
-
         try {
             fox_socket.close();
         } catch (Exception e) { }
         fox_socket = null;
         fox_in = null;
         fox_out = null;
-
-        if(automationListener.isAlive())
-            automationListener.interrupt();
 
         try {
             automation_socket.close();
@@ -111,51 +105,9 @@ public class TcpClient {
         return sendAutomationMessage("" + value);
     }
 
-    private Thread foxListener = new Thread(new Runnable() {
-        public void run() {
-            while (true) {
-                try {
-                    String str = fox_in.readLine();
+    private Thread foxListener;
 
-                    if(str == null) {
-                        throw new Exception("Connection Dropped");
-                    }
-
-                    Thread.sleep(10);
-                }
-                catch (Exception e) {
-                    if(isConnected) {
-                        logout();
-                        connectionDropped();
-                    }
-                    break;
-                }
-            }
-        }
-    });
-
-    private Thread automationListener = new Thread(new Runnable() {
-        public void run() {
-            while (true) {
-                try {
-                    String str = automation_in.readLine();
-
-                    if(str == null) {
-                        throw new Exception("Connection Dropped");
-                    }
-
-                    Thread.sleep(10);
-                }
-                catch (Exception e) {
-                    if(isConnected) {
-                        logout();
-                        connectionDropped();
-                    }
-                    break;
-                }
-            }
-        }
-    });
+    private Thread automationListener;
 
     public int connect(String fox_ip, ScorerLocation location, String automation_ip) {
         if(!isConnected()) {
@@ -183,9 +135,53 @@ public class TcpClient {
                 }
             }
 
+            foxListener = new Thread(new Runnable() {
+                public void run() {
+                    while (true) {
+                        try {
+                            String str = fox_in.readLine();
+
+                            if(str == null) {
+                                throw new Exception("Connection Dropped");
+                            }
+
+                            Thread.sleep(10);
+                        }
+                        catch (Exception e) {
+                            if(isConnected) {
+                                logout();
+                                connectionDropped();
+                            }
+                            return;
+                        }
+                    }
+                }
+            });
             foxListener.start();
 
             if(location == ScorerLocation.COMMENTATOR_AUTOMATION) {
+                automationListener = new Thread(new Runnable() {
+                    public void run() {
+                        while (true) {
+                            try {
+                                String str = automation_in.readLine();
+
+                                if(str == null) {
+                                    throw new Exception("Connection Dropped");
+                                }
+
+                                Thread.sleep(10);
+                            }
+                            catch (Exception e) {
+                                if(isConnected) {
+                                    logout();
+                                    connectionDropped();
+                                }
+                                return;
+                            }
+                        }
+                    }
+                });
                 automationListener.start();
             }
 

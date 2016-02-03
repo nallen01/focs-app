@@ -103,9 +103,16 @@ public class MainActivity extends AppCompatActivity implements DataListener {
     public void connectionDropped() {
         tcpClient.logout();
 
-        Toaster.doToast(getApplicationContext(), "Connection dropped");
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toaster.doToast(getApplicationContext(), "Connection dropped");
 
-        showConnectPage();
+                showConnectPage();
+            }
+        });
+
+
     }
 
     private void logout() {
