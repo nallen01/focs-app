@@ -125,7 +125,7 @@ public class TcpClient {
             if(location == ScorerLocation.COMMENTATOR_AUTOMATION) {
                 try {
                     automation_socket = new Socket();
-                    automation_socket.connect(new InetSocketAddress(fox_ip, AUTOMATION_PORT), SOCKET_TIMEOUT_MS);
+                    automation_socket.connect(new InetSocketAddress(automation_ip, AUTOMATION_PORT), SOCKET_TIMEOUT_MS);
                     automation_out = new BufferedWriter(new OutputStreamWriter(automation_socket.getOutputStream()));
                     automation_in = new BufferedReader(new InputStreamReader(automation_socket.getInputStream()));
                 }
