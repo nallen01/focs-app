@@ -155,7 +155,7 @@ public class ConnectActivity extends AppCompatActivity {
                     Toaster.doToast(getApplicationContext(), "Unable to connect to Automation Server at " + automation_ip);
                 }
                 else {
-                    Toaster.doToast(getApplicationContext(), "An unknown issue occured");
+                    Toaster.doToast(getApplicationContext(), "An unknown issue occurred");
                 }
                 return;
             }
