@@ -1,17 +1,17 @@
 package me.nallen.fox.app;
 
 public enum ScoreField {
-    RED_HIGH_BALLS(0),
-    RED_LOW_BALLS(1),
-    RED_HIGH_BONUS_BALLS(2),
-    RED_LOW_BONUS_BALLS(3),
+    RED_FAR_STARS(0),
+    RED_FAR_CUBES(1),
+    RED_NEAR_STARS(2),
+    RED_NEAR_CUBES(3),
     RED_ELEVATION(4),
     RED_AUTON(10),
 
-    BLUE_HIGH_BALLS(5),
-    BLUE_LOW_BALLS(6),
-    BLUE_HIGH_BONUS_BALLS(7),
-    BLUE_LOW_BONUS_BALLS(8),
+    BLUE_FAR_STARS(5),
+    BLUE_FAR_CUBES(6),
+    BLUE_NEAR_STARS(7),
+    BLUE_NEAR_CUBES(8),
     BLUE_ELEVATION(9),
     BLUE_AUTON(11),
 

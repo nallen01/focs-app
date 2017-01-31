@@ -213,32 +213,60 @@ public class TcpClient {
         sendFoxCommand(ScoreField.PAUSED, MessageType.SET, isPaused ? 1 : 0);
     }
 
-    public void setRedHighBalls(int value) {
-        sendFoxCommand(ScoreField.RED_HIGH_BALLS, MessageType.SET, value);
+    public void setRedFarStars(int value) {
+        sendFoxCommand(ScoreField.RED_FAR_STARS, MessageType.SET, value);
     }
-    public void addRedHighBall() {
-        sendFoxCommand(ScoreField.RED_HIGH_BALLS, MessageType.ADD, 1);
-    }
-
-    public void setRedLowBalls(int value) {
-        sendFoxCommand(ScoreField.RED_LOW_BALLS, MessageType.SET, value);
-    }
-    public void addRedLowBall() {
-        sendFoxCommand(ScoreField.RED_LOW_BALLS, MessageType.ADD, 1);
+    public void addRedFarStar() {
+        sendFoxCommand(ScoreField.RED_FAR_STARS, MessageType.ADD, 1);
     }
 
-    public void setBlueHighBalls(int value) {
-        sendFoxCommand(ScoreField.BLUE_HIGH_BALLS, MessageType.SET, value);
+    public void setRedFarCubes(int value) {
+        sendFoxCommand(ScoreField.RED_FAR_CUBES, MessageType.SET, value);
     }
-    public void addBlueHighBall() {
-        sendFoxCommand(ScoreField.BLUE_HIGH_BALLS, MessageType.ADD, 1);
+    public void addRedFarCube() {
+        sendFoxCommand(ScoreField.RED_FAR_CUBES, MessageType.ADD, 1);
     }
 
-    public void setBlueLowBalls(int value) {
-        sendFoxCommand(ScoreField.BLUE_LOW_BALLS, MessageType.SET, value);
+    public void setRedNearStars(int value) {
+        sendFoxCommand(ScoreField.RED_NEAR_STARS, MessageType.SET, value);
     }
-    public void addBlueLowBall() {
-        sendFoxCommand(ScoreField.BLUE_LOW_BALLS, MessageType.ADD, 1);
+    public void addRedNearStar() {
+        sendFoxCommand(ScoreField.RED_NEAR_STARS, MessageType.ADD, 1);
+    }
+
+    public void setRedNearCubes(int value) {
+        sendFoxCommand(ScoreField.RED_NEAR_CUBES, MessageType.SET, value);
+    }
+    public void addRedNearCube() {
+        sendFoxCommand(ScoreField.RED_NEAR_CUBES, MessageType.ADD, 1);
+    }
+
+    public void setBlueFarStars(int value) {
+        sendFoxCommand(ScoreField.BLUE_FAR_STARS, MessageType.SET, value);
+    }
+    public void addBlueFarStar() {
+        sendFoxCommand(ScoreField.BLUE_FAR_STARS, MessageType.ADD, 1);
+    }
+
+    public void setBlueFarCubes(int value) {
+        sendFoxCommand(ScoreField.BLUE_FAR_CUBES, MessageType.SET, value);
+    }
+    public void addBlueFarCube() {
+        sendFoxCommand(ScoreField.BLUE_FAR_CUBES, MessageType.ADD, 1);
+    }
+
+    public void setBlueNearStars(int value) {
+        sendFoxCommand(ScoreField.BLUE_NEAR_STARS, MessageType.SET, value);
+    }
+    public void addBlueNearStar() {
+        sendFoxCommand(ScoreField.BLUE_NEAR_STARS, MessageType.ADD, 1);
+    }
+
+    public void setBlueNearCubes(int value) {
+        sendFoxCommand(ScoreField.BLUE_NEAR_CUBES, MessageType.SET, value);
+    }
+    public void addBlueNearCube() {
+        sendFoxCommand(ScoreField.BLUE_NEAR_CUBES, MessageType.ADD, 1);
     }
 
     public void setRedElevatedState(ElevatedState state) {

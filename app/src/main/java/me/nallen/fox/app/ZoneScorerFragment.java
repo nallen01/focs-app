@@ -35,25 +35,25 @@ public class ZoneScorerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_goal_scorer, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_zone_scorer, container, false);
 
         rootView.findViewById(R.id.button_high_goal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(scorerLocation == ScorerLocation.RED_ZONE)
+                /*if(scorerLocation == ScorerLocation.RED_ZONE)
                     tcpClient.addRedHighBall();
                 else
-                    tcpClient.addBlueHighBall();
+                    tcpClient.addBlueHighBall();*/
             }
         });
 
         rootView.findViewById(R.id.button_low_goal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(scorerLocation == ScorerLocation.RED_ZONE)
+                /*if(scorerLocation == ScorerLocation.RED_ZONE)
                     tcpClient.addRedLowBall();
                 else
-                    tcpClient.addBlueLowBall();
+                    tcpClient.addBlueLowBall();*/
             }
         });
 
@@ -70,14 +70,14 @@ public class ZoneScorerFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.clear:
-                if(scorerLocation == ScorerLocation.RED_ZONE) {
+                /*if(scorerLocation == ScorerLocation.RED_ZONE) {
                     tcpClient.setRedHighBalls(0);
                     tcpClient.setRedLowBalls(0);
                 }
                 else {
                     tcpClient.setBlueHighBalls(0);
                     tcpClient.setBlueLowBalls(0);
-                }
+                }*/
 
                 return true;
         }
