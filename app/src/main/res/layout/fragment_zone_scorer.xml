@@ -8,25 +8,157 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:weightSum="1">
 
-        <Button
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_weight="0.5"
-            android:layout_height="0dp"
-            android:text="High Goal (+5)"
-            android:id="@+id/button_high_goal"
-            android:layout_gravity="center_horizontal" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.20"
+            android:weightSum="1">
 
-        <Button
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="New Text"
+                android:id="@+id/textView"
+                android:layout_weight="0.50"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="New Text"
+                android:id="@+id/textView2"
+                android:layout_weight="0.50"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_weight="0.5"
-            android:layout_height="0dp"
-            android:text="Low Goal (+1)"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:id="@+id/button_low_goal"
-            android:layout_gravity="center_horizontal" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.60"
+            android:weightSum="1">
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.50"
+                android:weightSum="1">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-->&#10;Cube"
+                    android:id="@+id/button9"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.25"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.50"
+                android:weightSum="1">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="<--&#10;Cube"
+                    android:id="@+id/button"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.25"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="<--&#10;Star"
+                    android:id="@+id/button2"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.25"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-->&#10;Star"
+                    android:id="@+id/button3"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.25"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-->&#10;Cube"
+                    android:id="@+id/button4"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.25"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.50">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="<--&#10;Cube"
+                    android:id="@+id/button5"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.25"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="<--&#10;Star"
+                    android:id="@+id/button6"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.25"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-->&#10;Star"
+                    android:id="@+id/button7"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.25"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="-->&#10;Cube"
+                    android:id="@+id/button8"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.25"
+                    android:textSize="20dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar"
+            android:max="2"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.20" />
     </LinearLayout>
 
 </FrameLayout>
