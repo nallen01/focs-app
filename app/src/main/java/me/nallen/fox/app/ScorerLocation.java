@@ -1,11 +1,14 @@
 package me.nallen.fox.app;
 
 public enum ScorerLocation {
-    RED_GOAL(0),
-    BLUE_GOAL(1),
-    ELEVATION(4),
-    COMMENTATOR(2),
-    COMMENTATOR_AUTOMATION(3);
+    RED_FAR_ZONE(0),
+    RED_NEAR_ZONE(1),
+    RED_ZONE(6),
+    BLUE_FAR_ZONE(2),
+    BLUE_NEAR_ZONE(3),
+    BLUE_ZONE(7),
+    COMMENTATOR_AUTOMATION(5),
+    COMMENTATOR(4);
 
     private final int id;
     ScorerLocation(int id) { this.id = id; }
@@ -21,13 +24,30 @@ public enum ScorerLocation {
 
     public String getName() {
         switch(this) {
-            case RED_GOAL: return "Red Goal";
-            case BLUE_GOAL: return "Blue Goal";
+            case RED_FAR_ZONE: return "Red Far Zone";
+            case RED_NEAR_ZONE: return "Red Near Zone";
+            case RED_ZONE: return "Red All Zones";
+            case BLUE_FAR_ZONE: return "Blue Far Zone";
+            case BLUE_NEAR_ZONE: return "Blue Near Zone";
+            case BLUE_ZONE: return "Blue All Zones";
             case COMMENTATOR: return "Commentator";
             case COMMENTATOR_AUTOMATION: return "Commentator with Automation";
-            case ELEVATION: return "Elevations";
         }
 
         return "";
+    }
+
+    public static ScorerLocation[] getValues() {
+        ScorerLocation[] values = {
+            RED_NEAR_ZONE,
+            RED_FAR_ZONE,
+            RED_ZONE,
+            BLUE_NEAR_ZONE,
+            BLUE_FAR_ZONE,
+            BLUE_ZONE,
+            COMMENTATOR
+        };
+
+        return values;
     }
 }

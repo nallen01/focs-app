@@ -37,7 +37,7 @@ public class ConnectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_connect);
 
         List<String> locationOptions = new ArrayList<String>();
-        for(ScorerLocation location : ScorerLocation.values()) {
+        for(ScorerLocation location : ScorerLocation.getValues()) {
             locationOptions.add(location.getName());
         }
 

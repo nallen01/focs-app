@@ -9,17 +9,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class GoalScorerFragment extends Fragment {
+public class ZoneScorerFragment extends Fragment {
     private ScorerLocation scorerLocation;
     private TcpClient tcpClient;
 
-    public static GoalScorerFragment newInstance(ScorerLocation scorerLocation) {
-        GoalScorerFragment fragment = new GoalScorerFragment();
+    public static ZoneScorerFragment newInstance(ScorerLocation scorerLocation) {
+        ZoneScorerFragment fragment = new ZoneScorerFragment();
         fragment.assignScorerLocation(scorerLocation);
         return fragment;
     }
 
-    public GoalScorerFragment() {
+    public ZoneScorerFragment() {
         tcpClient = TcpClient.getInstance();
     }
 
@@ -40,7 +40,7 @@ public class GoalScorerFragment extends Fragment {
         rootView.findViewById(R.id.button_high_goal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(scorerLocation == ScorerLocation.RED_GOAL)
+                if(scorerLocation == ScorerLocation.RED_ZONE)
                     tcpClient.addRedHighBall();
                 else
                     tcpClient.addBlueHighBall();
@@ -50,7 +50,7 @@ public class GoalScorerFragment extends Fragment {
         rootView.findViewById(R.id.button_low_goal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(scorerLocation == ScorerLocation.RED_GOAL)
+                if(scorerLocation == ScorerLocation.RED_ZONE)
                     tcpClient.addRedLowBall();
                 else
                     tcpClient.addBlueLowBall();
@@ -70,7 +70,7 @@ public class GoalScorerFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.clear:
-                if(scorerLocation == ScorerLocation.RED_GOAL) {
+                if(scorerLocation == ScorerLocation.RED_ZONE) {
                     tcpClient.setRedHighBalls(0);
                     tcpClient.setRedLowBalls(0);
                 }
