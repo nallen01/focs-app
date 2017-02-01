@@ -219,12 +219,18 @@ public class TcpClient {
     public void addRedFarStar() {
         sendFoxCommand(ScoreField.RED_FAR_STARS, MessageType.ADD, 1);
     }
+    public void removeRedFarStar() {
+        sendFoxCommand(ScoreField.RED_FAR_STARS, MessageType.SUBTRACT, 1);
+    }
 
     public void setRedFarCubes(int value) {
         sendFoxCommand(ScoreField.RED_FAR_CUBES, MessageType.SET, value);
     }
     public void addRedFarCube() {
         sendFoxCommand(ScoreField.RED_FAR_CUBES, MessageType.ADD, 1);
+    }
+    public void removeRedFarCube() {
+        sendFoxCommand(ScoreField.RED_FAR_CUBES, MessageType.SUBTRACT, 1);
     }
 
     public void setRedNearStars(int value) {
@@ -233,12 +239,18 @@ public class TcpClient {
     public void addRedNearStar() {
         sendFoxCommand(ScoreField.RED_NEAR_STARS, MessageType.ADD, 1);
     }
+    public void removeRedNearStar() {
+        sendFoxCommand(ScoreField.RED_NEAR_STARS, MessageType.SUBTRACT, 1);
+    }
 
     public void setRedNearCubes(int value) {
         sendFoxCommand(ScoreField.RED_NEAR_CUBES, MessageType.SET, value);
     }
     public void addRedNearCube() {
         sendFoxCommand(ScoreField.RED_NEAR_CUBES, MessageType.ADD, 1);
+    }
+    public void removeRedNearCube() {
+        sendFoxCommand(ScoreField.RED_NEAR_CUBES, MessageType.SUBTRACT, 1);
     }
 
     public void setBlueFarStars(int value) {
@@ -247,12 +259,18 @@ public class TcpClient {
     public void addBlueFarStar() {
         sendFoxCommand(ScoreField.BLUE_FAR_STARS, MessageType.ADD, 1);
     }
+    public void removeBlueFarStar() {
+        sendFoxCommand(ScoreField.BLUE_FAR_STARS, MessageType.SUBTRACT, 1);
+    }
 
     public void setBlueFarCubes(int value) {
         sendFoxCommand(ScoreField.BLUE_FAR_CUBES, MessageType.SET, value);
     }
     public void addBlueFarCube() {
         sendFoxCommand(ScoreField.BLUE_FAR_CUBES, MessageType.ADD, 1);
+    }
+    public void removeBlueFarCube() {
+        sendFoxCommand(ScoreField.BLUE_FAR_CUBES, MessageType.SUBTRACT, 1);
     }
 
     public void setBlueNearStars(int value) {
@@ -261,12 +279,18 @@ public class TcpClient {
     public void addBlueNearStar() {
         sendFoxCommand(ScoreField.BLUE_NEAR_STARS, MessageType.ADD, 1);
     }
+    public void removeBlueNearStar() {
+        sendFoxCommand(ScoreField.BLUE_NEAR_STARS, MessageType.SUBTRACT, 1);
+    }
 
     public void setBlueNearCubes(int value) {
         sendFoxCommand(ScoreField.BLUE_NEAR_CUBES, MessageType.SET, value);
     }
     public void addBlueNearCube() {
         sendFoxCommand(ScoreField.BLUE_NEAR_CUBES, MessageType.ADD, 1);
+    }
+    public void removeBlueNearCube() {
+        sendFoxCommand(ScoreField.BLUE_NEAR_CUBES, MessageType.SUBTRACT, 1);
     }
 
     public void setRedElevatedState(ElevatedState state) {

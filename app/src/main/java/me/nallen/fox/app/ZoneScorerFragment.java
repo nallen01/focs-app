@@ -37,23 +37,117 @@ public class ZoneScorerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_zone_scorer, container, false);
 
-        rootView.findViewById(R.id.button_high_goal).setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.button_far_cube).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*if(scorerLocation == ScorerLocation.RED_ZONE)
-                    tcpClient.addRedHighBall();
+                if(scorerLocation == ScorerLocation.RED_ZONE)
+                    tcpClient.addRedFarCube();
                 else
-                    tcpClient.addBlueHighBall();*/
+                    tcpClient.addBlueFarCube();
             }
         });
 
-        rootView.findViewById(R.id.button_low_goal).setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.button_far_near_star).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*if(scorerLocation == ScorerLocation.RED_ZONE)
-                    tcpClient.addRedLowBall();
-                else
-                    tcpClient.addBlueLowBall();*/
+                if(scorerLocation == ScorerLocation.RED_ZONE) {
+                    tcpClient.removeRedFarStar();
+                    tcpClient.addRedNearStar();
+                }
+                else {
+                    tcpClient.removeBlueFarStar();
+                    tcpClient.addBlueNearStar();
+                }
+            }
+        });
+
+        rootView.findViewById(R.id.button_far_near_cube).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(scorerLocation == ScorerLocation.RED_ZONE) {
+                    tcpClient.removeRedFarCube();
+                    tcpClient.addRedNearCube();
+                }
+                else {
+                    tcpClient.removeBlueFarCube();
+                    tcpClient.addBlueNearCube();
+                }
+            }
+        });
+
+        rootView.findViewById(R.id.button_near_far_star).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(scorerLocation == ScorerLocation.RED_ZONE) {
+                    tcpClient.removeRedNearStar();
+                    tcpClient.addRedFarStar();
+                }
+                else {
+                    tcpClient.removeBlueNearStar();
+                    tcpClient.addBlueFarStar();
+                }
+            }
+        });
+
+        rootView.findViewById(R.id.button_near_far_cube).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(scorerLocation == ScorerLocation.RED_ZONE) {
+                    tcpClient.removeRedNearCube();
+                    tcpClient.addRedFarCube();
+                }
+                else {
+                    tcpClient.removeBlueNearCube();
+                    tcpClient.addBlueFarCube();
+                }
+            }
+        });
+
+        rootView.findViewById(R.id.button_fence_near_star).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(scorerLocation == ScorerLocation.RED_ZONE) {
+                    tcpClient.addRedNearStar();
+                }
+                else {
+                    tcpClient.addBlueNearStar();
+                }
+            }
+        });
+
+        rootView.findViewById(R.id.button_fence_near_cube).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(scorerLocation == ScorerLocation.RED_ZONE) {
+                    tcpClient.addRedNearCube();
+                }
+                else {
+                    tcpClient.addBlueNearCube();
+                }
+            }
+        });
+
+        rootView.findViewById(R.id.button_near_fence_star).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(scorerLocation == ScorerLocation.RED_ZONE) {
+                    tcpClient.removeRedNearStar();
+                }
+                else {
+                    tcpClient.removeBlueNearStar();
+                }
+            }
+        });
+
+        rootView.findViewById(R.id.button_near_fence_cube).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(scorerLocation == ScorerLocation.RED_ZONE) {
+                    tcpClient.removeRedNearCube();
+                }
+                else {
+                    tcpClient.removeBlueNearCube();
+                }
             }
         });
 
@@ -70,14 +164,20 @@ public class ZoneScorerFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.clear:
-                /*if(scorerLocation == ScorerLocation.RED_ZONE) {
-                    tcpClient.setRedHighBalls(0);
-                    tcpClient.setRedLowBalls(0);
+                if(scorerLocation == ScorerLocation.RED_ZONE) {
+                    tcpClient.setRedFarCubes(0);
+                    tcpClient.setRedFarStars(0);
+                    tcpClient.setRedNearCubes(0);
+                    tcpClient.setRedNearStars(0);
+                    tcpClient.setRedElevatedState(ElevatedState.NONE);
                 }
                 else {
-                    tcpClient.setBlueHighBalls(0);
-                    tcpClient.setBlueLowBalls(0);
-                }*/
+                    tcpClient.setBlueFarCubes(0);
+                    tcpClient.setBlueFarStars(0);
+                    tcpClient.setBlueNearCubes(0);
+                    tcpClient.setBlueNearStars(0);
+                    tcpClient.setBlueElevatedState(ElevatedState.NONE);
+                }
 
                 return true;
         }
