@@ -78,7 +78,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:text="<--&#10;Star"
+                    android:text="&#60;--&#10;Star"
                     android:id="@+id/button_near_far_star"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
@@ -104,7 +104,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:text="<--&#10;Star"
+                    android:text="&#60;--&#10;Star"
                     android:id="@+id/button_fence_near_star"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
@@ -210,7 +210,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:text="<--&#10;Cube"
+                    android:text="&#60;--&#10;Cube"
                     android:id="@+id/button_near_far_cube"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
@@ -236,7 +236,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:text="<--&#10;Cube"
+                    android:text="&#60;--&#10;Cube"
                     android:id="@+id/button_fence_near_cube"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
