@@ -8,10 +8,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class ZoneScorerFragment extends Fragment implements DataListener {
     private ScorerLocation scorerLocation;
     private TcpClient tcpClient;
+    private View rootView;
 
     public static ZoneScorerFragment newInstance(ScorerLocation scorerLocation) {
         ZoneScorerFragment fragment = new ZoneScorerFragment();
@@ -43,7 +45,7 @@ public class ZoneScorerFragment extends Fragment implements DataListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_zone_scorer, container, false);
+        rootView = inflater.inflate(R.layout.fragment_zone_scorer, container, false);
 
         rootView.findViewById(R.id.button_far_cube).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,6 +214,17 @@ public class ZoneScorerFragment extends Fragment implements DataListener {
 
     @Override
     public void updateUI() {
-        Toaster.doToast(getActivity().getApplicationContext(), "Update scores!");
+        if(scorerLocation == ScorerLocation.RED_ZONE) {
+            ((TextView)rootView.findViewById(R.id.text_far_cubes)).setText("" + tcpClient.redFarCubes);
+            ((TextView)rootView.findViewById(R.id.text_far_stars)).setText("" + tcpClient.redFarStars);
+            ((TextView)rootView.findViewById(R.id.text_near_cubes)).setText("" + tcpClient.redNearCubes);
+            ((TextView)rootView.findViewById(R.id.text_near_stars)).setText("" + tcpClient.redNearStars);
+        }
+        else {
+            ((TextView)rootView.findViewById(R.id.text_far_cubes)).setText("" + tcpClient.blueFarCubes);
+            ((TextView)rootView.findViewById(R.id.text_far_stars)).setText("" + tcpClient.blueFarStars);
+            ((TextView)rootView.findViewById(R.id.text_near_cubes)).setText("" + tcpClient.blueNearCubes);
+            ((TextView)rootView.findViewById(R.id.text_near_stars)).setText("" + tcpClient.blueNearStars);
+        }
     }
 }
