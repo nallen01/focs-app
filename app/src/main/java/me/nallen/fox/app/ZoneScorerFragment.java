@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ZoneScorerFragment extends Fragment {
+public class ZoneScorerFragment extends Fragment implements DataListener {
     private ScorerLocation scorerLocation;
     private TcpClient tcpClient;
 
@@ -31,6 +31,14 @@ public class ZoneScorerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        tcpClient.addDataListener(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        tcpClient.removeDataListener(this);
     }
 
     @Override
@@ -40,10 +48,13 @@ public class ZoneScorerFragment extends Fragment {
         rootView.findViewById(R.id.button_far_cube).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(scorerLocation == ScorerLocation.RED_ZONE)
+                if(scorerLocation == ScorerLocation.RED_ZONE) {
                     tcpClient.addRedFarCube();
-                else
+                }
+                else {
                     tcpClient.addBlueFarCube();
+                }
+                updateUI();
             }
         });
 
@@ -58,6 +69,7 @@ public class ZoneScorerFragment extends Fragment {
                     tcpClient.removeBlueFarStar();
                     tcpClient.addBlueNearStar();
                 }
+                updateUI();
             }
         });
 
@@ -72,6 +84,7 @@ public class ZoneScorerFragment extends Fragment {
                     tcpClient.removeBlueFarCube();
                     tcpClient.addBlueNearCube();
                 }
+                updateUI();
             }
         });
 
@@ -86,6 +99,7 @@ public class ZoneScorerFragment extends Fragment {
                     tcpClient.removeBlueNearStar();
                     tcpClient.addBlueFarStar();
                 }
+                updateUI();
             }
         });
 
@@ -100,6 +114,7 @@ public class ZoneScorerFragment extends Fragment {
                     tcpClient.removeBlueNearCube();
                     tcpClient.addBlueFarCube();
                 }
+                updateUI();
             }
         });
 
@@ -112,6 +127,7 @@ public class ZoneScorerFragment extends Fragment {
                 else {
                     tcpClient.addBlueNearStar();
                 }
+                updateUI();
             }
         });
 
@@ -124,6 +140,7 @@ public class ZoneScorerFragment extends Fragment {
                 else {
                     tcpClient.addBlueNearCube();
                 }
+                updateUI();
             }
         });
 
@@ -136,6 +153,7 @@ public class ZoneScorerFragment extends Fragment {
                 else {
                     tcpClient.removeBlueNearStar();
                 }
+                updateUI();
             }
         });
 
@@ -148,6 +166,7 @@ public class ZoneScorerFragment extends Fragment {
                 else {
                     tcpClient.removeBlueNearCube();
                 }
+                updateUI();
             }
         });
 
@@ -179,8 +198,20 @@ public class ZoneScorerFragment extends Fragment {
                     tcpClient.setBlueElevatedState(ElevatedState.NONE);
                 }
 
+                updateUI();
+
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void connectionDropped() {
+
+    }
+
+    @Override
+    public void updateUI() {
+        Toaster.doToast(getActivity().getApplicationContext(), "Update scores!");
     }
 }

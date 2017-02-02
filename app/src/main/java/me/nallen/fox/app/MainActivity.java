@@ -120,6 +120,11 @@ public class MainActivity extends AppCompatActivity implements DataListener {
 
     }
 
+    @Override
+    public void updateUI() {
+
+    }
+
     private void logout() {
         SharedPreferences.Editor ed = mPrefs.edit();
         ed.remove("fox_ip");
