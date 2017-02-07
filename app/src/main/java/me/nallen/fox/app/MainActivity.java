@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements DataListener {
             return;
         }
         else if(scorer_location == ScorerLocation.RED_ZONE || scorer_location == ScorerLocation.BLUE_ZONE) {
-            fragment = ZoneScorerFragment.newInstance(scorer_location);
+            fragment = ZoneScorerFragment.newInstance(scorer_location, scorer_location == ScorerLocation.BLUE_ZONE);
         }
         else if(scorer_location == ScorerLocation.COMMENTATOR || scorer_location == ScorerLocation.COMMENTATOR_AUTOMATION) {
             fragment = CommentatorFragment.newInstance(scorer_location);

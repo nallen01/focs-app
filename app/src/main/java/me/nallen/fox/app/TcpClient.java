@@ -1,5 +1,7 @@
 package me.nallen.fox.app;
 
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -32,18 +34,18 @@ public class TcpClient {
     private LinkedList<DataListener> _listeners = new LinkedList<DataListener>();
     private boolean isConnected = false;
 
-    public int redFarStars;
-    public int redNearStars;
-    public int redFarCubes;
-    public int redNearCubes;
-    public boolean redAuton;
-    public ElevatedState redElevation;
-    public int blueFarStars;
-    public int blueNearStars;
-    public int blueFarCubes;
-    public int blueNearCubes;
-    public boolean blueAuton;
-    public ElevatedState blueElevation;
+    public int redFarStars = 7;
+    public int redNearStars = 0;
+    public int redFarCubes = 1;
+    public int redNearCubes = 0;
+    public boolean redAuton = false;
+    public ElevatedState redElevation = ElevatedState.NONE;
+    public int blueFarStars = 7;
+    public int blueNearStars = 0;
+    public int blueFarCubes = 1;
+    public int blueNearCubes = 0;
+    public boolean blueAuton = false;
+    public ElevatedState blueElevation = ElevatedState.NONE;
 
     private TcpClient() {
     }
@@ -168,21 +170,129 @@ public class TcpClient {
                             String[] parts = str.split("" + ((char)29), -1);
                             if(parts.length == 3) {
                                 ScoreField field = ScoreField.fromInt(Integer.parseInt(parts[0]));
+                                MessageType type = MessageType.fromInt(Integer.parseInt(parts[1]));
+                                int num = Integer.parseInt(parts[2]);
 
-                                if(field == ScoreField.CLEAR) {
-                                    setRedFarCubes(0);
-                                    setRedFarStars(0);
-                                    setRedNearCubes(0);
-                                    setRedNearStars(0);
-                                    setRedAuton(false);
-                                    setRedElevatedState(ElevatedState.NONE);
+                                if(field == ScoreField.RED_FAR_CUBES) {
+                                    if(type == MessageType.ADD) {
+                                        num = redFarCubes + num;
+                                    }
+                                    else if(type == MessageType.SUBTRACT) {
+                                        num = redFarCubes - num;
+                                    }
 
-                                    setBlueFarCubes(0);
-                                    setBlueFarStars(0);
-                                    setBlueNearCubes(0);
-                                    setBlueNearStars(0);
-                                    setBlueAuton(false);
-                                    setBlueElevatedState(ElevatedState.NONE);
+                                    redFarCubes = num;
+                                    updateGUI();
+                                }
+                                else if(field == ScoreField.RED_FAR_STARS) {
+                                    if(type == MessageType.ADD) {
+                                        num = redFarStars + num;
+                                    }
+                                    else if(type == MessageType.SUBTRACT) {
+                                        num = redFarStars - num;
+                                    }
+
+                                    redFarStars = num;
+                                    updateGUI();
+                                }
+                                else if(field == ScoreField.RED_NEAR_CUBES) {
+                                    if(type == MessageType.ADD) {
+                                        num = redNearCubes + num;
+                                    }
+                                    else if(type == MessageType.SUBTRACT) {
+                                        num = redNearCubes - num;
+                                    }
+
+                                    redNearCubes = num;
+                                    updateGUI();
+                                }
+                                else if(field == ScoreField.RED_NEAR_STARS) {
+                                    if(type == MessageType.ADD) {
+                                        num = redNearStars + num;
+                                    }
+                                    else if(type == MessageType.SUBTRACT) {
+                                        num = redNearStars - num;
+                                    }
+
+                                    redNearStars = num;
+                                    updateGUI();
+                                }
+                                else if(field == ScoreField.RED_ELEVATION) {
+                                    ElevatedState state = ElevatedState.fromInt(num);
+                                    redElevation = state;
+                                    updateGUI();
+                                }
+                                else if(field == ScoreField.RED_AUTON) {
+                                    redAuton = (num > 0);
+                                    updateGUI();
+                                }
+                                else if(field == ScoreField.BLUE_FAR_CUBES) {
+                                    if(type == MessageType.ADD) {
+                                        num = blueFarCubes + num;
+                                    }
+                                    else if(type == MessageType.SUBTRACT) {
+                                        num = blueFarCubes - num;
+                                    }
+
+                                    blueFarCubes = num;
+                                    updateGUI();
+                                }
+                                else if(field == ScoreField.BLUE_FAR_STARS) {
+                                    if(type == MessageType.ADD) {
+                                        num = blueFarStars + num;
+                                    }
+                                    else if(type == MessageType.SUBTRACT) {
+                                        num = blueFarStars - num;
+                                    }
+
+                                    blueFarStars = num;
+                                    updateGUI();
+                                }
+                                else if(field == ScoreField.BLUE_NEAR_CUBES) {
+                                    if(type == MessageType.ADD) {
+                                        num = blueNearCubes + num;
+                                    }
+                                    else if(type == MessageType.SUBTRACT) {
+                                        num = blueNearCubes - num;
+                                    }
+
+                                    blueNearCubes = num;
+                                    updateGUI();
+                                }
+                                else if(field == ScoreField.BLUE_NEAR_STARS) {
+                                    if(type == MessageType.ADD) {
+                                        num = blueNearStars + num;
+                                    }
+                                    else if(type == MessageType.SUBTRACT) {
+                                        num = blueNearStars - num;
+                                    }
+
+                                    blueNearStars = num;
+                                    updateGUI();
+                                }
+                                else if(field == ScoreField.BLUE_ELEVATION) {
+                                    ElevatedState state = ElevatedState.fromInt(num);
+                                    blueElevation = state;
+                                    updateGUI();
+                                }
+                                else if(field == ScoreField.BLUE_AUTON) {
+                                    blueAuton = (num > 0);
+                                    updateGUI();
+                                }
+                                else if(field == ScoreField.CLEAR) {
+                                    redFarCubes = 1;
+                                    redFarStars = 7;
+                                    redNearCubes = 0;
+                                    redNearStars = 0;
+                                    redAuton = false;
+                                    redElevation = ElevatedState.NONE;
+
+                                    blueFarCubes = 1;
+                                    blueFarStars = 7;
+                                    blueNearCubes = 0;
+                                    blueNearStars = 0;
+                                    blueAuton = false;
+                                    blueElevation = ElevatedState.NONE;
                                     
                                     updateGUI();
                                 }
@@ -191,6 +301,7 @@ public class TcpClient {
                             Thread.sleep(10);
                         }
                         catch (Exception e) {
+                            Log.d("Fox", e.getMessage());
                             if(isConnected) {
                                 logout();
                                 connectionDropped();

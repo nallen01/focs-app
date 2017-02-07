@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:id="@+id/text_far_stars"
+                android:id="@+id/text_near_stars"
                 android:layout_weight="2"
                 android:gravity="center"
                 android:text="0"
@@ -39,7 +39,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="0"
-                android:id="@+id/text_near_stars"
+                android:id="@+id/text_far_stars"
                 android:layout_weight="2"
                 android:gravity="center"
                 android:textSize="25dp" />
@@ -60,13 +60,6 @@
             android:layout_weight="0.325"
             android:weightSum="1.5">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text=""
-                android:layout_weight="0.5"
-                android:gravity="center" />
-
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="0dp"
@@ -78,8 +71,8 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:text="&#60;--&#10;Star"
-                    android:id="@+id/button_near_far_star"
+                    android:text="-->&#10;Star"
+                    android:id="@+id/button_fence_near_star"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
                     android:textSize="20dp" />
@@ -87,8 +80,8 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:text="-->&#10;Star"
-                    android:id="@+id/button_far_near_star"
+                    android:text="&#60;--&#10;Star"
+                    android:id="@+id/button_near_fence_star"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
                     android:textSize="20dp" />
@@ -104,8 +97,8 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:text="&#60;--&#10;Star"
-                    android:id="@+id/button_fence_near_star"
+                    android:text="-->&#10;Star"
+                    android:id="@+id/button_near_far_star"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
                     android:textSize="20dp" />
@@ -113,12 +106,19 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:text="-->&#10;Star"
-                    android:id="@+id/button_near_fence_star"
+                    android:text="&#60;--&#10;Star"
+                    android:id="@+id/button_far_near_star"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
                     android:textSize="20dp" />
             </LinearLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text=""
+                android:layout_weight="0.5"
+                android:gravity="center" />
         </LinearLayout>
 
         <View
@@ -145,7 +145,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:id="@+id/text_far_cubes"
+                android:id="@+id/text_near_cubes"
                 android:layout_weight="2"
                 android:gravity="center"
                 android:text="0"
@@ -155,7 +155,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="0"
-                android:id="@+id/text_near_cubes"
+                android:id="@+id/text_far_cubes"
                 android:layout_weight="2"
                 android:gravity="center"
                 android:textSize="25dp" />
@@ -184,44 +184,20 @@
                 android:layout_weight="0.50"
                 android:weightSum="1">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.5"
-                    android:gravity="center" />
-
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:text="-->&#10;Cube"
-                    android:id="@+id/button_far_cube"
+                    android:id="@+id/button_fence_near_cube"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
                     android:textSize="20dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.50"
-                android:weightSum="1">
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:text="&#60;--&#10;Cube"
-                    android:id="@+id/button_near_far_cube"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.5"
-                    android:textSize="20dp" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:text="-->&#10;Cube"
-                    android:id="@+id/button_far_near_cube"
+                    android:id="@+id/button_near_fence_cube"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
                     android:textSize="20dp" />
@@ -237,8 +213,8 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:text="&#60;--&#10;Cube"
-                    android:id="@+id/button_fence_near_cube"
+                    android:text="-->&#10;Cube"
+                    android:id="@+id/button_near_far_cube"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
                     android:textSize="20dp" />
@@ -246,8 +222,32 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:text="-->&#10;Cube"
-                    android:id="@+id/button_near_fence_cube"
+                    android:text="&#60;--&#10;Cube"
+                    android:id="@+id/button_far_near_cube"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.5"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.50"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="&#60;--&#10;Cube"
+                    android:id="@+id/button_far_cube"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
                     android:textSize="20dp" />
