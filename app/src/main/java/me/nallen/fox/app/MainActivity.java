@@ -73,15 +73,13 @@ public class MainActivity extends AppCompatActivity implements DataListener {
         setTitle(scorer_location.getName());
 
         if(scorer_location == ScorerLocation.RED_FAR_ZONE || scorer_location == ScorerLocation.BLUE_FAR_ZONE) {
-            Toaster.doToast(getApplicationContext(), "Not yet implemented!");
-            return;
+            fragment = ZoneScorerFragment.newInstance(scorer_location);
         }
         else if(scorer_location == ScorerLocation.RED_NEAR_ZONE || scorer_location == ScorerLocation.BLUE_NEAR_ZONE) {
-            Toaster.doToast(getApplicationContext(), "Not yet implemented!");
-            return;
+            fragment = ZoneScorerFragment.newInstance(scorer_location);
         }
         else if(scorer_location == ScorerLocation.RED_ZONE || scorer_location == ScorerLocation.BLUE_ZONE) {
-            fragment = ZoneScorerFragment.newInstance(scorer_location, scorer_location == ScorerLocation.BLUE_ZONE);
+            fragment = AllZoneScorerFragment.newInstance(scorer_location, scorer_location == ScorerLocation.BLUE_ZONE);
         }
         else if(scorer_location == ScorerLocation.COMMENTATOR || scorer_location == ScorerLocation.COMMENTATOR_AUTOMATION) {
             fragment = CommentatorFragment.newInstance(scorer_location);

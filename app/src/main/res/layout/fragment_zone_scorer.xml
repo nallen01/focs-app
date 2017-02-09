@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ZoneScorerFragment">
+    tools:context=".AllZoneScorerFragment">
 
     <LinearLayout
         android:orientation="vertical"
@@ -11,46 +11,14 @@
         android:layout_gravity="center"
         android:weightSum="1">
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_gravity="center_horizontal"
+            android:text="0"
+            android:id="@+id/text_stars"
             android:layout_weight="0.1"
-            android:weightSum="6">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text=""
-                android:layout_weight="1"
-                android:gravity="center" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:id="@+id/text_far_stars"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="0"
-                android:textSize="25dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:id="@+id/text_near_stars"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:textSize="25dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text=""
-                android:layout_weight="1"
-                android:gravity="center" />
-        </LinearLayout>
+            android:gravity="center"
+            android:textSize="25dp" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -58,67 +26,26 @@
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.325"
-            android:weightSum="1.5">
+            android:weightSum="1">
 
-            <TextView
+            <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text=""
+                android:text="ADD&#10;Star"
+                android:id="@+id/button_add_star"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="0.5"
-                android:gravity="center" />
+                android:textSize="20dp" />
 
-            <LinearLayout
-                android:orientation="vertical"
+            <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.50"
-                android:weightSum="1">
+                android:text="REMOVE&#10;Star"
+                android:id="@+id/button_remove_star"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.5"
+                android:textSize="20dp" />
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:text="&#60;--&#10;Star"
-                    android:id="@+id/button_near_far_star"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.5"
-                    android:textSize="20dp" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:text="-->&#10;Star"
-                    android:id="@+id/button_far_near_star"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.5"
-                    android:textSize="20dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.50">
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:text="&#60;--&#10;Star"
-                    android:id="@+id/button_fence_near_star"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.5"
-                    android:textSize="20dp" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:text="-->&#10;Star"
-                    android:id="@+id/button_near_fence_star"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.5"
-                    android:textSize="20dp" />
-            </LinearLayout>
         </LinearLayout>
 
         <View
@@ -127,46 +54,14 @@
             android:layout_height="2dip"
             android:background="@color/colorPrimary" />
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_gravity="center_horizontal"
+            android:text="0"
+            android:id="@+id/text_cubes"
             android:layout_weight="0.1"
-            android:weightSum="6">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text=""
-                android:layout_weight="1"
-                android:gravity="center" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:id="@+id/text_far_cubes"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="0"
-                android:textSize="25dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:id="@+id/text_near_cubes"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:textSize="25dp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text=""
-                android:layout_weight="1"
-                android:gravity="center" />
-        </LinearLayout>
+            android:gravity="center"
+            android:textSize="25dp" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -174,84 +69,26 @@
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.325"
-            android:weightSum="1.5">
+            android:weightSum="1">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.50"
-                android:weightSum="1">
+                android:text="ADD&#10;Cube"
+                android:id="@+id/button_add_cube"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.5"
+                android:textSize="20dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="0.5"
-                    android:gravity="center" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:text="-->&#10;Cube"
-                    android:id="@+id/button_far_cube"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.5"
-                    android:textSize="20dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
+            <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.50"
-                android:weightSum="1">
+                android:text="REMOVE&#10;Cube"
+                android:id="@+id/button_remove_cube"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.5"
+                android:textSize="20dp" />
 
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:text="&#60;--&#10;Cube"
-                    android:id="@+id/button_near_far_cube"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.5"
-                    android:textSize="20dp" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:text="-->&#10;Cube"
-                    android:id="@+id/button_far_near_cube"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.5"
-                    android:textSize="20dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.50">
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:text="&#60;--&#10;Cube"
-                    android:id="@+id/button_fence_near_cube"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.5"
-                    android:textSize="20dp" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:text="-->&#10;Cube"
-                    android:id="@+id/button_near_fence_cube"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_weight="0.5"
-                    android:textSize="20dp" />
-            </LinearLayout>
         </LinearLayout>
 
         <View
