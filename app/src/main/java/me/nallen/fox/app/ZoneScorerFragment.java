@@ -60,7 +60,7 @@ public class ZoneScorerFragment extends Fragment implements DataListener {
             rootView = inflater.inflate(R.layout.fragment_zone_scorer, container, false);
         }
 
-        if(scorerLocation == scorerLocation.BLUE_ZONE) {
+        if(scorerLocation == ScorerLocation.BLUE_ZONE) {
             rootView.findViewById(R.id.divider).setBackgroundResource(R.color.vexBlue);
             rootView.findViewById(R.id.divider_two).setBackgroundResource(R.color.vexBlue);
         }
