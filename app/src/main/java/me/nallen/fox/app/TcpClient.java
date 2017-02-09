@@ -368,107 +368,99 @@ public class TcpClient {
     }
 
     public void setRedFarStars(int value) {
+        value = value < 0 ? 0 : value;
         sendFoxCommand(ScoreField.RED_FAR_STARS, MessageType.SET, value);
         redFarStars = value;
     }
     public void addRedFarStar() {
-        sendFoxCommand(ScoreField.RED_FAR_STARS, MessageType.ADD, 1);
-        redFarStars++;
+        setRedFarStars(redFarStars + 1);
     }
     public void removeRedFarStar() {
-        sendFoxCommand(ScoreField.RED_FAR_STARS, MessageType.SUBTRACT, 1);
-        redFarStars--;
+        setRedFarStars(redFarStars - 1);
     }
 
     public void setRedFarCubes(int value) {
+        value = value < 0 ? 0 : value;
         sendFoxCommand(ScoreField.RED_FAR_CUBES, MessageType.SET, value);
         redFarCubes = value;
     }
     public void addRedFarCube() {
-        sendFoxCommand(ScoreField.RED_FAR_CUBES, MessageType.ADD, 1);
-        redFarCubes++;
+        setRedFarCubes(redFarCubes + 1);
     }
     public void removeRedFarCube() {
-        sendFoxCommand(ScoreField.RED_FAR_CUBES, MessageType.SUBTRACT, 1);
-        redFarCubes--;
+        setRedFarCubes(redFarCubes - 1);
     }
 
     public void setRedNearStars(int value) {
+        value = value < 0 ? 0 : value;
         sendFoxCommand(ScoreField.RED_NEAR_STARS, MessageType.SET, value);
         redNearStars = value;
     }
     public void addRedNearStar() {
-        sendFoxCommand(ScoreField.RED_NEAR_STARS, MessageType.ADD, 1);
-        redNearStars++;
+        setRedNearStars(redNearStars + 1);
     }
     public void removeRedNearStar() {
-        sendFoxCommand(ScoreField.RED_NEAR_STARS, MessageType.SUBTRACT, 1);
-        redNearStars--;
+        setRedNearStars(redNearStars - 1);
     }
 
     public void setRedNearCubes(int value) {
+        value = value < 0 ? 0 : value;
         sendFoxCommand(ScoreField.RED_NEAR_CUBES, MessageType.SET, value);
         redNearCubes = value;
     }
     public void addRedNearCube() {
-        sendFoxCommand(ScoreField.RED_NEAR_CUBES, MessageType.ADD, 1);
-        redNearCubes++;
+        setRedNearCubes(redNearCubes + 1);
     }
     public void removeRedNearCube() {
-        sendFoxCommand(ScoreField.RED_NEAR_CUBES, MessageType.SUBTRACT, 1);
-        redNearCubes--;
+        setRedNearCubes(redNearCubes - 1);
     }
 
     public void setBlueFarStars(int value) {
+        value = value < 0 ? 0 : value;
         sendFoxCommand(ScoreField.BLUE_FAR_STARS, MessageType.SET, value);
         blueFarStars = value;
     }
     public void addBlueFarStar() {
-        sendFoxCommand(ScoreField.BLUE_FAR_STARS, MessageType.ADD, 1);
-        blueFarStars++;
+        setBlueFarStars(blueFarStars + 1);
     }
     public void removeBlueFarStar() {
-        sendFoxCommand(ScoreField.BLUE_FAR_STARS, MessageType.SUBTRACT, 1);
-        blueFarStars--;
+        setBlueFarStars(blueFarStars - 1);
     }
 
     public void setBlueFarCubes(int value) {
+        value = value < 0 ? 0 : value;
         sendFoxCommand(ScoreField.BLUE_FAR_CUBES, MessageType.SET, value);
         blueFarCubes = value;
     }
     public void addBlueFarCube() {
-        sendFoxCommand(ScoreField.BLUE_FAR_CUBES, MessageType.ADD, 1);
-        blueFarCubes++;
+        setBlueFarCubes(blueFarCubes + 1);
     }
     public void removeBlueFarCube() {
-        sendFoxCommand(ScoreField.BLUE_FAR_CUBES, MessageType.SUBTRACT, 1);
-        blueFarCubes--;
+        setBlueFarCubes(blueFarCubes - 1);
     }
 
     public void setBlueNearStars(int value) {
+        value = value < 0 ? 0 : value;
         sendFoxCommand(ScoreField.BLUE_NEAR_STARS, MessageType.SET, value);
         blueNearStars = value;
     }
     public void addBlueNearStar() {
-        sendFoxCommand(ScoreField.BLUE_NEAR_STARS, MessageType.ADD, 1);
-        blueNearStars++;
+        setBlueNearStars(blueNearStars + 1);
     }
     public void removeBlueNearStar() {
-        sendFoxCommand(ScoreField.BLUE_NEAR_STARS, MessageType.SUBTRACT, 1);
-        blueNearStars--;
+        setBlueNearStars(blueNearStars - 1);
     }
 
     public void setBlueNearCubes(int value) {
+        value = value < 0 ? 0 : value;
         sendFoxCommand(ScoreField.BLUE_NEAR_CUBES, MessageType.SET, value);
         blueNearCubes = value;
     }
     public void addBlueNearCube() {
-        sendFoxCommand(ScoreField.BLUE_NEAR_CUBES, MessageType.ADD, 1);
-        blueNearCubes++;
+        setBlueNearCubes(blueNearCubes + 1);
     }
     public void removeBlueNearCube() {
-        sendFoxCommand(ScoreField.BLUE_NEAR_CUBES, MessageType.SUBTRACT, 1);
-        blueNearCubes--;
+        setBlueNearCubes(blueNearCubes - 1);
     }
 
     public void setRedElevatedState(ElevatedState state) {

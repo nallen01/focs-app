@@ -86,12 +86,16 @@ public class ZoneScorerFragment extends Fragment implements DataListener {
             @Override
             public void onClick(View v) {
                 if(scorerLocation == ScorerLocation.RED_ZONE) {
-                    tcpClient.removeRedFarStar();
-                    tcpClient.addRedNearStar();
+                    if(tcpClient.redFarStars > 0) {
+                        tcpClient.removeRedFarStar();
+                        tcpClient.addRedNearStar();
+                    }
                 }
                 else {
-                    tcpClient.removeBlueFarStar();
-                    tcpClient.addBlueNearStar();
+                    if(tcpClient.blueFarStars > 0) {
+                        tcpClient.removeBlueFarStar();
+                        tcpClient.addBlueNearStar();
+                    }
                 }
                 updateUI();
             }
@@ -101,12 +105,16 @@ public class ZoneScorerFragment extends Fragment implements DataListener {
             @Override
             public void onClick(View v) {
                 if(scorerLocation == ScorerLocation.RED_ZONE) {
-                    tcpClient.removeRedFarCube();
-                    tcpClient.addRedNearCube();
+                    if(tcpClient.redFarCubes > 0) {
+                        tcpClient.removeRedFarCube();
+                        tcpClient.addRedNearCube();
+                    }
                 }
                 else {
-                    tcpClient.removeBlueFarCube();
-                    tcpClient.addBlueNearCube();
+                    if(tcpClient.blueFarCubes > 0) {
+                        tcpClient.removeBlueFarCube();
+                        tcpClient.addBlueNearCube();
+                    }
                 }
                 updateUI();
             }
@@ -116,12 +124,16 @@ public class ZoneScorerFragment extends Fragment implements DataListener {
             @Override
             public void onClick(View v) {
                 if(scorerLocation == ScorerLocation.RED_ZONE) {
-                    tcpClient.removeRedNearStar();
-                    tcpClient.addRedFarStar();
+                    if(tcpClient.redNearStars > 0) {
+                        tcpClient.removeRedNearStar();
+                        tcpClient.addRedFarStar();
+                    }
                 }
                 else {
-                    tcpClient.removeBlueNearStar();
-                    tcpClient.addBlueFarStar();
+                    if(tcpClient.blueNearStars > 0) {
+                        tcpClient.removeBlueNearStar();
+                        tcpClient.addBlueFarStar();
+                    }
                 }
                 updateUI();
             }
@@ -131,12 +143,16 @@ public class ZoneScorerFragment extends Fragment implements DataListener {
             @Override
             public void onClick(View v) {
                 if(scorerLocation == ScorerLocation.RED_ZONE) {
-                    tcpClient.removeRedNearCube();
-                    tcpClient.addRedFarCube();
+                    if(tcpClient.redNearCubes > 0) {
+                        tcpClient.removeRedNearCube();
+                        tcpClient.addRedFarCube();
+                    }
                 }
                 else {
-                    tcpClient.removeBlueNearCube();
-                    tcpClient.addBlueFarCube();
+                    if(tcpClient.blueNearCubes > 0) {
+                        tcpClient.removeBlueNearCube();
+                        tcpClient.addBlueFarCube();
+                    }
                 }
                 updateUI();
             }
@@ -172,10 +188,14 @@ public class ZoneScorerFragment extends Fragment implements DataListener {
             @Override
             public void onClick(View v) {
                 if(scorerLocation == ScorerLocation.RED_ZONE) {
-                    tcpClient.removeRedNearStar();
+                    if(tcpClient.redNearStars > 0) {
+                        tcpClient.removeRedNearStar();
+                    }
                 }
                 else {
-                    tcpClient.removeBlueNearStar();
+                    if(tcpClient.blueNearStars > 0) {
+                        tcpClient.removeBlueNearStar();
+                    }
                 }
                 updateUI();
             }
@@ -185,10 +205,14 @@ public class ZoneScorerFragment extends Fragment implements DataListener {
             @Override
             public void onClick(View v) {
                 if(scorerLocation == ScorerLocation.RED_ZONE) {
-                    tcpClient.removeRedNearCube();
+                    if(tcpClient.redNearCubes > 0) {
+                        tcpClient.removeRedNearCube();
+                    }
                 }
                 else {
-                    tcpClient.removeBlueNearCube();
+                    if(tcpClient.blueNearCubes > 0) {
+                        tcpClient.removeBlueNearCube();
+                    }
                 }
                 updateUI();
             }
