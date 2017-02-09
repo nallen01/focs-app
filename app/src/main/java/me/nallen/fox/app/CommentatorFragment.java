@@ -7,10 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 public class CommentatorFragment extends Fragment {
     private ScorerLocation scorerLocation;
     private TcpClient tcpClient;
+    private View rootView;
 
     public static CommentatorFragment newInstance(ScorerLocation scorerLocation) {
         CommentatorFragment fragment = new CommentatorFragment();
@@ -33,11 +36,33 @@ public class CommentatorFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_commentator, container, false);
+        rootView = inflater.inflate(R.layout.fragment_commentator, container, false);
 
         if(scorerLocation != ScorerLocation.COMMENTATOR_AUTOMATION) {
             rootView.findViewById(R.id.automation_section).setVisibility(View.GONE);
         }
+
+        rootView.findViewById(R.id.button_red_auton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setRedAuton(true);
+            }
+        });
+
+        rootView.findViewById(R.id.button_blue_auton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setBlueAuton(true);
+            }
+        });
+
+        rootView.findViewById(R.id.button_no_auton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setRedAuton(false);
+                tcpClient.setBlueAuton(false);
+            }
+        });
 
         rootView.findViewById(R.id.button_small_history).setOnClickListener(new View.OnClickListener() {
             @Override

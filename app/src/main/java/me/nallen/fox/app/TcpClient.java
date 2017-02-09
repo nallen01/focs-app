@@ -476,11 +476,19 @@ public class TcpClient {
     public void setRedAuton(boolean auton) {
         sendFoxCommand(ScoreField.RED_AUTON, MessageType.SET, auton ? 1 : 0);
         redAuton = auton;
+
+        if(auton && blueAuton) {
+            setBlueAuton(false);
+        }
     }
 
     public void setBlueAuton(boolean auton) {
         sendFoxCommand(ScoreField.BLUE_AUTON, MessageType.SET, auton ? 1 : 0);
         blueAuton = auton;
+
+        if(auton && redAuton) {
+            setRedAuton(false);
+        }
     }
 
     public void setFoxDisplay(FoxDisplay display) {
