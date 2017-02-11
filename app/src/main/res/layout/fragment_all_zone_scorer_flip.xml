@@ -9,7 +9,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:weightSum="1">
+        android:weightSum="1.05">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.05"
+            android:weightSum="6">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text=""
+                android:layout_weight="1"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="Near"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Far"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text=""
+                android:layout_weight="1"
+                android:gravity="center" />
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -75,7 +114,7 @@
                     android:id="@+id/button_fence_near_star"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
-                    android:textSize="20dp" />
+                    android:textSize="15dp" />
 
                 <Button
                     android:layout_width="match_parent"
@@ -84,7 +123,7 @@
                     android:id="@+id/button_near_fence_star"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
-                    android:textSize="20dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -101,7 +140,7 @@
                     android:id="@+id/button_near_far_star"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
-                    android:textSize="20dp" />
+                    android:textSize="15dp" />
 
                 <Button
                     android:layout_width="match_parent"
@@ -110,7 +149,7 @@
                     android:id="@+id/button_far_near_star"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
-                    android:textSize="20dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <TextView
@@ -191,7 +230,7 @@
                     android:id="@+id/button_fence_near_cube"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
-                    android:textSize="20dp" />
+                    android:textSize="15dp" />
 
                 <Button
                     android:layout_width="match_parent"
@@ -200,7 +239,7 @@
                     android:id="@+id/button_near_fence_cube"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
-                    android:textSize="20dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -217,7 +256,7 @@
                     android:id="@+id/button_near_far_cube"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
-                    android:textSize="20dp" />
+                    android:textSize="15dp" />
 
                 <Button
                     android:layout_width="match_parent"
@@ -226,7 +265,7 @@
                     android:id="@+id/button_far_near_cube"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
-                    android:textSize="20dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -250,7 +289,7 @@
                     android:id="@+id/button_far_cube"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
-                    android:textSize="20dp" />
+                    android:textSize="15dp" />
             </LinearLayout>
         </LinearLayout>
 

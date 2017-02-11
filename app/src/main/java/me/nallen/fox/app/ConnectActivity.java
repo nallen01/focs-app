@@ -54,7 +54,7 @@ public class ConnectActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long arg3) {
                 View holder = findViewById(R.id.input_layout_automation_ip);
-                if (ScorerLocation.values()[pos] == ScorerLocation.COMMENTATOR_AUTOMATION) {
+                if (ScorerLocation.getValues()[pos] == ScorerLocation.COMMENTATOR_AUTOMATION) {
                     holder.setVisibility(View.VISIBLE);
                 } else {
                     holder.setVisibility(View.GONE);
@@ -78,7 +78,7 @@ public class ConnectActivity extends AppCompatActivity {
 
         if(getIntent().getIntExtra("scorer_location", -1) != -1) {
             for(int i=0; i<ScorerLocation.values().length; i++) {
-                if(ScorerLocation.values()[i].getValue() == getIntent().getIntExtra("scorer_location", -1)) {
+                if(ScorerLocation.getValues()[i].getValue() == getIntent().getIntExtra("scorer_location", -1)) {
                     scorer_location.setSelection(i);
                     break;
                 }
@@ -117,7 +117,7 @@ public class ConnectActivity extends AppCompatActivity {
         // Get all the fields
         fox_ip = fox_server_ip.getText().toString();
         automation_ip = automation_server_ip.getText().toString();
-        location = ScorerLocation.values()[scorer_location.getSelectedItemPosition()];
+        location = ScorerLocation.getValues()[scorer_location.getSelectedItemPosition()];
 
         if(!Patterns.IP_ADDRESS.matcher(fox_ip).matches()) {
             Toaster.doToast(getApplicationContext(), "Invalid Fox IP entered");

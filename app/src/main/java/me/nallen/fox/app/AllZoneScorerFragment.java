@@ -256,15 +256,15 @@ public class AllZoneScorerFragment extends Fragment implements DataListener {
         switch (item.getItemId()) {
             case R.id.clear:
                 if(scorerLocation == ScorerLocation.RED_ZONE) {
-                    tcpClient.setRedFarCubes(0);
-                    tcpClient.setRedFarStars(0);
+                    tcpClient.setRedFarCubes(1);
+                    tcpClient.setRedFarStars(7);
                     tcpClient.setRedNearCubes(0);
                     tcpClient.setRedNearStars(0);
                     tcpClient.setRedElevatedState(ElevatedState.NONE);
                 }
                 else {
-                    tcpClient.setBlueFarCubes(0);
-                    tcpClient.setBlueFarStars(0);
+                    tcpClient.setBlueFarCubes(1);
+                    tcpClient.setBlueFarStars(7);
                     tcpClient.setBlueNearCubes(0);
                     tcpClient.setBlueNearStars(0);
                     tcpClient.setBlueElevatedState(ElevatedState.NONE);

@@ -176,8 +176,8 @@ public class ZoneScorerFragment extends Fragment implements DataListener {
         switch (item.getItemId()) {
             case R.id.clear:
                 if(scorerLocation == ScorerLocation.RED_FAR_ZONE) {
-                    tcpClient.setRedFarCubes(0);
-                    tcpClient.setRedFarStars(0);
+                    tcpClient.setRedFarCubes(1);
+                    tcpClient.setRedFarStars(7);
                     tcpClient.setRedElevatedState(ElevatedState.NONE);
                 }
                 else if(scorerLocation == ScorerLocation.RED_NEAR_ZONE) {
@@ -185,8 +185,8 @@ public class ZoneScorerFragment extends Fragment implements DataListener {
                     tcpClient.setRedNearStars(0);
                 }
                 else if(scorerLocation == ScorerLocation.BLUE_FAR_ZONE) {
-                    tcpClient.setBlueFarCubes(0);
-                    tcpClient.setBlueFarStars(0);
+                    tcpClient.setBlueFarCubes(1);
+                    tcpClient.setBlueFarStars(7);
                     tcpClient.setBlueElevatedState(ElevatedState.NONE);
                 }
                 else if(scorerLocation == ScorerLocation.BLUE_NEAR_ZONE) {
