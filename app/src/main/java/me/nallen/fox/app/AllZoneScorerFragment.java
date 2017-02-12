@@ -224,10 +224,10 @@ public class AllZoneScorerFragment extends Fragment implements DataListener {
                 ElevatedState state = ElevatedState.fromInt(progress);
 
                 if(scorerLocation == ScorerLocation.RED_ZONE) {
-                    tcpClient.setRedElevatedState(state);
+                    tcpClient.setBlueElevatedState(state);
                 }
                 else {
-                    tcpClient.setBlueElevatedState(state);
+                    tcpClient.setRedElevatedState(state);
                 }
             }
 
@@ -260,14 +260,14 @@ public class AllZoneScorerFragment extends Fragment implements DataListener {
                     tcpClient.setRedFarStars(7);
                     tcpClient.setRedNearCubes(0);
                     tcpClient.setRedNearStars(0);
-                    tcpClient.setRedElevatedState(ElevatedState.NONE);
+                    tcpClient.setBlueElevatedState(ElevatedState.NONE);
                 }
                 else {
                     tcpClient.setBlueFarCubes(1);
                     tcpClient.setBlueFarStars(7);
                     tcpClient.setBlueNearCubes(0);
                     tcpClient.setBlueNearStars(0);
-                    tcpClient.setBlueElevatedState(ElevatedState.NONE);
+                    tcpClient.setRedElevatedState(ElevatedState.NONE);
                 }
 
                 updateUI();
@@ -300,14 +300,14 @@ public class AllZoneScorerFragment extends Fragment implements DataListener {
                     ((TextView)rootView.findViewById(R.id.text_far_stars)).setText("" + tcpClient.redFarStars);
                     ((TextView)rootView.findViewById(R.id.text_near_cubes)).setText("" + tcpClient.redNearCubes);
                     ((TextView)rootView.findViewById(R.id.text_near_stars)).setText("" + tcpClient.redNearStars);
-                    ((SeekBar)rootView.findViewById(R.id.seekbar_elevation)).setProgress(tcpClient.redElevation.getValue());
+                    ((SeekBar)rootView.findViewById(R.id.seekbar_elevation)).setProgress(tcpClient.blueElevation.getValue());
                 }
                 else {
                     ((TextView)rootView.findViewById(R.id.text_far_cubes)).setText("" + tcpClient.blueFarCubes);
                     ((TextView)rootView.findViewById(R.id.text_far_stars)).setText("" + tcpClient.blueFarStars);
                     ((TextView)rootView.findViewById(R.id.text_near_cubes)).setText("" + tcpClient.blueNearCubes);
                     ((TextView)rootView.findViewById(R.id.text_near_stars)).setText("" + tcpClient.blueNearStars);
-                    ((SeekBar)rootView.findViewById(R.id.seekbar_elevation)).setProgress(tcpClient.blueElevation.getValue());
+                    ((SeekBar)rootView.findViewById(R.id.seekbar_elevation)).setProgress(tcpClient.redElevation.getValue());
                 }
             }
         });
