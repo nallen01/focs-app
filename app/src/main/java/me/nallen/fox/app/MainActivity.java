@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity implements DataListener {
 
         tcpClient = TcpClient.getInstance();
         tcpClient.addDataListener(this);
+        mPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         if(!tcpClient.isConnected()) {
             // We need to try connect
-            mPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
             showConnectPage();
         }
@@ -83,10 +83,12 @@ public class MainActivity extends AppCompatActivity implements DataListener {
         }
         else if(scorer_location == ScorerLocation.RED_STARS || scorer_location == ScorerLocation.BLUE_STARS) {
             Toaster.doToast(getApplicationContext(), "Not yet implemented");
+            logout(false);
             return;
         }
         else if(scorer_location == ScorerLocation.CUBES) {
             Toaster.doToast(getApplicationContext(), "Not yet implemented");
+            logout(false);
             return;
         }
         else if(scorer_location == ScorerLocation.COMMENTATOR || scorer_location == ScorerLocation.COMMENTATOR_AUTOMATION) {
@@ -132,15 +134,19 @@ public class MainActivity extends AppCompatActivity implements DataListener {
     }
 
     private void logout() {
+        logout(true);
+    }
+    private void logout(boolean showMessage) {
         SharedPreferences.Editor ed = mPrefs.edit();
-        ed.remove("fox_ip");
-        ed.remove("automation_ip");
+        //ed.remove("fox_ip");
+        //ed.remove("automation_ip");
         ed.remove("scorer_location");
         ed.commit();
 
         tcpClient.logout();
 
-        Toaster.doToast(getApplicationContext(), "Logged Out");
+        if(showMessage)
+            Toaster.doToast(getApplicationContext(), "Logged Out");
 
         showConnectPage();
     }

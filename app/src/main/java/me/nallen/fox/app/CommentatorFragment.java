@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
@@ -14,6 +18,7 @@ public class CommentatorFragment extends Fragment {
     private ScorerLocation scorerLocation;
     private TcpClient tcpClient;
     private View rootView;
+    private boolean showAuton = false;
 
     public static CommentatorFragment newInstance(ScorerLocation scorerLocation) {
         CommentatorFragment fragment = new CommentatorFragment();
@@ -32,6 +37,7 @@ public class CommentatorFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -129,6 +135,45 @@ public class CommentatorFragment extends Fragment {
             }
         });
 
+        updateAutonDisplay();
+
         return rootView;
+    }
+
+    private void updateAutonDisplay() {
+        View autonView = rootView.findViewById(R.id.auton_section);
+
+        if(showAuton) {
+            autonView.setVisibility(View.VISIBLE);
+        }
+        else {
+            autonView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.commentator, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.incl_auton:
+                if(item.isChecked()) {
+                    item.setChecked(false);
+                    showAuton = false;
+                }
+                else {
+                    item.setChecked(true);
+                    showAuton = true;
+                }
+
+                updateAutonDisplay();
+
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
