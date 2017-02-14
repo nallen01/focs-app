@@ -51,75 +51,52 @@ public class CubesScorerFragment extends Fragment implements DataListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_cubes_scorer, container, false);
 
-        ((SeekBar)rootView.findViewById(R.id.seekbar_cube_a)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        ((SeekBar)rootView.findViewById(R.id.seekbar_cube_a)).setOnSeekBarChangeListener(new MySeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(fromUser)
                     updateSlider(0, progress);
             }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
         });
 
-        ((SeekBar)rootView.findViewById(R.id.seekbar_cube_b)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        ((SeekBar)rootView.findViewById(R.id.seekbar_cube_b)).setOnSeekBarChangeListener(new MySeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(fromUser)
                     updateSlider(1, progress);
             }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
         });
 
-        ((SeekBar)rootView.findViewById(R.id.seekbar_cube_c)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        ((SeekBar)rootView.findViewById(R.id.seekbar_cube_c)).setOnSeekBarChangeListener(new MySeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(fromUser)
                     updateSlider(2, progress);
             }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
         });
 
-        ((SeekBar)rootView.findViewById(R.id.seekbar_cube_d)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        ((SeekBar)rootView.findViewById(R.id.seekbar_cube_d)).setOnSeekBarChangeListener(new MySeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(fromUser)
                     updateSlider(3, progress);
             }
+        });
 
+        ((SeekBar)rootView.findViewById(R.id.seekbar_blue_elevation)).setOnSeekBarChangeListener(new MySeekBarChangeListener() {
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(fromUser)
+                    tcpClient.setBlueElevatedState(ElevatedState.fromInt(progress));
             }
+        });
 
+
+        ((SeekBar)rootView.findViewById(R.id.seekbar_red_elevation)).setOnSeekBarChangeListener(new MySeekBarChangeListener() {
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(fromUser)
+                    tcpClient.setRedElevatedState(ElevatedState.fromInt(progress));
             }
         });
 
@@ -247,7 +224,24 @@ public class CubesScorerFragment extends Fragment implements DataListener {
                 rootView.findViewById(R.id.button_red_auton).setPressed(tcpClient.redAuton);
                 rootView.findViewById(R.id.button_blue_auton).setPressed(tcpClient.blueAuton);
                 rootView.findViewById(R.id.button_no_auton).setPressed((!tcpClient.redAuton) && (!tcpClient.blueAuton));
+
+                ((SeekBar)rootView.findViewById(R.id.seekbar_blue_elevation)).setProgress(tcpClient.blueElevation.getValue());
+                ((SeekBar)rootView.findViewById(R.id.seekbar_red_elevation)).setProgress(tcpClient.redElevation.getValue());
             }
         });
+    }
+
+    private abstract class MySeekBarChangeListener implements SeekBar.OnSeekBarChangeListener {
+        public abstract void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) ;
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
     }
 }

@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,14 +18,15 @@
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.1"
-            android:weightSum="4">
+            android:weightSum="2">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="Red Zones"
+                android:textColor="@color/vexRed"
                 android:textSize="15dp" />
 
             <TextView
@@ -32,7 +34,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:text="Blue Zones"
-                android:layout_weight="2"
+                android:textColor="@color/vexBlue"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="15dp" />
 
@@ -46,24 +49,56 @@
             android:layout_weight="0.35"
             android:weightSum="4">
 
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
                 android:layout_height="match_parent"
-                android:id="@+id/text_far_stars"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="0"
-                android:textSize="25dp" />
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center">
 
-            <TextView
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/seekbar_blue_elevation"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:splitTrack="false"
+                        android:max="2"
+                        android:theme="@style/Widget.AppCompat.SeekBar.Discrete"
+                        app:seekBarRotation="CW270" /> <!-- Rotation: CW90 or CW270 -->
+
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+            </LinearLayout>
+
+            <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:text="0"
-                android:id="@+id/text_near_stars"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:textSize="25dp" />
+                android:layout_weight="2" />
+
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                        android:id="@+id/seekbar_red_elevation"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:splitTrack="false"
+                        android:max="2"
+                        android:theme="@style/Widget.AppCompat.SeekBar.Discrete"
+                        app:seekBarRotation="CW270" /> <!-- Rotation: CW90 or CW270 -->
+
+                </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+            </LinearLayout>
 
         </LinearLayout>
 
