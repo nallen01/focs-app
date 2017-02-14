@@ -242,6 +242,8 @@ public class AllZoneScorerFragment extends Fragment implements DataListener {
             }
         });
 
+        updateUI();
+
         return rootView;
     }
 

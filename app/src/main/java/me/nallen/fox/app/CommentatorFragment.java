@@ -11,10 +11,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class CommentatorFragment extends Fragment {
+public class CommentatorFragment extends Fragment implements DataListener {
     private ScorerLocation scorerLocation;
     private TcpClient tcpClient;
     private View rootView;
@@ -38,6 +39,14 @@ public class CommentatorFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        tcpClient.addDataListener(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        tcpClient.removeDataListener(this);
     }
 
     @Override
@@ -175,5 +184,34 @@ public class CommentatorFragment extends Fragment {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void connectionDropped() {
+
+    }
+
+    @Override
+    public void updateUI() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(tcpClient.redAuton) {
+                    ((Button)rootView.findViewById(R.id.button_red_auton)).setText("[[Red]]");
+                    ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("Blue");
+                    ((Button)rootView.findViewById(R.id.button_no_auton)).setText("None");
+                }
+                else if(tcpClient.blueAuton) {
+                    ((Button)rootView.findViewById(R.id.button_red_auton)).setText("Red");
+                    ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("[[Blue]]");
+                    ((Button)rootView.findViewById(R.id.button_no_auton)).setText("None");
+                }
+                else {
+                    ((Button)rootView.findViewById(R.id.button_red_auton)).setText("Red");
+                    ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("Blue");
+                    ((Button)rootView.findViewById(R.id.button_no_auton)).setText("[[None]]");
+                }
+            }
+        });
     }
 }

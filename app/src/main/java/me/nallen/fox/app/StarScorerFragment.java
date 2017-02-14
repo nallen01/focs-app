@@ -116,6 +116,8 @@ public class StarScorerFragment extends Fragment implements DataListener {
             }
         });
 
+        updateUI();
+
         return rootView;
     }
 

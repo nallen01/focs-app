@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SeekBar;
 
 public class CubesScorerFragment extends Fragment implements DataListener {
@@ -130,6 +131,8 @@ public class CubesScorerFragment extends Fragment implements DataListener {
             }
         });
 
+        updateUI();
+
         return rootView;
     }
 
@@ -221,9 +224,21 @@ public class CubesScorerFragment extends Fragment implements DataListener {
 
                 prevSliderValues = vals;
 
-                rootView.findViewById(R.id.button_red_auton).setPressed(tcpClient.redAuton);
-                rootView.findViewById(R.id.button_blue_auton).setPressed(tcpClient.blueAuton);
-                rootView.findViewById(R.id.button_no_auton).setPressed((!tcpClient.redAuton) && (!tcpClient.blueAuton));
+                if(tcpClient.redAuton) {
+                    ((Button)rootView.findViewById(R.id.button_red_auton)).setText("[[Red]]");
+                    ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("Blue");
+                    ((Button)rootView.findViewById(R.id.button_no_auton)).setText("None");
+                }
+                else if(tcpClient.blueAuton) {
+                    ((Button)rootView.findViewById(R.id.button_red_auton)).setText("Red");
+                    ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("[[Blue]]");
+                    ((Button)rootView.findViewById(R.id.button_no_auton)).setText("None");
+                }
+                else {
+                    ((Button)rootView.findViewById(R.id.button_red_auton)).setText("Red");
+                    ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("Blue");
+                    ((Button)rootView.findViewById(R.id.button_no_auton)).setText("[[None]]");
+                }
 
                 ((SeekBar)rootView.findViewById(R.id.seekbar_blue_elevation)).setProgress(tcpClient.blueElevation.getValue());
                 ((SeekBar)rootView.findViewById(R.id.seekbar_red_elevation)).setProgress(tcpClient.redElevation.getValue());
