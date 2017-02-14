@@ -50,7 +50,12 @@ public class CubesScorerFragment extends Fragment implements DataListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_cubes_scorer, container, false);
+        if(isFlipped) {
+            rootView = inflater.inflate(R.layout.fragment_cubes_scorer_flip, container, false);
+        }
+        else {
+            rootView = inflater.inflate(R.layout.fragment_cubes_scorer, container, false);
+        }
 
         ((SeekBar)rootView.findViewById(R.id.seekbar_cube_a)).setOnSeekBarChangeListener(new MySeekBarChangeListener() {
             @Override
@@ -156,7 +161,7 @@ public class CubesScorerFragment extends Fragment implements DataListener {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.elevation_scorer, menu);
+        inflater.inflate(R.menu.goal_scorer, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -177,6 +182,14 @@ public class CubesScorerFragment extends Fragment implements DataListener {
 
                 updateUI();
 
+                return true;
+            case R.id.flip:
+                this.isFlipped = !this.isFlipped;
+
+                FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
+                fragTransaction.detach(this);
+                fragTransaction.attach(this);
+                fragTransaction.commit();
                 return true;
         }
         return super.onOptionsItemSelected(item);
