@@ -491,6 +491,11 @@ public class TcpClient {
         }
     }
 
+    public void setHideFox(boolean hide) {
+        sendFoxCommand(ScoreField.HIDE, MessageType.SET, hide ? 1 : 0);
+
+    }
+
     public void setFoxDisplay(FoxDisplay display) {
         sendAutomationCommand(display.getValue());
     }

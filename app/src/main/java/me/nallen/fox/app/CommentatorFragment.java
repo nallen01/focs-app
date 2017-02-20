@@ -61,6 +61,8 @@ public class CommentatorFragment extends Fragment implements DataListener {
             @Override
             public void onClick(View v) {
                 tcpClient.setRedAuton(true);
+
+                updateUI();
             }
         });
 
@@ -68,6 +70,8 @@ public class CommentatorFragment extends Fragment implements DataListener {
             @Override
             public void onClick(View v) {
                 tcpClient.setBlueAuton(true);
+
+                updateUI();
             }
         });
 
@@ -76,6 +80,8 @@ public class CommentatorFragment extends Fragment implements DataListener {
             public void onClick(View v) {
                 tcpClient.setRedAuton(false);
                 tcpClient.setBlueAuton(false);
+
+                updateUI();
             }
         });
 
@@ -99,6 +105,20 @@ public class CommentatorFragment extends Fragment implements DataListener {
             @Override
             public void onClick(View v) {
                 tcpClient.setHistoryVisible(false);
+            }
+        });
+
+        rootView.findViewById(R.id.button_hide_focs).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setHideFox(true);
+            }
+        });
+
+        rootView.findViewById(R.id.button_show_focs).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setHideFox(false);
             }
         });
 
@@ -143,6 +163,8 @@ public class CommentatorFragment extends Fragment implements DataListener {
                 tcpClient.setFoxDisplay(FoxDisplay.NONE);
             }
         });
+
+        updateUI();
 
         updateAutonDisplay();
 

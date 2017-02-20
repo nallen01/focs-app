@@ -18,6 +18,7 @@ public enum ScoreField {
     PAUSED(12),
     HISTORY(13),
     LARGE_HISTORY(14),
+    HIDE(16),
 
     CLEAR(15);
 
