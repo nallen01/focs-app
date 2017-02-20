@@ -493,7 +493,10 @@ public class TcpClient {
 
     public void setHideFox(boolean hide) {
         sendFoxCommand(ScoreField.HIDE, MessageType.SET, hide ? 1 : 0);
+    }
 
+    public void setThreeTeam(boolean threeTeam) {
+        sendFoxCommand(ScoreField.THREE_TEAM, MessageType.SET, threeTeam ? 1 : 0);
     }
 
     public void setFoxDisplay(FoxDisplay display) {

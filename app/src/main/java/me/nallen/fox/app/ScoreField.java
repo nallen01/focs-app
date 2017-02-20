@@ -20,6 +20,8 @@ public enum ScoreField {
     LARGE_HISTORY(14),
     HIDE(16),
 
+    THREE_TEAM(17),
+
     CLEAR(15);
 
     private final int id;

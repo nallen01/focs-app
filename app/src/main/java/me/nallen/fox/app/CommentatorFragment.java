@@ -204,6 +204,15 @@ public class CommentatorFragment extends Fragment implements DataListener {
                 updateAutonDisplay();
 
                 return true;
+            case R.id.three_team:
+                if(item.isChecked()) {
+                    item.setChecked(false);
+                    tcpClient.setThreeTeam(false);
+                }
+                else {
+                    item.setChecked(true);
+                    tcpClient.setThreeTeam(true);
+                }
         }
         return super.onOptionsItemSelected(item);
     }

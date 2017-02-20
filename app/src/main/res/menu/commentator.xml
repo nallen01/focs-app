@@ -8,4 +8,11 @@
         android:title="Include Auton"
         app:showAsAction="never"
         android:checkable="true"/>
+
+    <item
+        android:id="@+id/three_team"
+        android:orderInCategory="101"
+        android:title="Three Team"
+        app:showAsAction="never"
+        android:checkable="true"/>
 </menu>
