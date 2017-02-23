@@ -4,13 +4,22 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
-public class CommentatorFragment extends Fragment {
+public class CommentatorFragment extends Fragment implements DataListener {
     private ScorerLocation scorerLocation;
     private TcpClient tcpClient;
+    private View rootView;
+    private boolean showAuton = false;
 
     public static CommentatorFragment newInstance(ScorerLocation scorerLocation) {
         CommentatorFragment fragment = new CommentatorFragment();
@@ -29,15 +38,52 @@ public class CommentatorFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        tcpClient.addDataListener(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        tcpClient.removeDataListener(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_commentator, container, false);
+        rootView = inflater.inflate(R.layout.fragment_commentator, container, false);
 
         if(scorerLocation != ScorerLocation.COMMENTATOR_AUTOMATION) {
             rootView.findViewById(R.id.automation_section).setVisibility(View.GONE);
         }
+
+        rootView.findViewById(R.id.button_red_auton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setRedAuton(true);
+
+                updateUI();
+            }
+        });
+
+        rootView.findViewById(R.id.button_blue_auton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setBlueAuton(true);
+
+                updateUI();
+            }
+        });
+
+        rootView.findViewById(R.id.button_no_auton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setRedAuton(false);
+                tcpClient.setBlueAuton(false);
+
+                updateUI();
+            }
+        });
 
         rootView.findViewById(R.id.button_small_history).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +105,20 @@ public class CommentatorFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 tcpClient.setHistoryVisible(false);
+            }
+        });
+
+        rootView.findViewById(R.id.button_hide_focs).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setHideFox(true);
+            }
+        });
+
+        rootView.findViewById(R.id.button_show_focs).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setHideFox(false);
             }
         });
 
@@ -104,6 +164,85 @@ public class CommentatorFragment extends Fragment {
             }
         });
 
+        updateUI();
+
+        updateAutonDisplay();
+
         return rootView;
+    }
+
+    private void updateAutonDisplay() {
+        View autonView = rootView.findViewById(R.id.auton_section);
+
+        if(showAuton) {
+            autonView.setVisibility(View.VISIBLE);
+        }
+        else {
+            autonView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.commentator, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.incl_auton:
+                if(item.isChecked()) {
+                    item.setChecked(false);
+                    showAuton = false;
+                }
+                else {
+                    item.setChecked(true);
+                    showAuton = true;
+                }
+
+                updateAutonDisplay();
+
+                return true;
+            case R.id.three_team:
+                if(item.isChecked()) {
+                    item.setChecked(false);
+                    tcpClient.setThreeTeam(false);
+                }
+                else {
+                    item.setChecked(true);
+                    tcpClient.setThreeTeam(true);
+                }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void connectionDropped() {
+
+    }
+
+    @Override
+    public void updateUI() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(tcpClient.redAuton) {
+                    ((Button)rootView.findViewById(R.id.button_red_auton)).setText("[[Red]]");
+                    ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("Blue");
+                    ((Button)rootView.findViewById(R.id.button_no_auton)).setText("None");
+                }
+                else if(tcpClient.blueAuton) {
+                    ((Button)rootView.findViewById(R.id.button_red_auton)).setText("Red");
+                    ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("[[Blue]]");
+                    ((Button)rootView.findViewById(R.id.button_no_auton)).setText("None");
+                }
+                else {
+                    ((Button)rootView.findViewById(R.id.button_red_auton)).setText("Red");
+                    ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("Blue");
+                    ((Button)rootView.findViewById(R.id.button_no_auton)).setText("[[None]]");
+                }
+            }
+        });
     }
 }

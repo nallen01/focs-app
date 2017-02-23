@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity implements DataListener {
 
         tcpClient = TcpClient.getInstance();
         tcpClient.addDataListener(this);
+        mPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         if(!tcpClient.isConnected()) {
             // We need to try connect
-            mPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
             showConnectPage();
         }
@@ -72,14 +72,23 @@ public class MainActivity extends AppCompatActivity implements DataListener {
 
         setTitle(scorer_location.getName());
 
-        if(scorer_location == ScorerLocation.RED_GOAL || scorer_location == ScorerLocation.BLUE_GOAL) {
-            fragment = GoalScorerFragment.newInstance(scorer_location);
+        if(scorer_location == ScorerLocation.RED_FAR_ZONE || scorer_location == ScorerLocation.BLUE_FAR_ZONE) {
+            fragment = ZoneScorerFragment.newInstance(scorer_location);
+        }
+        else if(scorer_location == ScorerLocation.RED_NEAR_ZONE || scorer_location == ScorerLocation.BLUE_NEAR_ZONE) {
+            fragment = ZoneScorerFragment.newInstance(scorer_location);
+        }
+        else if(scorer_location == ScorerLocation.RED_ZONE || scorer_location == ScorerLocation.BLUE_ZONE) {
+            fragment = AllZoneScorerFragment.newInstance(scorer_location, scorer_location == ScorerLocation.BLUE_ZONE);
+        }
+        else if(scorer_location == ScorerLocation.RED_STARS || scorer_location == ScorerLocation.BLUE_STARS) {
+            fragment = StarScorerFragment.newInstance(scorer_location, scorer_location == ScorerLocation.BLUE_STARS);
+        }
+        else if(scorer_location == ScorerLocation.CUBES) {
+            fragment = CubesScorerFragment.newInstance(scorer_location);
         }
         else if(scorer_location == ScorerLocation.COMMENTATOR || scorer_location == ScorerLocation.COMMENTATOR_AUTOMATION) {
             fragment = CommentatorFragment.newInstance(scorer_location);
-        }
-        else if(scorer_location == ScorerLocation.ELEVATION) {
-            fragment = ElevationScorerFragment.newInstance(scorer_location);
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -115,16 +124,25 @@ public class MainActivity extends AppCompatActivity implements DataListener {
 
     }
 
+    @Override
+    public void updateUI() {
+
+    }
+
     private void logout() {
+        logout(true);
+    }
+    private void logout(boolean showMessage) {
         SharedPreferences.Editor ed = mPrefs.edit();
-        ed.remove("fox_ip");
-        ed.remove("automation_ip");
+        //ed.remove("fox_ip");
+        //ed.remove("automation_ip");
         ed.remove("scorer_location");
         ed.commit();
 
         tcpClient.logout();
 
-        Toaster.doToast(getApplicationContext(), "Logged Out");
+        if(showMessage)
+            Toaster.doToast(getApplicationContext(), "Logged Out");
 
         showConnectPage();
     }

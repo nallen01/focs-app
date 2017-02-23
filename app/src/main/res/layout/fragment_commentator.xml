@@ -11,10 +11,63 @@
         android:layout_gravity="center">
 
         <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.2"
+            android:id="@+id/auton_section">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="Red Auton"
+                    android:textColor="@color/vexRed"
+                    android:id="@+id/button_red_auton"
+                    android:layout_gravity="center_horizontal" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="No Auton"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:id="@+id/button_no_auton"
+                    android:layout_gravity="center_horizontal" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="Blue Auton"
+                    android:textColor="@color/vexBlue"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:id="@+id/button_blue_auton"
+                    android:layout_gravity="center_horizontal" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dip"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:background="@color/colorPrimary" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_gravity="center">
 
             <Button
@@ -41,16 +94,47 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="Hide Worm"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:id="@+id/button_hide_history"
             android:layout_gravity="center_horizontal" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dip"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@color/colorPrimary" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_gravity="center">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Hide FOCS"
+                android:id="@+id/button_hide_focs"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Show FOCS"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:id="@+id/button_show_focs"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="Clear Scores"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="Clear FOCS"
             android:id="@+id/button_clear_scores"
             android:layout_gravity="center_horizontal" />
 
@@ -132,7 +216,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="None"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:id="@+id/button_division_none"
                 android:layout_gravity="center_horizontal" />
 

@@ -7,4 +7,10 @@
         android:orderInCategory="100"
         android:title="Clear"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/flip"
+        android:orderInCategory="101"
+        android:title="Flip"
+        app:showAsAction="never" />
 </menu>

@@ -1,0 +1,128 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AllZoneScorerFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.1"
+            android:weightSum="4">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="Near"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="Far"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.2"
+            android:weightSum="4">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/text_near_stars"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="25dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="0"
+                android:id="@+id/text_far_stars"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="25dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.35"
+            android:weightSum="1">
+
+                <Button
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:text="ADD"
+                    android:id="@+id/button_add_near_star"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.5"
+                    android:textSize="15dp" />
+
+                <Button
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:text="ADD"
+                    android:id="@+id/button_add_far_star"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.5"
+                    android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.35"
+            android:weightSum="1">
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:text="REMOVE"
+                android:id="@+id/button_remove_near_star"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.5"
+                android:textSize="15dp" />
+
+            <Button
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="REMOVE"
+                android:id="@+id/button_remove_far_star"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.5"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

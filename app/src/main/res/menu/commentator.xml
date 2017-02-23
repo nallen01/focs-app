@@ -1,0 +1,18 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/incl_auton"
+        android:orderInCategory="100"
+        android:title="Include Auton"
+        app:showAsAction="never"
+        android:checkable="true"/>
+
+    <item
+        android:id="@+id/three_team"
+        android:orderInCategory="101"
+        android:title="Three Team"
+        app:showAsAction="never"
+        android:checkable="true"/>
+</menu>
