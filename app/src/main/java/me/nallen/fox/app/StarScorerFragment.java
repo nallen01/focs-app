@@ -110,7 +110,7 @@ public class StarScorerFragment extends Fragment implements DataListener {
                 }
                 else {
                     if(tcpClient.blueFarStars > 0)
-                        tcpClient.removeBlueNearStar();
+                        tcpClient.removeBlueFarStar();
                 }
                 updateUI();
             }
