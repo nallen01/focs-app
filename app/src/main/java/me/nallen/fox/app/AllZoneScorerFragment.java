@@ -221,7 +221,7 @@ public class AllZoneScorerFragment extends Fragment implements DataListener {
         ((SeekBar)rootView.findViewById(R.id.seekbar_elevation)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                ElevatedState state = ElevatedState.fromInt(progress);
+                ScoringZone state = ScoringZone.fromInt(progress);
 
                 if(scorerLocation == ScorerLocation.RED_ZONE) {
                     tcpClient.setBlueElevatedState(state);
@@ -262,14 +262,14 @@ public class AllZoneScorerFragment extends Fragment implements DataListener {
                     tcpClient.setRedFarStars(7);
                     tcpClient.setRedNearCubes(0);
                     tcpClient.setRedNearStars(0);
-                    tcpClient.setBlueElevatedState(ElevatedState.NONE);
+                    tcpClient.setBlueElevatedState(ScoringZone.NONE);
                 }
                 else {
                     tcpClient.setBlueFarCubes(1);
                     tcpClient.setBlueFarStars(7);
                     tcpClient.setBlueNearCubes(0);
                     tcpClient.setBlueNearStars(0);
-                    tcpClient.setRedElevatedState(ElevatedState.NONE);
+                    tcpClient.setRedElevatedState(ScoringZone.NONE);
                 }
 
                 updateUI();

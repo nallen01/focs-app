@@ -1,28 +1,38 @@
 package me.nallen.fox.app;
 
 public enum ScoreField {
-    RED_FAR_STARS(0),
-    RED_FAR_CUBES(1),
-    RED_NEAR_STARS(2),
-    RED_NEAR_CUBES(3),
-    RED_ELEVATION(4),
+    RED_BASE_ONE_CONES(0),
+    RED_BASE_TWO_CONES(1),
+    RED_BASE_THREE_CONES(2),
+    RED_BASE_FOUR_CONES(3),
+    RED_BASE_ONE_ZONE(4),
+    RED_BASE_TWO_ZONE(5),
+    RED_BASE_THREE_ZONE(6),
+    RED_BASE_FOUR_ZONE(7),
+    RED_STATIONARY_CONES(8),
+    RED_PARKING(9),
     RED_AUTON(10),
 
-    BLUE_FAR_STARS(5),
-    BLUE_FAR_CUBES(6),
-    BLUE_NEAR_STARS(7),
-    BLUE_NEAR_CUBES(8),
-    BLUE_ELEVATION(9),
-    BLUE_AUTON(11),
+    BLUE_BASE_ONE_CONES(11),
+    BLUE_BASE_TWO_CONES(12),
+    BLUE_BASE_THREE_CONES(13),
+    BLUE_BASE_FOUR_CONES(14),
+    BLUE_BASE_ONE_ZONE(15),
+    BLUE_BASE_TWO_ZONE(16),
+    BLUE_BASE_THREE_ZONE(17),
+    BLUE_BASE_FOUR_ZONE(18),
+    BLUE_STATIONARY_CONES(19),
+    BLUE_PARKING(20),
+    BLUE_AUTON(21),
 
-    PAUSED(12),
-    HISTORY(13),
-    LARGE_HISTORY(14),
-    HIDE(16),
+    PAUSED(22),
+    HISTORY(23),
+    LARGE_HISTORY(24),
+    HIDE(25),
 
-    THREE_TEAM(17),
+    THREE_TEAM(26),
 
-    CLEAR(15);
+    CLEAR(27);
 
     private final int id;
     ScoreField(int id) { this.id = id; }

@@ -2,7 +2,6 @@ package me.nallen.fox.app;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -141,7 +140,7 @@ public class ZoneScorerFragment extends Fragment implements DataListener {
         ((SeekBar)rootView.findViewById(R.id.seekbar_elevation)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                ElevatedState state = ElevatedState.fromInt(progress);
+                ScoringZone state = ScoringZone.fromInt(progress);
 
                 if(scorerLocation == ScorerLocation.RED_FAR_ZONE) {
                     tcpClient.setRedElevatedState(state);
@@ -178,7 +177,7 @@ public class ZoneScorerFragment extends Fragment implements DataListener {
                 if(scorerLocation == ScorerLocation.RED_FAR_ZONE) {
                     tcpClient.setRedFarCubes(1);
                     tcpClient.setRedFarStars(7);
-                    tcpClient.setRedElevatedState(ElevatedState.NONE);
+                    tcpClient.setRedElevatedState(ScoringZone.NONE);
                 }
                 else if(scorerLocation == ScorerLocation.RED_NEAR_ZONE) {
                     tcpClient.setRedNearCubes(0);
@@ -187,7 +186,7 @@ public class ZoneScorerFragment extends Fragment implements DataListener {
                 else if(scorerLocation == ScorerLocation.BLUE_FAR_ZONE) {
                     tcpClient.setBlueFarCubes(1);
                     tcpClient.setBlueFarStars(7);
-                    tcpClient.setBlueElevatedState(ElevatedState.NONE);
+                    tcpClient.setBlueElevatedState(ScoringZone.NONE);
                 }
                 else if(scorerLocation == ScorerLocation.BLUE_NEAR_ZONE) {
                     tcpClient.setBlueNearCubes(0);

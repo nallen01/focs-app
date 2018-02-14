@@ -8,8 +8,8 @@ public enum FoxDisplay {
     private final int id;
     FoxDisplay(int id) { this.id = id; }
     public int getValue() { return id; }
-    public static ElevatedState fromInt(int id) {
-        ElevatedState[] values = ElevatedState.values();
+    public static ScoringZone fromInt(int id) {
+        ScoringZone[] values = ScoringZone.values();
         for(int i=0; i<values.length; i++) {
             if(values[i].getValue() == id)
                 return values[i];

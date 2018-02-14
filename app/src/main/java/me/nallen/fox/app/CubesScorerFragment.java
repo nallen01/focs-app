@@ -93,7 +93,7 @@ public class CubesScorerFragment extends Fragment implements DataListener {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(fromUser)
-                    tcpClient.setBlueElevatedState(ElevatedState.fromInt(progress));
+                    tcpClient.setBlueElevatedState(ScoringZone.fromInt(progress));
             }
         });
 
@@ -102,7 +102,7 @@ public class CubesScorerFragment extends Fragment implements DataListener {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if(fromUser)
-                    tcpClient.setRedElevatedState(ElevatedState.fromInt(progress));
+                    tcpClient.setRedElevatedState(ScoringZone.fromInt(progress));
             }
         });
 
@@ -174,8 +174,8 @@ public class CubesScorerFragment extends Fragment implements DataListener {
                 tcpClient.setBlueNearCubes(0);
                 tcpClient.setBlueFarCubes(1);
 
-                tcpClient.setRedElevatedState(ElevatedState.NONE);
-                tcpClient.setBlueElevatedState(ElevatedState.NONE);
+                tcpClient.setRedElevatedState(ScoringZone.NONE);
+                tcpClient.setBlueElevatedState(ScoringZone.NONE);
 
                 tcpClient.setRedAuton(false);
                 tcpClient.setBlueAuton(false);
