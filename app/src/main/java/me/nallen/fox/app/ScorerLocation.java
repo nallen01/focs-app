@@ -39,9 +39,9 @@ public enum ScorerLocation {
         ScorerLocation[] values = {
             RED_ALL,
             BLUE_ALL,
-            RED_BASES,
-            BLUE_BASES,
-            STATIONARY,
+            //RED_BASES,
+            //BLUE_BASES,
+            //STATIONARY,
             COMMENTATOR
         };
 
