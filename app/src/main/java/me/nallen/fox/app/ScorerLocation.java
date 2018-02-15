@@ -27,7 +27,7 @@ public enum ScorerLocation {
             case BLUE_ALL: return "Blue (Everything)";
             case RED_BASES: return "Red Bases";
             case BLUE_BASES: return "Blue Bases";
-            case STATIONARY: return "Stationary, Parking, Auton";
+            case STATIONARY: return "Stationary and Parking";
             case COMMENTATOR: return "Commentator";
             case COMMENTATOR_AUTOMATION: return "Commentator with Automation";
         }
@@ -39,9 +39,9 @@ public enum ScorerLocation {
         ScorerLocation[] values = {
             RED_ALL,
             BLUE_ALL,
-            //RED_BASES,
-            //BLUE_BASES,
-            //STATIONARY,
+            RED_BASES,
+            BLUE_BASES,
+            STATIONARY,
             COMMENTATOR
         };
 
