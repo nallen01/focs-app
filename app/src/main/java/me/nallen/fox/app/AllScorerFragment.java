@@ -212,6 +212,13 @@ public class AllScorerFragment extends Fragment implements DataListener {
             @Override
             public void run() {
                 if(scorerLocation == ScorerLocation.RED_ALL) {
+                    ((SeekBar)rootView.findViewById(R.id.mogo1_zone)).setProgress(tcpClient.redBaseZones[0].getValue());
+                    ((SeekBar)rootView.findViewById(R.id.mogo2_zone)).setProgress(tcpClient.redBaseZones[1].getValue());
+                    ((SeekBar)rootView.findViewById(R.id.mogo3_zone)).setProgress(tcpClient.redBaseZones[2].getValue());
+                    ((SeekBar)rootView.findViewById(R.id.mogo4_zone)).setProgress(tcpClient.redBaseZones[3].getValue());
+
+                    ((SeekBar)rootView.findViewById(R.id.parking)).setProgress(tcpClient.redParking);
+
                     ((TextView)rootView.findViewById(R.id.mogo1_cones)).setText("" + tcpClient.redBaseCones[0]);
                     ((TextView)rootView.findViewById(R.id.mogo2_cones)).setText("" + tcpClient.redBaseCones[1]);
                     ((TextView)rootView.findViewById(R.id.mogo3_cones)).setText("" + tcpClient.redBaseCones[2]);
@@ -219,6 +226,13 @@ public class AllScorerFragment extends Fragment implements DataListener {
                     ((TextView)rootView.findViewById(R.id.stationary_cones)).setText("" + tcpClient.redStationaryCones);
                 }
                 else {
+                    ((SeekBar)rootView.findViewById(R.id.mogo1_zone)).setProgress(tcpClient.blueBaseZones[0].getValue());
+                    ((SeekBar)rootView.findViewById(R.id.mogo2_zone)).setProgress(tcpClient.blueBaseZones[1].getValue());
+                    ((SeekBar)rootView.findViewById(R.id.mogo3_zone)).setProgress(tcpClient.blueBaseZones[2].getValue());
+                    ((SeekBar)rootView.findViewById(R.id.mogo4_zone)).setProgress(tcpClient.blueBaseZones[3].getValue());
+
+                    ((SeekBar)rootView.findViewById(R.id.parking)).setProgress(tcpClient.blueParking);
+
                     ((TextView)rootView.findViewById(R.id.mogo1_cones)).setText("" + tcpClient.blueBaseCones[0]);
                     ((TextView)rootView.findViewById(R.id.mogo2_cones)).setText("" + tcpClient.blueBaseCones[1]);
                     ((TextView)rootView.findViewById(R.id.mogo3_cones)).setText("" + tcpClient.blueBaseCones[2]);
