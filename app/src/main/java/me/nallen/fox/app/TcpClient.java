@@ -492,10 +492,10 @@ public class TcpClient {
         blueStationaryCones = value;
     }
     public void addBlueStationaryCone() {
-        setRedStationaryCones(blueStationaryCones + 1);
+        setBlueStationaryCones(blueStationaryCones + 1);
     }
     public void removeBlueStationaryCone() {
-        setRedStationaryCones(blueStationaryCones - 1);
+        setBlueStationaryCones(blueStationaryCones - 1);
     }
 
     public void setBlueParking(int value) {
@@ -504,10 +504,10 @@ public class TcpClient {
         blueParking = value;
     }
     public void addBlueParking() {
-        setRedParking(blueParking + 1);
+        setBlueParking(blueParking + 1);
     }
     public void removeBlueParking() {
-        setRedParking(blueParking - 1);
+        setBlueParking(blueParking - 1);
     }
 
     public void setRedAuton(boolean auton) {
