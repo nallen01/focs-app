@@ -162,6 +162,28 @@ public class AllScorerFragment extends Fragment implements DataListener {
         ((SeekBar)rootView.findViewById(R.id.mogo3_zone)).setOnSeekBarChangeListener(zoneListener);
         ((SeekBar)rootView.findViewById(R.id.mogo4_zone)).setOnSeekBarChangeListener(zoneListener);
 
+        ((SeekBar)rootView.findViewById(R.id.parking)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(fromUser) {
+                    if(scorerLocation == ScorerLocation.RED_ALL)
+                        tcpClient.setRedParking(progress);
+                    else
+                        tcpClient.setBlueParking(progress);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
         updateUI();
 
         return rootView;
