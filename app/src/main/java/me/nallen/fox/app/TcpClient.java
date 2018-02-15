@@ -413,12 +413,12 @@ public class TcpClient {
 
     public void setRedBaseZone(int index, ScoringZone value) {
         if(index >= 0 && index < 4) {
-            ScoreField field = ScoreField.RED_BASE_ONE_CONES;
+            ScoreField field = ScoreField.RED_BASE_ONE_ZONE;
             switch(index) {
-                case 0: field = ScoreField.RED_BASE_ONE_CONES; break;
-                case 1: field = ScoreField.RED_BASE_TWO_CONES; break;
-                case 2: field = ScoreField.RED_BASE_THREE_CONES; break;
-                case 3: field = ScoreField.RED_BASE_FOUR_CONES; break;
+                case 0: field = ScoreField.RED_BASE_ONE_ZONE; break;
+                case 1: field = ScoreField.RED_BASE_TWO_ZONE; break;
+                case 2: field = ScoreField.RED_BASE_THREE_ZONE; break;
+                case 3: field = ScoreField.RED_BASE_FOUR_ZONE; break;
             }
             sendFoxCommand(field, MessageType.SET, value.getValue());
             redBaseZones[index] = value;
@@ -474,12 +474,12 @@ public class TcpClient {
 
     public void setBlueBaseZone(int index, ScoringZone value) {
         if(index >= 0 && index < 4) {
-            ScoreField field = ScoreField.BLUE_BASE_ONE_CONES;
+            ScoreField field = ScoreField.BLUE_BASE_ONE_ZONE;
             switch(index) {
-                case 0: field = ScoreField.BLUE_BASE_ONE_CONES; break;
-                case 1: field = ScoreField.BLUE_BASE_TWO_CONES; break;
-                case 2: field = ScoreField.BLUE_BASE_THREE_CONES; break;
-                case 3: field = ScoreField.BLUE_BASE_FOUR_CONES; break;
+                case 0: field = ScoreField.BLUE_BASE_ONE_ZONE; break;
+                case 1: field = ScoreField.BLUE_BASE_TWO_ZONE; break;
+                case 2: field = ScoreField.BLUE_BASE_THREE_ZONE; break;
+                case 3: field = ScoreField.BLUE_BASE_FOUR_ZONE; break;
             }
             sendFoxCommand(field, MessageType.SET, value.getValue());
             blueBaseZones[index] = value;

@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class AllScorerFragment extends Fragment implements DataListener {
@@ -104,6 +105,39 @@ public class AllScorerFragment extends Fragment implements DataListener {
         }
     };
 
+    private SeekBar.OnSeekBarChangeListener zoneListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            if(fromUser) {
+                int index = 0;
+                switch(seekBar.getId()) {
+                    case R.id.mogo1_zone: index = 0; break;
+                    case R.id.mogo2_zone: index = 1; break;
+                    case R.id.mogo3_zone: index = 2; break;
+                    case R.id.mogo4_zone: index = 3; break;
+                }
+
+
+                if(scorerLocation == ScorerLocation.RED_ALL) {
+                    tcpClient.setRedBaseZone(index, ScoringZone.fromInt(progress));
+                }
+                else {
+                    tcpClient.setBlueBaseZone(index, ScoringZone.fromInt(progress));
+                }
+            }
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_all_scorer, container, false);
@@ -122,6 +156,11 @@ public class AllScorerFragment extends Fragment implements DataListener {
 
         rootView.findViewById(R.id.stationary_add_cone).setOnClickListener(coneListener);
         rootView.findViewById(R.id.stationary_remove_cone).setOnClickListener(coneListener);
+
+        ((SeekBar)rootView.findViewById(R.id.mogo1_zone)).setOnSeekBarChangeListener(zoneListener);
+        ((SeekBar)rootView.findViewById(R.id.mogo2_zone)).setOnSeekBarChangeListener(zoneListener);
+        ((SeekBar)rootView.findViewById(R.id.mogo3_zone)).setOnSeekBarChangeListener(zoneListener);
+        ((SeekBar)rootView.findViewById(R.id.mogo4_zone)).setOnSeekBarChangeListener(zoneListener);
 
         updateUI();
 
