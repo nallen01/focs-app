@@ -97,34 +97,44 @@ public class TcpClient {
         cleanUp();
     }
 
-    private boolean sendFoxMessage(String paramString) {
-        if (fox_out != null) {
-            try {
-                fox_out.write(paramString + '\n');
-                fox_out.flush();
-                return true;
-            } catch (Exception e) {}
-        }
-        return false;
+    private void sendFoxMessage(final String paramString) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (fox_out != null) {
+                    try {
+                        fox_out.write(paramString + '\n');
+                        fox_out.flush();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
-    private boolean sendFoxCommand(ScoreField field, MessageType type, int value) {
-        return sendFoxMessage("" + field.getValue() + ((char)29) + type.getValue() + ((char)29) + value);
+    private void sendFoxCommand(ScoreField field, MessageType type, int value) {
+        sendFoxMessage("" + field.getValue() + ((char)29) + type.getValue() + ((char)29) + value);
     }
 
-    private boolean sendAutomationMessage(String paramString) {
-        if (automation_out != null) {
-            try {
-                automation_out.write(paramString + '\n');
-                automation_out.flush();
-                return true;
-            } catch (Exception e) {}
-        }
-        return false;
+    private void sendAutomationMessage(final String paramString) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (automation_out != null) {
+                    try {
+                        automation_out.write(paramString + '\n');
+                        automation_out.flush();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
-    private boolean sendAutomationCommand(int value) {
-        return sendAutomationMessage("" + value);
+    private void sendAutomationCommand(int value) {
+        sendAutomationMessage("" + value);
     }
 
     private Thread foxListener;
