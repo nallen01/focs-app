@@ -308,12 +308,14 @@ public class TcpClient {
                                     Arrays.fill(redBaseZones, ScoringZone.NONE);
                                     redStationaryCones = 0;
                                     redAuton = false;
+                                    redParking = 0;
 
 
                                     Arrays.fill(blueBaseCones, 0);
                                     Arrays.fill(blueBaseZones, ScoringZone.NONE);
                                     blueStationaryCones = 0;
                                     blueAuton = false;
+                                    blueParking = 0;
                                     
                                     updateGUI();
                                 }
