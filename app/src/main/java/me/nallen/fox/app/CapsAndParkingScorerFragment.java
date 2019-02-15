@@ -2,7 +2,6 @@ package me.nallen.fox.app;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,18 +11,18 @@ import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class AllScorerFragment extends Fragment implements DataListener {
+public class CapsAndParkingScorerFragment extends Fragment implements DataListener {
     private ScorerLocation scorerLocation;
     private TcpClient tcpClient;
     private View rootView;
 
-    public static AllScorerFragment newInstance(ScorerLocation scorerLocation) {
-        AllScorerFragment fragment = new AllScorerFragment();
+    public static CapsAndParkingScorerFragment newInstance(ScorerLocation scorerLocation) {
+        CapsAndParkingScorerFragment fragment = new CapsAndParkingScorerFragment();
         fragment.assignScorerLocation(scorerLocation);
         return fragment;
     }
 
-    public AllScorerFragment() {
+    public CapsAndParkingScorerFragment() {
         tcpClient = TcpClient.getInstance();
     }
 
@@ -45,26 +44,10 @@ public class AllScorerFragment extends Fragment implements DataListener {
         tcpClient.removeDataListener(this);
     }
 
-    private View.OnClickListener coneListener = new View.OnClickListener() {
+    /*private View.OnClickListener coneListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(v.getId() == R.id.stationary_add_cone) {
-                if(scorerLocation == ScorerLocation.RED_ALL) {
-                    tcpClient.addRedStationaryCone();
-                }
-                else {
-                    tcpClient.addBlueStationaryCone();
-                }
-            }
-            else if(v.getId() == R.id.stationary_remove_cone) {
-                if(scorerLocation == ScorerLocation.RED_ALL) {
-                    tcpClient.removeRedStationaryCone();
-                }
-                else {
-                    tcpClient.removeBlueStationaryCone();
-                }
-            }
-            else if(v.getId() == R.id.mogo1_add_cone || v.getId() == R.id.mogo2_add_cone
+            if(v.getId() == R.id.mogo1_add_cone || v.getId() == R.id.mogo2_add_cone
                     || v.getId() == R.id.mogo3_add_cone || v.getId() == R.id.mogo4_add_cone) {
                 int index = 0;
                 switch(v.getId()) {
@@ -75,7 +58,7 @@ public class AllScorerFragment extends Fragment implements DataListener {
                 }
 
 
-                if(scorerLocation == ScorerLocation.RED_ALL) {
+                if(scorerLocation == ScorerLocation.RED_BASES) {
                     tcpClient.addRedBaseCone(index);
                 }
                 else {
@@ -93,7 +76,7 @@ public class AllScorerFragment extends Fragment implements DataListener {
                 }
 
 
-                if(scorerLocation == ScorerLocation.RED_ALL) {
+                if(scorerLocation == ScorerLocation.RED_BASES) {
                     tcpClient.removeRedBaseCone(index);
                 }
                 else {
@@ -118,7 +101,7 @@ public class AllScorerFragment extends Fragment implements DataListener {
                 }
 
 
-                if(scorerLocation == ScorerLocation.RED_ALL) {
+                if(scorerLocation == ScorerLocation.RED_BASES) {
                     tcpClient.setRedBaseZone(index, ScoringZone.fromInt(progress));
                 }
                 else {
@@ -136,13 +119,13 @@ public class AllScorerFragment extends Fragment implements DataListener {
         public void onStopTrackingTouch(SeekBar seekBar) {
 
         }
-    };
+    };*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_all_scorer, container, false);
+        rootView = inflater.inflate(R.layout.fragment_caps_parking_scorer, container, false);
 
-        rootView.findViewById(R.id.mogo1_add_cone).setOnClickListener(coneListener);
+        /*rootView.findViewById(R.id.mogo1_add_cone).setOnClickListener(coneListener);
         rootView.findViewById(R.id.mogo1_remove_cone).setOnClickListener(coneListener);
 
         rootView.findViewById(R.id.mogo2_add_cone).setOnClickListener(coneListener);
@@ -154,35 +137,10 @@ public class AllScorerFragment extends Fragment implements DataListener {
         rootView.findViewById(R.id.mogo4_add_cone).setOnClickListener(coneListener);
         rootView.findViewById(R.id.mogo4_remove_cone).setOnClickListener(coneListener);
 
-        rootView.findViewById(R.id.stationary_add_cone).setOnClickListener(coneListener);
-        rootView.findViewById(R.id.stationary_remove_cone).setOnClickListener(coneListener);
-
         ((SeekBar)rootView.findViewById(R.id.mogo1_zone)).setOnSeekBarChangeListener(zoneListener);
         ((SeekBar)rootView.findViewById(R.id.mogo2_zone)).setOnSeekBarChangeListener(zoneListener);
         ((SeekBar)rootView.findViewById(R.id.mogo3_zone)).setOnSeekBarChangeListener(zoneListener);
-        ((SeekBar)rootView.findViewById(R.id.mogo4_zone)).setOnSeekBarChangeListener(zoneListener);
-
-        ((SeekBar)rootView.findViewById(R.id.parking)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if(fromUser) {
-                    if(scorerLocation == ScorerLocation.RED_ALL)
-                        tcpClient.setRedParking(progress);
-                    else
-                        tcpClient.setBlueParking(progress);
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
+        ((SeekBar)rootView.findViewById(R.id.mogo4_zone)).setOnSeekBarChangeListener(zoneListener);*/
 
         updateUI();
 
@@ -197,29 +155,25 @@ public class AllScorerFragment extends Fragment implements DataListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        /*switch (item.getItemId()) {
             case R.id.clear:
-                if(scorerLocation == ScorerLocation.RED_ALL) {
+                if(scorerLocation == ScorerLocation.RED_BASES) {
                     for(int i=0; i<4; i++) {
                         tcpClient.setRedBaseCones(i, 0);
                         tcpClient.setRedBaseZone(i, ScoringZone.NONE);
                     }
-                    tcpClient.setRedStationaryCones(0);
-                    tcpClient.setRedParking(0);
                 }
                 else {
                     for(int i=0; i<4; i++) {
                         tcpClient.setBlueBaseCones(i, 0);
                         tcpClient.setBlueBaseZone(i, ScoringZone.NONE);
                     }
-                    tcpClient.setBlueStationaryCones(0);
-                    tcpClient.setBlueParking(0);
                 }
 
                 updateUI();
 
                 return true;
-        }
+        }*/
         return super.onOptionsItemSelected(item);
     }
 
@@ -233,19 +187,16 @@ public class AllScorerFragment extends Fragment implements DataListener {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(scorerLocation == ScorerLocation.RED_ALL) {
+                /*if(scorerLocation == ScorerLocation.RED_BASES) {
                     ((SeekBar)rootView.findViewById(R.id.mogo1_zone)).setProgress(tcpClient.redBaseZones[0].getValue());
                     ((SeekBar)rootView.findViewById(R.id.mogo2_zone)).setProgress(tcpClient.redBaseZones[1].getValue());
                     ((SeekBar)rootView.findViewById(R.id.mogo3_zone)).setProgress(tcpClient.redBaseZones[2].getValue());
                     ((SeekBar)rootView.findViewById(R.id.mogo4_zone)).setProgress(tcpClient.redBaseZones[3].getValue());
 
-                    ((SeekBar)rootView.findViewById(R.id.parking)).setProgress(tcpClient.redParking);
-
                     ((TextView)rootView.findViewById(R.id.mogo1_cones)).setText("" + tcpClient.redBaseCones[0]);
                     ((TextView)rootView.findViewById(R.id.mogo2_cones)).setText("" + tcpClient.redBaseCones[1]);
                     ((TextView)rootView.findViewById(R.id.mogo3_cones)).setText("" + tcpClient.redBaseCones[2]);
                     ((TextView)rootView.findViewById(R.id.mogo4_cones)).setText("" + tcpClient.redBaseCones[3]);
-                    ((TextView)rootView.findViewById(R.id.stationary_cones)).setText("" + tcpClient.redStationaryCones);
                 }
                 else {
                     ((SeekBar)rootView.findViewById(R.id.mogo1_zone)).setProgress(tcpClient.blueBaseZones[0].getValue());
@@ -253,14 +204,11 @@ public class AllScorerFragment extends Fragment implements DataListener {
                     ((SeekBar)rootView.findViewById(R.id.mogo3_zone)).setProgress(tcpClient.blueBaseZones[2].getValue());
                     ((SeekBar)rootView.findViewById(R.id.mogo4_zone)).setProgress(tcpClient.blueBaseZones[3].getValue());
 
-                    ((SeekBar)rootView.findViewById(R.id.parking)).setProgress(tcpClient.blueParking);
-
                     ((TextView)rootView.findViewById(R.id.mogo1_cones)).setText("" + tcpClient.blueBaseCones[0]);
                     ((TextView)rootView.findViewById(R.id.mogo2_cones)).setText("" + tcpClient.blueBaseCones[1]);
                     ((TextView)rootView.findViewById(R.id.mogo3_cones)).setText("" + tcpClient.blueBaseCones[2]);
                     ((TextView)rootView.findViewById(R.id.mogo4_cones)).setText("" + tcpClient.blueBaseCones[3]);
-                    ((TextView)rootView.findViewById(R.id.stationary_cones)).setText("" + tcpClient.blueStationaryCones);
-                }
+                }*/
             }
         });
     }

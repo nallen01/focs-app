@@ -35,16 +35,20 @@ public class TcpClient {
     private LinkedList<DataListener> _listeners = new LinkedList<DataListener>();
     private boolean isConnected = false;
 
-    public int[] redBaseCones = {0, 0, 0, 0};
-    public ScoringZone[] redBaseZones = {ScoringZone.NONE, ScoringZone.NONE, ScoringZone.NONE, ScoringZone.NONE};
-    public int redStationaryCones = 0;
-    public int redParking = 0;
+    public ToggleState[][] highFlags = {
+            {ToggleState.NONE, ToggleState.NONE, ToggleState.NONE},
+            {ToggleState.NONE, ToggleState.NONE, ToggleState.NONE}
+    };
+    public ToggleState[] lowFlags = {ToggleState.NONE, ToggleState.NONE, ToggleState.NONE};
+
+    public int redHighCaps = 0;
+    public int redLowCaps = 0;
+    public ParkingState[] redParking = {ParkingState.NONE, ParkingState.NONE};
     public boolean redAuton = false;
 
-    public int[] blueBaseCones = {0, 0, 0, 0};
-    public ScoringZone[] blueBaseZones = {ScoringZone.NONE, ScoringZone.NONE, ScoringZone.NONE, ScoringZone.NONE};
-    public int blueStationaryCones = 0;
-    public int blueParking = 0;
+    public int blueHighCaps = 0;
+    public int blueLowCaps = 0;
+    public ParkingState[] blueParking = {ParkingState.NONE, ParkingState.NONE};
     public boolean blueAuton = false;
 
     private TcpClient() {
@@ -183,139 +187,119 @@ public class TcpClient {
                                 MessageType type = MessageType.fromInt(Integer.parseInt(parts[1]));
                                 int num = Integer.parseInt(parts[2]);
 
-                                if(field == ScoreField.RED_BASE_ONE_CONES
-                                        || field == ScoreField.RED_BASE_TWO_CONES
-                                        || field == ScoreField.RED_BASE_THREE_CONES
-                                        || field == ScoreField.RED_BASE_FOUR_CONES) {
-                                    int index = 0;
+                                if(field == ScoreField.HIGH_FLAG_1_1
+                                        || field == ScoreField.HIGH_FLAG_1_2
+                                        || field == ScoreField.HIGH_FLAG_1_3
+                                        || field == ScoreField.HIGH_FLAG_2_1
+                                        || field == ScoreField.HIGH_FLAG_2_2
+                                        || field == ScoreField.HIGH_FLAG_2_3) {
+                                    int row = 0;
+                                    int col = 0;
                                     switch(field) {
-                                        case RED_BASE_ONE_CONES: index = 0; break;
-                                        case RED_BASE_TWO_CONES: index = 1; break;
-                                        case RED_BASE_THREE_CONES: index = 2; break;
-                                        case RED_BASE_FOUR_CONES: index = 3; break;
+                                        case HIGH_FLAG_1_1: row = 0; col = 0; break;
+                                        case HIGH_FLAG_1_2: row = 0; col = 1; break;
+                                        case HIGH_FLAG_1_3: row = 0; col = 2; break;
+                                        case HIGH_FLAG_2_1: row = 1; col = 0; break;
+                                        case HIGH_FLAG_2_2: row = 1; col = 1; break;
+                                        case HIGH_FLAG_2_3: row = 1; col = 2; break;
                                         default: break;
                                     }
 
-                                    if(type == MessageType.ADD) {
-                                        num = redBaseCones[index] + num;
-                                    }
-                                    else if(type == MessageType.SUBTRACT) {
-                                        num = redBaseCones[index] - num;
-                                    }
-
-                                    redBaseCones[index] = num;
+                                    highFlags[row][col] = ToggleState.fromInt(num);
                                 }
-                                if(field == ScoreField.RED_BASE_ONE_ZONE
-                                        || field == ScoreField.RED_BASE_TWO_ZONE
-                                        || field == ScoreField.RED_BASE_THREE_ZONE
-                                        || field == ScoreField.RED_BASE_FOUR_ZONE) {
-                                    int index = 0;
+                                else if(field == ScoreField.LOW_FLAG_1
+                                        || field == ScoreField.LOW_FLAG_2
+                                        || field == ScoreField.LOW_FLAG_3) {
+                                    int col = 0;
                                     switch(field) {
-                                        case RED_BASE_ONE_ZONE: index = 0; break;
-                                        case RED_BASE_TWO_ZONE: index = 1; break;
-                                        case RED_BASE_THREE_ZONE: index = 2; break;
-                                        case RED_BASE_FOUR_ZONE: index = 3; break;
+                                        case LOW_FLAG_1: col = 0; break;
+                                        case LOW_FLAG_2: col = 1; break;
+                                        case LOW_FLAG_3: col = 2; break;
                                         default: break;
                                     }
 
-                                    redBaseZones[index] = ScoringZone.fromInt(num);
+                                    lowFlags[col] = ToggleState.fromInt(num);
                                 }
-                                else if(field == ScoreField.RED_STATIONARY_CONES) {
+                                else if(field == ScoreField.RED_HIGH_CAPS) {
                                     if(type == MessageType.ADD) {
-                                        num = redStationaryCones + num;
+                                        num = redHighCaps + num;
                                     }
                                     else if(type == MessageType.SUBTRACT) {
-                                        num = redStationaryCones - num;
+                                        num = redHighCaps - num;
                                     }
 
-                                    redStationaryCones = num;
+                                    redHighCaps = num;
                                 }
-                                else if(field == ScoreField.RED_PARKING) {
+                                else if(field == ScoreField.RED_LOW_CAPS) {
                                     if(type == MessageType.ADD) {
-                                        num = redParking + num;
+                                        num = redLowCaps + num;
                                     }
                                     else if(type == MessageType.SUBTRACT) {
-                                        num = redParking - num;
+                                        num = redLowCaps - num;
                                     }
 
-                                    redParking = num;
+                                    redLowCaps = num;
+                                }
+                                else if(field == ScoreField.RED_PARKING_1) {
+                                    redParking[0] = ParkingState.fromInt(num);
+                                }
+                                else if(field == ScoreField.RED_PARKING_2) {
+                                    redParking[1] = ParkingState.fromInt(num);
                                 }
                                 else if(field == ScoreField.RED_AUTON) {
                                     redAuton = num > 0;
                                 }
-                                else if(field == ScoreField.BLUE_BASE_ONE_CONES
-                                        || field == ScoreField.BLUE_BASE_TWO_CONES
-                                        || field == ScoreField.BLUE_BASE_THREE_CONES
-                                        || field == ScoreField.BLUE_BASE_FOUR_CONES) {
-                                    int index = 0;
-                                    switch(field) {
-                                        case BLUE_BASE_ONE_CONES: index = 0; break;
-                                        case BLUE_BASE_TWO_CONES: index = 1; break;
-                                        case BLUE_BASE_THREE_CONES: index = 2; break;
-                                        case BLUE_BASE_FOUR_CONES: index = 3; break;
-                                        default: break;
-                                    }
-
+                                else if(field == ScoreField.BLUE_HIGH_CAPS) {
                                     if(type == MessageType.ADD) {
-                                        num = blueBaseCones[index] + num;
+                                        num = blueHighCaps + num;
                                     }
                                     else if(type == MessageType.SUBTRACT) {
-                                        num = blueBaseCones[index] - num;
+                                        num = blueHighCaps - num;
                                     }
 
-                                    blueBaseCones[index] = num;
+                                    blueHighCaps = num;
                                 }
-                                if(field == ScoreField.BLUE_BASE_ONE_ZONE
-                                        || field == ScoreField.BLUE_BASE_TWO_ZONE
-                                        || field == ScoreField.BLUE_BASE_THREE_ZONE
-                                        || field == ScoreField.BLUE_BASE_FOUR_ZONE) {
-                                    int index = 0;
-                                    switch(field) {
-                                        case BLUE_BASE_ONE_ZONE: index = 0; break;
-                                        case BLUE_BASE_TWO_ZONE: index = 1; break;
-                                        case BLUE_BASE_THREE_ZONE: index = 2; break;
-                                        case BLUE_BASE_FOUR_ZONE: index = 3; break;
-                                        default: break;
-                                    }
-
-                                    blueBaseZones[index] = ScoringZone.fromInt(num);
-                                }
-                                else if(field == ScoreField.BLUE_STATIONARY_CONES) {
+                                else if(field == ScoreField.BLUE_LOW_CAPS) {
                                     if(type == MessageType.ADD) {
-                                        num = blueStationaryCones + num;
+                                        num = blueLowCaps + num;
                                     }
                                     else if(type == MessageType.SUBTRACT) {
-                                        num = blueStationaryCones - num;
+                                        num = blueLowCaps - num;
                                     }
 
-                                    blueStationaryCones = num;
+                                    blueLowCaps = num;
                                 }
-                                else if(field == ScoreField.BLUE_PARKING) {
-                                    if(type == MessageType.ADD) {
-                                        num = blueParking + num;
-                                    }
-                                    else if(type == MessageType.SUBTRACT) {
-                                        num = blueParking - num;
-                                    }
-
-                                    blueParking = num;
+                                else if(field == ScoreField.BLUE_PARKING_1) {
+                                    blueParking[0] =ParkingState.fromInt(num);
+                                }
+                                else if(field == ScoreField.BLUE_PARKING_2) {
+                                    blueParking[1] = ParkingState.fromInt(num);
                                 }
                                 else if(field == ScoreField.BLUE_AUTON) {
                                     blueAuton = num > 0;
                                 }
                                 else if(field == ScoreField.CLEAR) {
-                                    Arrays.fill(redBaseCones, 0);
-                                    Arrays.fill(redBaseZones, ScoringZone.NONE);
-                                    redStationaryCones = 0;
+                                    for (ToggleState[] highFlag : highFlags)
+                                        Arrays.fill(highFlag, ToggleState.NONE);
+                                    Arrays.fill(lowFlags, ToggleState.NONE);
+
+                                    highFlags[0][0] = ToggleState.BLUE;
+                                    highFlags[0][2] = ToggleState.RED;
+                                    highFlags[1][0] = ToggleState.BLUE;
+                                    highFlags[1][2] = ToggleState.RED;
+                                    lowFlags[0] = ToggleState.BLUE;
+                                    lowFlags[2] = ToggleState.RED;
+
+                                    redHighCaps = 0;
+                                    redLowCaps = 4;
+                                    Arrays.fill(redParking, ParkingState.NONE);
                                     redAuton = false;
-                                    redParking = 0;
 
 
-                                    Arrays.fill(blueBaseCones, 0);
-                                    Arrays.fill(blueBaseZones, ScoringZone.NONE);
-                                    blueStationaryCones = 0;
+                                    blueHighCaps = 0;
+                                    blueLowCaps = 4;
+                                    Arrays.fill(blueParking, ParkingState.NONE);
                                     blueAuton = false;
-                                    blueParking = 0;
                                     
                                     updateGUI();
                                 }
@@ -390,126 +374,97 @@ public class TcpClient {
         sendFoxCommand(ScoreField.PAUSED, MessageType.SET, isPaused ? 1 : 0);
     }
 
-    public void setRedBaseCones(int index, int value) {
-        value = value < 0 ? 0 : value;
-        if(index >= 0 && index < 4) {
-            ScoreField field = ScoreField.RED_BASE_ONE_CONES;
-            switch(index) {
-                case 0: field = ScoreField.RED_BASE_ONE_CONES; break;
-                case 1: field = ScoreField.RED_BASE_TWO_CONES; break;
-                case 2: field = ScoreField.RED_BASE_THREE_CONES; break;
-                case 3: field = ScoreField.RED_BASE_FOUR_CONES; break;
-            }
-            sendFoxCommand(field, MessageType.SET, value);
-            redBaseCones[index] = value;
+    public void setHighFlag(int row, int column, ToggleState value) {
+        ScoreField field = ScoreField.HIGH_FLAG_1_1;
+        switch(3*row + column) {
+            case 0: field = ScoreField.HIGH_FLAG_1_1; break;
+            case 1: field = ScoreField.HIGH_FLAG_1_2; break;
+            case 2: field = ScoreField.HIGH_FLAG_1_3; break;
+            case 3: field = ScoreField.HIGH_FLAG_2_1; break;
+            case 4: field = ScoreField.HIGH_FLAG_2_2; break;
+            case 5: field = ScoreField.HIGH_FLAG_2_3; break;
         }
-    }
-    public void addRedBaseCone(int index) {
-        if(index >= 0 && index < 4)
-            setRedBaseCones(index, redBaseCones[index] + 1);
-    }
-    public void removeRedBaseCone(int index) {
-        if(index >= 0 && index < 4)
-            setRedBaseCones(index, redBaseCones[index] - 1);
+        sendFoxCommand(field, MessageType.SET, value.getValue());
+        highFlags[row][column] = value;
     }
 
-    public void setRedBaseZone(int index, ScoringZone value) {
-        if(index >= 0 && index < 4) {
-            ScoreField field = ScoreField.RED_BASE_ONE_ZONE;
-            switch(index) {
-                case 0: field = ScoreField.RED_BASE_ONE_ZONE; break;
-                case 1: field = ScoreField.RED_BASE_TWO_ZONE; break;
-                case 2: field = ScoreField.RED_BASE_THREE_ZONE; break;
-                case 3: field = ScoreField.RED_BASE_FOUR_ZONE; break;
-            }
-            sendFoxCommand(field, MessageType.SET, value.getValue());
-            redBaseZones[index] = value;
+    public void setLowFlag(int column, ToggleState value) {
+        ScoreField field = ScoreField.LOW_FLAG_1;
+        switch(column) {
+            case 0: field = ScoreField.LOW_FLAG_1; break;
+            case 1: field = ScoreField.LOW_FLAG_2; break;
+            case 2: field = ScoreField.LOW_FLAG_3; break;
         }
+        sendFoxCommand(field, MessageType.SET, value.getValue());
+        lowFlags[column] = value;
     }
 
-    public void setRedStationaryCones(int value) {
+    public void setRedHighCaps(int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.RED_STATIONARY_CONES, MessageType.SET, value);
-        redStationaryCones = value;
+        sendFoxCommand(ScoreField.RED_HIGH_CAPS, MessageType.SET, value);
+        redHighCaps = value;
     }
-    public void addRedStationaryCone() {
-        setRedStationaryCones(redStationaryCones + 1);
+    public void addRedHighFlag() {
+        setRedHighCaps(redHighCaps + 1);
     }
-    public void removeRedStationaryCone() {
-        setRedStationaryCones(redStationaryCones - 1);
+    public void removeRedHighFlag() {
+        setRedHighCaps(redHighCaps - 1);
     }
 
-    public void setRedParking(int value) {
+    public void setRedLowCaps(int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.RED_PARKING, MessageType.SET, value);
-        redParking = value;
+        sendFoxCommand(ScoreField.RED_LOW_CAPS, MessageType.SET, value);
+        redHighCaps = value;
     }
-    public void addRedParking() {
-        setRedParking(redParking + 1);
+    public void addRedLowCap() {
+        setRedHighCaps(redLowCaps + 1);
     }
-    public void removeRedParking() {
-        setRedParking(redParking - 1);
+    public void removeRedLowCap() {
+        setRedHighCaps(redLowCaps - 1);
     }
 
-    public void setBlueBaseCones(int index, int value) {
-        value = value < 0 ? 0 : value;
-        if(index >= 0 && index < 4) {
-            ScoreField field = ScoreField.BLUE_BASE_ONE_CONES;
-            switch(index) {
-                case 0: field = ScoreField.BLUE_BASE_ONE_CONES; break;
-                case 1: field = ScoreField.BLUE_BASE_TWO_CONES; break;
-                case 2: field = ScoreField.BLUE_BASE_THREE_CONES; break;
-                case 3: field = ScoreField.BLUE_BASE_FOUR_CONES; break;
-            }
-            sendFoxCommand(field, MessageType.SET, value);
-            blueBaseCones[index] = value;
+    public void setRedParking(int robot, ParkingState value) {
+        ScoreField field = ScoreField.RED_PARKING_1;
+        switch(robot) {
+            case 0: field = ScoreField.RED_PARKING_1; break;
+            case 1: field = ScoreField.RED_PARKING_2; break;
         }
-    }
-    public void addBlueBaseCone(int index) {
-        if(index >= 0 && index < 4)
-            setBlueBaseCones(index, blueBaseCones[index] + 1);
-    }
-    public void removeBlueBaseCone(int index) {
-        if(index >= 0 && index < 4)
-            setBlueBaseCones(index, blueBaseCones[index] - 1);
+        sendFoxCommand(field, MessageType.SET, value.getValue());
+        redParking[robot] = value;
     }
 
-    public void setBlueBaseZone(int index, ScoringZone value) {
-        if(index >= 0 && index < 4) {
-            ScoreField field = ScoreField.BLUE_BASE_ONE_ZONE;
-            switch(index) {
-                case 0: field = ScoreField.BLUE_BASE_ONE_ZONE; break;
-                case 1: field = ScoreField.BLUE_BASE_TWO_ZONE; break;
-                case 2: field = ScoreField.BLUE_BASE_THREE_ZONE; break;
-                case 3: field = ScoreField.BLUE_BASE_FOUR_ZONE; break;
-            }
-            sendFoxCommand(field, MessageType.SET, value.getValue());
-            blueBaseZones[index] = value;
+    public void setBlueHighCaps(int value) {
+        value = value < 0 ? 0 : value;
+        sendFoxCommand(ScoreField.BLUE_HIGH_CAPS, MessageType.SET, value);
+        blueHighCaps = value;
+    }
+    public void addBlueHighFlag() {
+        setRedHighCaps(blueHighCaps + 1);
+    }
+    public void removeBlueHighFlag() {
+        setRedHighCaps(blueHighCaps - 1);
+    }
+
+    public void setBlueLowCaps(int value) {
+        value = value < 0 ? 0 : value;
+        sendFoxCommand(ScoreField.BLUE_LOW_CAPS, MessageType.SET, value);
+        blueHighCaps = value;
+    }
+    public void addBlueLowCap() {
+        setRedHighCaps(blueLowCaps + 1);
+    }
+    public void removeRlueLowCap() {
+        setRedHighCaps(blueLowCaps - 1);
+    }
+
+    public void setBlueParking(int robot, ParkingState value) {
+        ScoreField field = ScoreField.BLUE_PARKING_1;
+        switch(robot) {
+            case 0: field = ScoreField.BLUE_PARKING_1; break;
+            case 1: field = ScoreField.BLUE_PARKING_2; break;
         }
-    }
-
-    public void setBlueStationaryCones(int value) {
-        value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.BLUE_STATIONARY_CONES, MessageType.SET, value);
-        blueStationaryCones = value;
-    }
-    public void addBlueStationaryCone() {
-        setBlueStationaryCones(blueStationaryCones + 1);
-    }
-    public void removeBlueStationaryCone() {
-        setBlueStationaryCones(blueStationaryCones - 1);
-    }
-
-    public void setBlueParking(int value) {
-        value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.BLUE_PARKING, MessageType.SET, value);
-        blueParking = value;
-    }
-    public void addBlueParking() {
-        setBlueParking(blueParking + 1);
-    }
-    public void removeBlueParking() {
-        setBlueParking(blueParking - 1);
+        sendFoxCommand(field, MessageType.SET, value.getValue());
+        blueParking[robot] = value;
     }
 
     public void setRedAuton(boolean auton) {
