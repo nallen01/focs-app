@@ -291,16 +291,16 @@ public class TcpClient {
                                     lowFlags[2] = ToggleState.RED;
 
                                     redHighCaps = 0;
-                                    redLowCaps = 4;
+                                    redLowCaps = 2;
                                     Arrays.fill(redParking, ParkingState.NONE);
                                     redAuton = false;
 
 
                                     blueHighCaps = 0;
-                                    blueLowCaps = 4;
+                                    blueLowCaps = 2;
                                     Arrays.fill(blueParking, ParkingState.NONE);
                                     blueAuton = false;
-                                    
+
                                     updateGUI();
                                 }
                             }
@@ -404,23 +404,23 @@ public class TcpClient {
         sendFoxCommand(ScoreField.RED_HIGH_CAPS, MessageType.SET, value);
         redHighCaps = value;
     }
-    public void addRedHighFlag() {
+    public void addRedHighCap() {
         setRedHighCaps(redHighCaps + 1);
     }
-    public void removeRedHighFlag() {
+    public void removeRedHighCap() {
         setRedHighCaps(redHighCaps - 1);
     }
 
     public void setRedLowCaps(int value) {
         value = value < 0 ? 0 : value;
         sendFoxCommand(ScoreField.RED_LOW_CAPS, MessageType.SET, value);
-        redHighCaps = value;
+        redLowCaps = value;
     }
     public void addRedLowCap() {
-        setRedHighCaps(redLowCaps + 1);
+        setRedLowCaps(redLowCaps + 1);
     }
     public void removeRedLowCap() {
-        setRedHighCaps(redLowCaps - 1);
+        setRedLowCaps(redLowCaps - 1);
     }
 
     public void setRedParking(int robot, ParkingState value) {
@@ -438,23 +438,23 @@ public class TcpClient {
         sendFoxCommand(ScoreField.BLUE_HIGH_CAPS, MessageType.SET, value);
         blueHighCaps = value;
     }
-    public void addBlueHighFlag() {
-        setRedHighCaps(blueHighCaps + 1);
+    public void addBlueHighCap() {
+        setBlueHighCaps(blueHighCaps + 1);
     }
-    public void removeBlueHighFlag() {
-        setRedHighCaps(blueHighCaps - 1);
+    public void removeBlueHighCap() {
+        setBlueHighCaps(blueHighCaps - 1);
     }
 
     public void setBlueLowCaps(int value) {
         value = value < 0 ? 0 : value;
         sendFoxCommand(ScoreField.BLUE_LOW_CAPS, MessageType.SET, value);
-        blueHighCaps = value;
+        blueLowCaps = value;
     }
     public void addBlueLowCap() {
-        setRedHighCaps(blueLowCaps + 1);
+        setBlueLowCaps(blueLowCaps + 1);
     }
-    public void removeRlueLowCap() {
-        setRedHighCaps(blueLowCaps - 1);
+    public void removeBlueLowCap() {
+        setBlueLowCaps(blueLowCaps - 1);
     }
 
     public void setBlueParking(int robot, ParkingState value) {

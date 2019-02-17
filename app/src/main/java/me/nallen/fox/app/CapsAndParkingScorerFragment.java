@@ -44,68 +44,33 @@ public class CapsAndParkingScorerFragment extends Fragment implements DataListen
         tcpClient.removeDataListener(this);
     }
 
-    /*private View.OnClickListener coneListener = new View.OnClickListener() {
+    private View.OnClickListener capListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(v.getId() == R.id.mogo1_add_cone || v.getId() == R.id.mogo2_add_cone
-                    || v.getId() == R.id.mogo3_add_cone || v.getId() == R.id.mogo4_add_cone) {
-                int index = 0;
-                switch(v.getId()) {
-                    case R.id.mogo1_add_cone: index = 0; break;
-                    case R.id.mogo2_add_cone: index = 1; break;
-                    case R.id.mogo3_add_cone: index = 2; break;
-                    case R.id.mogo4_add_cone: index = 3; break;
-                }
-
-
-                if(scorerLocation == ScorerLocation.RED_BASES) {
-                    tcpClient.addRedBaseCone(index);
-                }
-                else {
-                    tcpClient.addBlueBaseCone(index);
-                }
-            }
-            else if(v.getId() == R.id.mogo1_remove_cone || v.getId() == R.id.mogo2_remove_cone
-                    || v.getId() == R.id.mogo3_remove_cone || v.getId() == R.id.mogo4_remove_cone) {
-                int index = 0;
-                switch(v.getId()) {
-                    case R.id.mogo1_remove_cone: index = 0; break;
-                    case R.id.mogo2_remove_cone: index = 1; break;
-                    case R.id.mogo3_remove_cone: index = 2; break;
-                    case R.id.mogo4_remove_cone: index = 3; break;
-                }
-
-
-                if(scorerLocation == ScorerLocation.RED_BASES) {
-                    tcpClient.removeRedBaseCone(index);
-                }
-                else {
-                    tcpClient.removeBlueBaseCone(index);
-                }
+            switch(v.getId()) {
+                case R.id.red_high_caps_add: tcpClient.addRedHighCap(); break;
+                case R.id.red_high_caps_remove: tcpClient.removeRedHighCap(); break;
+                case R.id.red_low_caps_add: tcpClient.addRedLowCap(); break;
+                case R.id.red_low_caps_remove: tcpClient.removeRedLowCap(); break;
+                case R.id.blue_high_caps_add: tcpClient.addBlueHighCap(); break;
+                case R.id.blue_high_caps_remove: tcpClient.removeBlueHighCap(); break;
+                case R.id.blue_low_caps_add: tcpClient.addBlueLowCap(); break;
+                case R.id.blue_low_caps_remove: tcpClient.removeBlueLowCap(); break;
             }
 
             updateUI();
         }
     };
 
-    private SeekBar.OnSeekBarChangeListener zoneListener = new SeekBar.OnSeekBarChangeListener() {
+    private SeekBar.OnSeekBarChangeListener parkingListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             if(fromUser) {
-                int index = 0;
                 switch(seekBar.getId()) {
-                    case R.id.mogo1_zone: index = 0; break;
-                    case R.id.mogo2_zone: index = 1; break;
-                    case R.id.mogo3_zone: index = 2; break;
-                    case R.id.mogo4_zone: index = 3; break;
-                }
-
-
-                if(scorerLocation == ScorerLocation.RED_BASES) {
-                    tcpClient.setRedBaseZone(index, ScoringZone.fromInt(progress));
-                }
-                else {
-                    tcpClient.setBlueBaseZone(index, ScoringZone.fromInt(progress));
+                    case R.id.red_parking_1: tcpClient.setRedParking(0, ParkingState.fromInt(progress)); break;
+                    case R.id.red_parking_2: tcpClient.setRedParking(1, ParkingState.fromInt(progress)); break;
+                    case R.id.blue_parking_1: tcpClient.setBlueParking(0, ParkingState.fromInt(progress)); break;
+                    case R.id.blue_parking_2: tcpClient.setBlueParking(1, ParkingState.fromInt(progress)); break;
                 }
             }
         }
@@ -119,28 +84,28 @@ public class CapsAndParkingScorerFragment extends Fragment implements DataListen
         public void onStopTrackingTouch(SeekBar seekBar) {
 
         }
-    };*/
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_caps_parking_scorer, container, false);
 
-        /*rootView.findViewById(R.id.mogo1_add_cone).setOnClickListener(coneListener);
-        rootView.findViewById(R.id.mogo1_remove_cone).setOnClickListener(coneListener);
+        rootView.findViewById(R.id.red_high_caps_add).setOnClickListener(capListener);
+        rootView.findViewById(R.id.red_high_caps_remove).setOnClickListener(capListener);
 
-        rootView.findViewById(R.id.mogo2_add_cone).setOnClickListener(coneListener);
-        rootView.findViewById(R.id.mogo2_remove_cone).setOnClickListener(coneListener);
+        rootView.findViewById(R.id.red_low_caps_add).setOnClickListener(capListener);
+        rootView.findViewById(R.id.red_low_caps_remove).setOnClickListener(capListener);
 
-        rootView.findViewById(R.id.mogo3_add_cone).setOnClickListener(coneListener);
-        rootView.findViewById(R.id.mogo3_remove_cone).setOnClickListener(coneListener);
+        rootView.findViewById(R.id.blue_high_caps_add).setOnClickListener(capListener);
+        rootView.findViewById(R.id.blue_high_caps_remove).setOnClickListener(capListener);
 
-        rootView.findViewById(R.id.mogo4_add_cone).setOnClickListener(coneListener);
-        rootView.findViewById(R.id.mogo4_remove_cone).setOnClickListener(coneListener);
+        rootView.findViewById(R.id.blue_low_caps_add).setOnClickListener(capListener);
+        rootView.findViewById(R.id.blue_low_caps_remove).setOnClickListener(capListener);
 
-        ((SeekBar)rootView.findViewById(R.id.mogo1_zone)).setOnSeekBarChangeListener(zoneListener);
-        ((SeekBar)rootView.findViewById(R.id.mogo2_zone)).setOnSeekBarChangeListener(zoneListener);
-        ((SeekBar)rootView.findViewById(R.id.mogo3_zone)).setOnSeekBarChangeListener(zoneListener);
-        ((SeekBar)rootView.findViewById(R.id.mogo4_zone)).setOnSeekBarChangeListener(zoneListener);*/
+        ((SeekBar)rootView.findViewById(R.id.red_parking_1)).setOnSeekBarChangeListener(parkingListener);
+        ((SeekBar)rootView.findViewById(R.id.red_parking_2)).setOnSeekBarChangeListener(parkingListener);
+        ((SeekBar)rootView.findViewById(R.id.blue_parking_1)).setOnSeekBarChangeListener(parkingListener);
+        ((SeekBar)rootView.findViewById(R.id.blue_parking_2)).setOnSeekBarChangeListener(parkingListener);
 
         updateUI();
 
@@ -155,25 +120,22 @@ public class CapsAndParkingScorerFragment extends Fragment implements DataListen
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        /*switch (item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.clear:
-                if(scorerLocation == ScorerLocation.RED_BASES) {
-                    for(int i=0; i<4; i++) {
-                        tcpClient.setRedBaseCones(i, 0);
-                        tcpClient.setRedBaseZone(i, ScoringZone.NONE);
-                    }
-                }
-                else {
-                    for(int i=0; i<4; i++) {
-                        tcpClient.setBlueBaseCones(i, 0);
-                        tcpClient.setBlueBaseZone(i, ScoringZone.NONE);
-                    }
-                }
+                tcpClient.setRedHighCaps(0);
+                tcpClient.setRedLowCaps(2);
+                tcpClient.setBlueHighCaps(0);
+                tcpClient.setBlueLowCaps(2);
+
+                tcpClient.setRedParking(0, ParkingState.NONE);
+                tcpClient.setRedParking(1, ParkingState.NONE);
+                tcpClient.setBlueParking(0, ParkingState.NONE);
+                tcpClient.setBlueParking(1, ParkingState.NONE);
 
                 updateUI();
 
                 return true;
-        }*/
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -187,28 +149,15 @@ public class CapsAndParkingScorerFragment extends Fragment implements DataListen
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                /*if(scorerLocation == ScorerLocation.RED_BASES) {
-                    ((SeekBar)rootView.findViewById(R.id.mogo1_zone)).setProgress(tcpClient.redBaseZones[0].getValue());
-                    ((SeekBar)rootView.findViewById(R.id.mogo2_zone)).setProgress(tcpClient.redBaseZones[1].getValue());
-                    ((SeekBar)rootView.findViewById(R.id.mogo3_zone)).setProgress(tcpClient.redBaseZones[2].getValue());
-                    ((SeekBar)rootView.findViewById(R.id.mogo4_zone)).setProgress(tcpClient.redBaseZones[3].getValue());
+                ((SeekBar)rootView.findViewById(R.id.red_parking_1)).setProgress(tcpClient.redParking[0].getValue());
+                ((SeekBar)rootView.findViewById(R.id.red_parking_2)).setProgress(tcpClient.redParking[1].getValue());
+                ((SeekBar)rootView.findViewById(R.id.blue_parking_1)).setProgress(tcpClient.blueParking[0].getValue());
+                ((SeekBar)rootView.findViewById(R.id.blue_parking_2)).setProgress(tcpClient.blueParking[1].getValue());
 
-                    ((TextView)rootView.findViewById(R.id.mogo1_cones)).setText("" + tcpClient.redBaseCones[0]);
-                    ((TextView)rootView.findViewById(R.id.mogo2_cones)).setText("" + tcpClient.redBaseCones[1]);
-                    ((TextView)rootView.findViewById(R.id.mogo3_cones)).setText("" + tcpClient.redBaseCones[2]);
-                    ((TextView)rootView.findViewById(R.id.mogo4_cones)).setText("" + tcpClient.redBaseCones[3]);
-                }
-                else {
-                    ((SeekBar)rootView.findViewById(R.id.mogo1_zone)).setProgress(tcpClient.blueBaseZones[0].getValue());
-                    ((SeekBar)rootView.findViewById(R.id.mogo2_zone)).setProgress(tcpClient.blueBaseZones[1].getValue());
-                    ((SeekBar)rootView.findViewById(R.id.mogo3_zone)).setProgress(tcpClient.blueBaseZones[2].getValue());
-                    ((SeekBar)rootView.findViewById(R.id.mogo4_zone)).setProgress(tcpClient.blueBaseZones[3].getValue());
-
-                    ((TextView)rootView.findViewById(R.id.mogo1_cones)).setText("" + tcpClient.blueBaseCones[0]);
-                    ((TextView)rootView.findViewById(R.id.mogo2_cones)).setText("" + tcpClient.blueBaseCones[1]);
-                    ((TextView)rootView.findViewById(R.id.mogo3_cones)).setText("" + tcpClient.blueBaseCones[2]);
-                    ((TextView)rootView.findViewById(R.id.mogo4_cones)).setText("" + tcpClient.blueBaseCones[3]);
-                }*/
+                ((TextView)rootView.findViewById(R.id.red_high_caps)).setText("" + tcpClient.redHighCaps);
+                ((TextView)rootView.findViewById(R.id.red_low_caps)).setText("" + tcpClient.redLowCaps);
+                ((TextView)rootView.findViewById(R.id.blue_high_caps)).setText("" + tcpClient.blueHighCaps);
+                ((TextView)rootView.findViewById(R.id.blue_low_caps)).setText("" + tcpClient.blueLowCaps);
             }
         });
     }
