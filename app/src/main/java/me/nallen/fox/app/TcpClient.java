@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -34,18 +35,17 @@ public class TcpClient {
     private LinkedList<DataListener> _listeners = new LinkedList<DataListener>();
     private boolean isConnected = false;
 
-    public int redFarStars = 7;
-    public int redNearStars = 0;
-    public int redFarCubes = 1;
-    public int redNearCubes = 0;
+    public int[] redBaseCones = {0, 0, 0, 0};
+    public ScoringZone[] redBaseZones = {ScoringZone.NONE, ScoringZone.NONE, ScoringZone.NONE, ScoringZone.NONE};
+    public int redStationaryCones = 0;
+    public int redParking = 0;
     public boolean redAuton = false;
-    public ElevatedState redElevation = ElevatedState.NONE;
-    public int blueFarStars = 7;
-    public int blueNearStars = 0;
-    public int blueFarCubes = 1;
-    public int blueNearCubes = 0;
+
+    public int[] blueBaseCones = {0, 0, 0, 0};
+    public ScoringZone[] blueBaseZones = {ScoringZone.NONE, ScoringZone.NONE, ScoringZone.NONE, ScoringZone.NONE};
+    public int blueStationaryCones = 0;
+    public int blueParking = 0;
     public boolean blueAuton = false;
-    public ElevatedState blueElevation = ElevatedState.NONE;
 
     private TcpClient() {
     }
@@ -97,34 +97,44 @@ public class TcpClient {
         cleanUp();
     }
 
-    private boolean sendFoxMessage(String paramString) {
-        if (fox_out != null) {
-            try {
-                fox_out.write(paramString + '\n');
-                fox_out.flush();
-                return true;
-            } catch (Exception e) {}
-        }
-        return false;
+    private void sendFoxMessage(final String paramString) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (fox_out != null) {
+                    try {
+                        fox_out.write(paramString + '\n');
+                        fox_out.flush();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
-    private boolean sendFoxCommand(ScoreField field, MessageType type, int value) {
-        return sendFoxMessage("" + field.getValue() + ((char)29) + type.getValue() + ((char)29) + value);
+    private void sendFoxCommand(ScoreField field, MessageType type, int value) {
+        sendFoxMessage("" + field.getValue() + ((char)29) + type.getValue() + ((char)29) + value);
     }
 
-    private boolean sendAutomationMessage(String paramString) {
-        if (automation_out != null) {
-            try {
-                automation_out.write(paramString + '\n');
-                automation_out.flush();
-                return true;
-            } catch (Exception e) {}
-        }
-        return false;
+    private void sendAutomationMessage(final String paramString) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (automation_out != null) {
+                    try {
+                        automation_out.write(paramString + '\n');
+                        automation_out.flush();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
-    private boolean sendAutomationCommand(int value) {
-        return sendAutomationMessage("" + value);
+    private void sendAutomationCommand(int value) {
+        sendAutomationMessage("" + value);
     }
 
     private Thread foxListener;
@@ -173,126 +183,139 @@ public class TcpClient {
                                 MessageType type = MessageType.fromInt(Integer.parseInt(parts[1]));
                                 int num = Integer.parseInt(parts[2]);
 
-                                if(field == ScoreField.RED_FAR_CUBES) {
-                                    if(type == MessageType.ADD) {
-                                        num = redFarCubes + num;
-                                    }
-                                    else if(type == MessageType.SUBTRACT) {
-                                        num = redFarCubes - num;
-                                    }
-
-                                    redFarCubes = num;
-                                    updateGUI();
-                                }
-                                else if(field == ScoreField.RED_FAR_STARS) {
-                                    if(type == MessageType.ADD) {
-                                        num = redFarStars + num;
-                                    }
-                                    else if(type == MessageType.SUBTRACT) {
-                                        num = redFarStars - num;
+                                if(field == ScoreField.RED_BASE_ONE_CONES
+                                        || field == ScoreField.RED_BASE_TWO_CONES
+                                        || field == ScoreField.RED_BASE_THREE_CONES
+                                        || field == ScoreField.RED_BASE_FOUR_CONES) {
+                                    int index = 0;
+                                    switch(field) {
+                                        case RED_BASE_ONE_CONES: index = 0; break;
+                                        case RED_BASE_TWO_CONES: index = 1; break;
+                                        case RED_BASE_THREE_CONES: index = 2; break;
+                                        case RED_BASE_FOUR_CONES: index = 3; break;
+                                        default: break;
                                     }
 
-                                    redFarStars = num;
-                                    updateGUI();
-                                }
-                                else if(field == ScoreField.RED_NEAR_CUBES) {
                                     if(type == MessageType.ADD) {
-                                        num = redNearCubes + num;
+                                        num = redBaseCones[index] + num;
                                     }
                                     else if(type == MessageType.SUBTRACT) {
-                                        num = redNearCubes - num;
+                                        num = redBaseCones[index] - num;
                                     }
 
-                                    redNearCubes = num;
-                                    updateGUI();
+                                    redBaseCones[index] = num;
                                 }
-                                else if(field == ScoreField.RED_NEAR_STARS) {
+                                if(field == ScoreField.RED_BASE_ONE_ZONE
+                                        || field == ScoreField.RED_BASE_TWO_ZONE
+                                        || field == ScoreField.RED_BASE_THREE_ZONE
+                                        || field == ScoreField.RED_BASE_FOUR_ZONE) {
+                                    int index = 0;
+                                    switch(field) {
+                                        case RED_BASE_ONE_ZONE: index = 0; break;
+                                        case RED_BASE_TWO_ZONE: index = 1; break;
+                                        case RED_BASE_THREE_ZONE: index = 2; break;
+                                        case RED_BASE_FOUR_ZONE: index = 3; break;
+                                        default: break;
+                                    }
+
+                                    redBaseZones[index] = ScoringZone.fromInt(num);
+                                }
+                                else if(field == ScoreField.RED_STATIONARY_CONES) {
                                     if(type == MessageType.ADD) {
-                                        num = redNearStars + num;
+                                        num = redStationaryCones + num;
                                     }
                                     else if(type == MessageType.SUBTRACT) {
-                                        num = redNearStars - num;
+                                        num = redStationaryCones - num;
                                     }
 
-                                    redNearStars = num;
-                                    updateGUI();
+                                    redStationaryCones = num;
                                 }
-                                else if(field == ScoreField.RED_ELEVATION) {
-                                    ElevatedState state = ElevatedState.fromInt(num);
-                                    redElevation = state;
-                                    updateGUI();
+                                else if(field == ScoreField.RED_PARKING) {
+                                    if(type == MessageType.ADD) {
+                                        num = redParking + num;
+                                    }
+                                    else if(type == MessageType.SUBTRACT) {
+                                        num = redParking - num;
+                                    }
+
+                                    redParking = num;
                                 }
                                 else if(field == ScoreField.RED_AUTON) {
-                                    redAuton = (num > 0);
-                                    updateGUI();
+                                    redAuton = num > 0;
                                 }
-                                else if(field == ScoreField.BLUE_FAR_CUBES) {
-                                    if(type == MessageType.ADD) {
-                                        num = blueFarCubes + num;
-                                    }
-                                    else if(type == MessageType.SUBTRACT) {
-                                        num = blueFarCubes - num;
+                                else if(field == ScoreField.BLUE_BASE_ONE_CONES
+                                        || field == ScoreField.BLUE_BASE_TWO_CONES
+                                        || field == ScoreField.BLUE_BASE_THREE_CONES
+                                        || field == ScoreField.BLUE_BASE_FOUR_CONES) {
+                                    int index = 0;
+                                    switch(field) {
+                                        case BLUE_BASE_ONE_CONES: index = 0; break;
+                                        case BLUE_BASE_TWO_CONES: index = 1; break;
+                                        case BLUE_BASE_THREE_CONES: index = 2; break;
+                                        case BLUE_BASE_FOUR_CONES: index = 3; break;
+                                        default: break;
                                     }
 
-                                    blueFarCubes = num;
-                                    updateGUI();
-                                }
-                                else if(field == ScoreField.BLUE_FAR_STARS) {
                                     if(type == MessageType.ADD) {
-                                        num = blueFarStars + num;
+                                        num = blueBaseCones[index] + num;
                                     }
                                     else if(type == MessageType.SUBTRACT) {
-                                        num = blueFarStars - num;
+                                        num = blueBaseCones[index] - num;
                                     }
 
-                                    blueFarStars = num;
-                                    updateGUI();
+                                    blueBaseCones[index] = num;
                                 }
-                                else if(field == ScoreField.BLUE_NEAR_CUBES) {
+                                if(field == ScoreField.BLUE_BASE_ONE_ZONE
+                                        || field == ScoreField.BLUE_BASE_TWO_ZONE
+                                        || field == ScoreField.BLUE_BASE_THREE_ZONE
+                                        || field == ScoreField.BLUE_BASE_FOUR_ZONE) {
+                                    int index = 0;
+                                    switch(field) {
+                                        case BLUE_BASE_ONE_ZONE: index = 0; break;
+                                        case BLUE_BASE_TWO_ZONE: index = 1; break;
+                                        case BLUE_BASE_THREE_ZONE: index = 2; break;
+                                        case BLUE_BASE_FOUR_ZONE: index = 3; break;
+                                        default: break;
+                                    }
+
+                                    blueBaseZones[index] = ScoringZone.fromInt(num);
+                                }
+                                else if(field == ScoreField.BLUE_STATIONARY_CONES) {
                                     if(type == MessageType.ADD) {
-                                        num = blueNearCubes + num;
+                                        num = blueStationaryCones + num;
                                     }
                                     else if(type == MessageType.SUBTRACT) {
-                                        num = blueNearCubes - num;
+                                        num = blueStationaryCones - num;
                                     }
 
-                                    blueNearCubes = num;
-                                    updateGUI();
+                                    blueStationaryCones = num;
                                 }
-                                else if(field == ScoreField.BLUE_NEAR_STARS) {
+                                else if(field == ScoreField.BLUE_PARKING) {
                                     if(type == MessageType.ADD) {
-                                        num = blueNearStars + num;
+                                        num = blueParking + num;
                                     }
                                     else if(type == MessageType.SUBTRACT) {
-                                        num = blueNearStars - num;
+                                        num = blueParking - num;
                                     }
 
-                                    blueNearStars = num;
-                                    updateGUI();
-                                }
-                                else if(field == ScoreField.BLUE_ELEVATION) {
-                                    ElevatedState state = ElevatedState.fromInt(num);
-                                    blueElevation = state;
-                                    updateGUI();
+                                    blueParking = num;
                                 }
                                 else if(field == ScoreField.BLUE_AUTON) {
-                                    blueAuton = (num > 0);
-                                    updateGUI();
+                                    blueAuton = num > 0;
                                 }
                                 else if(field == ScoreField.CLEAR) {
-                                    redFarCubes = 1;
-                                    redFarStars = 7;
-                                    redNearCubes = 0;
-                                    redNearStars = 0;
+                                    Arrays.fill(redBaseCones, 0);
+                                    Arrays.fill(redBaseZones, ScoringZone.NONE);
+                                    redStationaryCones = 0;
                                     redAuton = false;
-                                    redElevation = ElevatedState.NONE;
+                                    redParking = 0;
 
-                                    blueFarCubes = 1;
-                                    blueFarStars = 7;
-                                    blueNearCubes = 0;
-                                    blueNearStars = 0;
+
+                                    Arrays.fill(blueBaseCones, 0);
+                                    Arrays.fill(blueBaseZones, ScoringZone.NONE);
+                                    blueStationaryCones = 0;
                                     blueAuton = false;
-                                    blueElevation = ElevatedState.NONE;
+                                    blueParking = 0;
                                     
                                     updateGUI();
                                 }
@@ -367,110 +390,126 @@ public class TcpClient {
         sendFoxCommand(ScoreField.PAUSED, MessageType.SET, isPaused ? 1 : 0);
     }
 
-    public void setRedFarStars(int value) {
+    public void setRedBaseCones(int index, int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.RED_FAR_STARS, MessageType.SET, value);
-        redFarStars = value;
+        if(index >= 0 && index < 4) {
+            ScoreField field = ScoreField.RED_BASE_ONE_CONES;
+            switch(index) {
+                case 0: field = ScoreField.RED_BASE_ONE_CONES; break;
+                case 1: field = ScoreField.RED_BASE_TWO_CONES; break;
+                case 2: field = ScoreField.RED_BASE_THREE_CONES; break;
+                case 3: field = ScoreField.RED_BASE_FOUR_CONES; break;
+            }
+            sendFoxCommand(field, MessageType.SET, value);
+            redBaseCones[index] = value;
+        }
     }
-    public void addRedFarStar() {
-        setRedFarStars(redFarStars + 1);
+    public void addRedBaseCone(int index) {
+        if(index >= 0 && index < 4)
+            setRedBaseCones(index, redBaseCones[index] + 1);
     }
-    public void removeRedFarStar() {
-        setRedFarStars(redFarStars - 1);
+    public void removeRedBaseCone(int index) {
+        if(index >= 0 && index < 4)
+            setRedBaseCones(index, redBaseCones[index] - 1);
     }
 
-    public void setRedFarCubes(int value) {
+    public void setRedBaseZone(int index, ScoringZone value) {
+        if(index >= 0 && index < 4) {
+            ScoreField field = ScoreField.RED_BASE_ONE_ZONE;
+            switch(index) {
+                case 0: field = ScoreField.RED_BASE_ONE_ZONE; break;
+                case 1: field = ScoreField.RED_BASE_TWO_ZONE; break;
+                case 2: field = ScoreField.RED_BASE_THREE_ZONE; break;
+                case 3: field = ScoreField.RED_BASE_FOUR_ZONE; break;
+            }
+            sendFoxCommand(field, MessageType.SET, value.getValue());
+            redBaseZones[index] = value;
+        }
+    }
+
+    public void setRedStationaryCones(int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.RED_FAR_CUBES, MessageType.SET, value);
-        redFarCubes = value;
+        sendFoxCommand(ScoreField.RED_STATIONARY_CONES, MessageType.SET, value);
+        redStationaryCones = value;
     }
-    public void addRedFarCube() {
-        setRedFarCubes(redFarCubes + 1);
+    public void addRedStationaryCone() {
+        setRedStationaryCones(redStationaryCones + 1);
     }
-    public void removeRedFarCube() {
-        setRedFarCubes(redFarCubes - 1);
+    public void removeRedStationaryCone() {
+        setRedStationaryCones(redStationaryCones - 1);
     }
 
-    public void setRedNearStars(int value) {
+    public void setRedParking(int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.RED_NEAR_STARS, MessageType.SET, value);
-        redNearStars = value;
+        sendFoxCommand(ScoreField.RED_PARKING, MessageType.SET, value);
+        redParking = value;
     }
-    public void addRedNearStar() {
-        setRedNearStars(redNearStars + 1);
+    public void addRedParking() {
+        setRedParking(redParking + 1);
     }
-    public void removeRedNearStar() {
-        setRedNearStars(redNearStars - 1);
+    public void removeRedParking() {
+        setRedParking(redParking - 1);
     }
 
-    public void setRedNearCubes(int value) {
+    public void setBlueBaseCones(int index, int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.RED_NEAR_CUBES, MessageType.SET, value);
-        redNearCubes = value;
+        if(index >= 0 && index < 4) {
+            ScoreField field = ScoreField.BLUE_BASE_ONE_CONES;
+            switch(index) {
+                case 0: field = ScoreField.BLUE_BASE_ONE_CONES; break;
+                case 1: field = ScoreField.BLUE_BASE_TWO_CONES; break;
+                case 2: field = ScoreField.BLUE_BASE_THREE_CONES; break;
+                case 3: field = ScoreField.BLUE_BASE_FOUR_CONES; break;
+            }
+            sendFoxCommand(field, MessageType.SET, value);
+            blueBaseCones[index] = value;
+        }
     }
-    public void addRedNearCube() {
-        setRedNearCubes(redNearCubes + 1);
+    public void addBlueBaseCone(int index) {
+        if(index >= 0 && index < 4)
+            setBlueBaseCones(index, blueBaseCones[index] + 1);
     }
-    public void removeRedNearCube() {
-        setRedNearCubes(redNearCubes - 1);
+    public void removeBlueBaseCone(int index) {
+        if(index >= 0 && index < 4)
+            setBlueBaseCones(index, blueBaseCones[index] - 1);
     }
 
-    public void setBlueFarStars(int value) {
+    public void setBlueBaseZone(int index, ScoringZone value) {
+        if(index >= 0 && index < 4) {
+            ScoreField field = ScoreField.BLUE_BASE_ONE_ZONE;
+            switch(index) {
+                case 0: field = ScoreField.BLUE_BASE_ONE_ZONE; break;
+                case 1: field = ScoreField.BLUE_BASE_TWO_ZONE; break;
+                case 2: field = ScoreField.BLUE_BASE_THREE_ZONE; break;
+                case 3: field = ScoreField.BLUE_BASE_FOUR_ZONE; break;
+            }
+            sendFoxCommand(field, MessageType.SET, value.getValue());
+            blueBaseZones[index] = value;
+        }
+    }
+
+    public void setBlueStationaryCones(int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.BLUE_FAR_STARS, MessageType.SET, value);
-        blueFarStars = value;
+        sendFoxCommand(ScoreField.BLUE_STATIONARY_CONES, MessageType.SET, value);
+        blueStationaryCones = value;
     }
-    public void addBlueFarStar() {
-        setBlueFarStars(blueFarStars + 1);
+    public void addBlueStationaryCone() {
+        setBlueStationaryCones(blueStationaryCones + 1);
     }
-    public void removeBlueFarStar() {
-        setBlueFarStars(blueFarStars - 1);
+    public void removeBlueStationaryCone() {
+        setBlueStationaryCones(blueStationaryCones - 1);
     }
 
-    public void setBlueFarCubes(int value) {
+    public void setBlueParking(int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.BLUE_FAR_CUBES, MessageType.SET, value);
-        blueFarCubes = value;
+        sendFoxCommand(ScoreField.BLUE_PARKING, MessageType.SET, value);
+        blueParking = value;
     }
-    public void addBlueFarCube() {
-        setBlueFarCubes(blueFarCubes + 1);
+    public void addBlueParking() {
+        setBlueParking(blueParking + 1);
     }
-    public void removeBlueFarCube() {
-        setBlueFarCubes(blueFarCubes - 1);
-    }
-
-    public void setBlueNearStars(int value) {
-        value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.BLUE_NEAR_STARS, MessageType.SET, value);
-        blueNearStars = value;
-    }
-    public void addBlueNearStar() {
-        setBlueNearStars(blueNearStars + 1);
-    }
-    public void removeBlueNearStar() {
-        setBlueNearStars(blueNearStars - 1);
-    }
-
-    public void setBlueNearCubes(int value) {
-        value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.BLUE_NEAR_CUBES, MessageType.SET, value);
-        blueNearCubes = value;
-    }
-    public void addBlueNearCube() {
-        setBlueNearCubes(blueNearCubes + 1);
-    }
-    public void removeBlueNearCube() {
-        setBlueNearCubes(blueNearCubes - 1);
-    }
-
-    public void setRedElevatedState(ElevatedState state) {
-        sendFoxCommand(ScoreField.RED_ELEVATION, MessageType.SET, state.getValue());
-        redElevation = state;
-    }
-
-    public void setBlueElevatedState(ElevatedState state) {
-        sendFoxCommand(ScoreField.BLUE_ELEVATION, MessageType.SET, state.getValue());
-        blueElevation = state;
+    public void removeBlueParking() {
+        setBlueParking(blueParking - 1);
     }
 
     public void setRedAuton(boolean auton) {
