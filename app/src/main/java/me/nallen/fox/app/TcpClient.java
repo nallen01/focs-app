@@ -35,21 +35,19 @@ public class TcpClient {
     private LinkedList<DataListener> _listeners = new LinkedList<DataListener>();
     private boolean isConnected = false;
 
-    public ToggleState[][] highFlags = {
-            {ToggleState.NONE, ToggleState.NONE, ToggleState.NONE},
-            {ToggleState.NONE, ToggleState.NONE, ToggleState.NONE}
+    private CubeType[] towerCubes = {
+            CubeType.NONE, CubeType.NONE, CubeType.NONE, CubeType.NONE, CubeType.NONE, CubeType.NONE, CubeType.NONE
     };
-    public ToggleState[] lowFlags = {ToggleState.NONE, ToggleState.NONE, ToggleState.NONE};
 
-    public int redHighCaps = 0;
-    public int redLowCaps = 0;
-    public ParkingState[] redParking = {ParkingState.NONE, ParkingState.NONE};
-    public boolean redAuton = false;
+    private AutonWinner autonWinner = AutonWinner.NONE;
 
-    public int blueHighCaps = 0;
-    public int blueLowCaps = 0;
-    public ParkingState[] blueParking = {ParkingState.NONE, ParkingState.NONE};
-    public boolean blueAuton = false;
+    private int redOrangeCubes = 0;
+    private int redGreenCubes = 0;
+    private int redPurpleCubes = 0;
+
+    private int blueOrangeCubes = 0;
+    private int blueGreenCubes = 0;
+    private int bluePurpleCubes = 0;
 
     private TcpClient() {
     }
@@ -187,119 +185,102 @@ public class TcpClient {
                                 MessageType type = MessageType.fromInt(Integer.parseInt(parts[1]));
                                 int num = Integer.parseInt(parts[2]);
 
-                                if(field == ScoreField.HIGH_FLAG_1_1
-                                        || field == ScoreField.HIGH_FLAG_1_2
-                                        || field == ScoreField.HIGH_FLAG_1_3
-                                        || field == ScoreField.HIGH_FLAG_2_1
-                                        || field == ScoreField.HIGH_FLAG_2_2
-                                        || field == ScoreField.HIGH_FLAG_2_3) {
-                                    int row = 0;
-                                    int col = 0;
+                                if(field == ScoreField.TOWER_CUBE_1
+                                        || field == ScoreField.TOWER_CUBE_2
+                                        || field == ScoreField.TOWER_CUBE_3
+                                        || field == ScoreField.TOWER_CUBE_4
+                                        || field == ScoreField.TOWER_CUBE_5
+                                        || field == ScoreField.TOWER_CUBE_6
+                                        || field == ScoreField.TOWER_CUBE_7) {
+                                    int pos = 0;
                                     switch(field) {
-                                        case HIGH_FLAG_1_1: row = 0; col = 0; break;
-                                        case HIGH_FLAG_1_2: row = 0; col = 1; break;
-                                        case HIGH_FLAG_1_3: row = 0; col = 2; break;
-                                        case HIGH_FLAG_2_1: row = 1; col = 0; break;
-                                        case HIGH_FLAG_2_2: row = 1; col = 1; break;
-                                        case HIGH_FLAG_2_3: row = 1; col = 2; break;
+                                        case TOWER_CUBE_1: pos = 0; break;
+                                        case TOWER_CUBE_2: pos = 1; break;
+                                        case TOWER_CUBE_3: pos = 2; break;
+                                        case TOWER_CUBE_4: pos = 3; break;
+                                        case TOWER_CUBE_5: pos = 4; break;
+                                        case TOWER_CUBE_6: pos = 5; break;
+                                        case TOWER_CUBE_7: pos = 6; break;
                                         default: break;
                                     }
 
-                                    highFlags[row][col] = ToggleState.fromInt(num);
+                                    towerCubes[pos] = CubeType.fromInt(num);
                                 }
-                                else if(field == ScoreField.LOW_FLAG_1
-                                        || field == ScoreField.LOW_FLAG_2
-                                        || field == ScoreField.LOW_FLAG_3) {
-                                    int col = 0;
-                                    switch(field) {
-                                        case LOW_FLAG_1: col = 0; break;
-                                        case LOW_FLAG_2: col = 1; break;
-                                        case LOW_FLAG_3: col = 2; break;
-                                        default: break;
-                                    }
-
-                                    lowFlags[col] = ToggleState.fromInt(num);
+                                else if(field == ScoreField.AUTON) {
+                                    autonWinner = AutonWinner.fromInt(num);
                                 }
-                                else if(field == ScoreField.RED_HIGH_CAPS) {
+                                else if(field == ScoreField.RED_ORANGE_CUBES) {
                                     if(type == MessageType.ADD) {
-                                        num = redHighCaps + num;
+                                        num = redOrangeCubes + num;
                                     }
                                     else if(type == MessageType.SUBTRACT) {
-                                        num = redHighCaps - num;
+                                        num = redOrangeCubes - num;
                                     }
 
-                                    redHighCaps = num;
+                                    redOrangeCubes = num;
                                 }
-                                else if(field == ScoreField.RED_LOW_CAPS) {
+                                else if(field == ScoreField.RED_GREEN_CUBES) {
                                     if(type == MessageType.ADD) {
-                                        num = redLowCaps + num;
+                                        num = redGreenCubes + num;
                                     }
                                     else if(type == MessageType.SUBTRACT) {
-                                        num = redLowCaps - num;
+                                        num = redGreenCubes - num;
                                     }
 
-                                    redLowCaps = num;
+                                    redGreenCubes = num;
                                 }
-                                else if(field == ScoreField.RED_PARKING_1) {
-                                    redParking[0] = ParkingState.fromInt(num);
-                                }
-                                else if(field == ScoreField.RED_PARKING_2) {
-                                    redParking[1] = ParkingState.fromInt(num);
-                                }
-                                else if(field == ScoreField.RED_AUTON) {
-                                    redAuton = num > 0;
-                                }
-                                else if(field == ScoreField.BLUE_HIGH_CAPS) {
+                                else if(field == ScoreField.RED_PURPLE_CUBES) {
                                     if(type == MessageType.ADD) {
-                                        num = blueHighCaps + num;
+                                        num = redPurpleCubes + num;
                                     }
                                     else if(type == MessageType.SUBTRACT) {
-                                        num = blueHighCaps - num;
+                                        num = redPurpleCubes - num;
                                     }
 
-                                    blueHighCaps = num;
+                                    redPurpleCubes = num;
                                 }
-                                else if(field == ScoreField.BLUE_LOW_CAPS) {
+                                else if(field == ScoreField.BLUE_ORANGE_CUBES) {
                                     if(type == MessageType.ADD) {
-                                        num = blueLowCaps + num;
+                                        num = blueOrangeCubes + num;
                                     }
                                     else if(type == MessageType.SUBTRACT) {
-                                        num = blueLowCaps - num;
+                                        num = blueOrangeCubes - num;
                                     }
 
-                                    blueLowCaps = num;
+                                    blueOrangeCubes = num;
                                 }
-                                else if(field == ScoreField.BLUE_PARKING_1) {
-                                    blueParking[0] =ParkingState.fromInt(num);
+                                else if(field == ScoreField.BLUE_GREEN_CUBES) {
+                                    if(type == MessageType.ADD) {
+                                        num = blueGreenCubes + num;
+                                    }
+                                    else if(type == MessageType.SUBTRACT) {
+                                        num = blueGreenCubes - num;
+                                    }
+
+                                    blueGreenCubes = num;
                                 }
-                                else if(field == ScoreField.BLUE_PARKING_2) {
-                                    blueParking[1] = ParkingState.fromInt(num);
-                                }
-                                else if(field == ScoreField.BLUE_AUTON) {
-                                    blueAuton = num > 0;
+                                else if(field == ScoreField.BLUE_PURPLE_CUBES) {
+                                    if(type == MessageType.ADD) {
+                                        num = bluePurpleCubes + num;
+                                    }
+                                    else if(type == MessageType.SUBTRACT) {
+                                        num = bluePurpleCubes - num;
+                                    }
+
+                                    bluePurpleCubes = num;
                                 }
                                 else if(field == ScoreField.CLEAR) {
-                                    for (ToggleState[] highFlag : highFlags)
-                                        Arrays.fill(highFlag, ToggleState.NONE);
-                                    Arrays.fill(lowFlags, ToggleState.NONE);
+                                    Arrays.fill(towerCubes, CubeType.NONE);
 
-                                    highFlags[0][0] = ToggleState.BLUE;
-                                    highFlags[0][2] = ToggleState.RED;
-                                    highFlags[1][0] = ToggleState.BLUE;
-                                    highFlags[1][2] = ToggleState.RED;
-                                    lowFlags[0] = ToggleState.BLUE;
-                                    lowFlags[2] = ToggleState.RED;
+                                    autonWinner = AutonWinner.NONE;
 
-                                    redHighCaps = 0;
-                                    redLowCaps = 2;
-                                    Arrays.fill(redParking, ParkingState.NONE);
-                                    redAuton = false;
+                                    redOrangeCubes = 0;
+                                    redGreenCubes = 0;
+                                    redPurpleCubes = 0;
 
-
-                                    blueHighCaps = 0;
-                                    blueLowCaps = 2;
-                                    Arrays.fill(blueParking, ParkingState.NONE);
-                                    blueAuton = false;
+                                    blueOrangeCubes = 0;
+                                    blueGreenCubes = 0;
+                                    bluePurpleCubes = 0;
 
                                     updateGUI();
                                 }
@@ -374,115 +355,96 @@ public class TcpClient {
         sendFoxCommand(ScoreField.PAUSED, MessageType.SET, isPaused ? 1 : 0);
     }
 
-    public void setHighFlag(int row, int column, ToggleState value) {
-        ScoreField field = ScoreField.HIGH_FLAG_1_1;
-        switch(3*row + column) {
-            case 0: field = ScoreField.HIGH_FLAG_1_1; break;
-            case 1: field = ScoreField.HIGH_FLAG_1_2; break;
-            case 2: field = ScoreField.HIGH_FLAG_1_3; break;
-            case 3: field = ScoreField.HIGH_FLAG_2_1; break;
-            case 4: field = ScoreField.HIGH_FLAG_2_2; break;
-            case 5: field = ScoreField.HIGH_FLAG_2_3; break;
+    public void setTowerCube(int pos, CubeType value) {
+        ScoreField field = ScoreField.TOWER_CUBE_1;
+        switch(pos) {
+            case 0: field = ScoreField.TOWER_CUBE_1; break;
+            case 1: field = ScoreField.TOWER_CUBE_2; break;
+            case 2: field = ScoreField.TOWER_CUBE_3; break;
+            case 3: field = ScoreField.TOWER_CUBE_4; break;
+            case 4: field = ScoreField.TOWER_CUBE_5; break;
+            case 5: field = ScoreField.TOWER_CUBE_6; break;
+            case 6: field = ScoreField.TOWER_CUBE_7; break;
         }
         sendFoxCommand(field, MessageType.SET, value.getValue());
-        highFlags[row][column] = value;
+        towerCubes[pos] = value;
     }
 
-    public void setLowFlag(int column, ToggleState value) {
-        ScoreField field = ScoreField.LOW_FLAG_1;
-        switch(column) {
-            case 0: field = ScoreField.LOW_FLAG_1; break;
-            case 1: field = ScoreField.LOW_FLAG_2; break;
-            case 2: field = ScoreField.LOW_FLAG_3; break;
-        }
-        sendFoxCommand(field, MessageType.SET, value.getValue());
-        lowFlags[column] = value;
+    public void setAutonWinner(AutonWinner value) {
+        sendFoxCommand(ScoreField.AUTON, MessageType.SET, value.getValue());
+        autonWinner = value;
     }
 
-    public void setRedHighCaps(int value) {
+    public void setRedOrangeCubes(int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.RED_HIGH_CAPS, MessageType.SET, value);
-        redHighCaps = value;
+        sendFoxCommand(ScoreField.RED_ORANGE_CUBES, MessageType.SET, value);
+        redOrangeCubes = value;
     }
-    public void addRedHighCap() {
-        setRedHighCaps(redHighCaps + 1);
+    public void addRedOrangeCube() {
+        setRedOrangeCubes(redOrangeCubes + 1);
     }
-    public void removeRedHighCap() {
-        setRedHighCaps(redHighCaps - 1);
+    public void removeRedOrangeCube() {
+        setRedOrangeCubes(redOrangeCubes - 1);
     }
 
-    public void setRedLowCaps(int value) {
+    public void setRedGreenCubes(int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.RED_LOW_CAPS, MessageType.SET, value);
-        redLowCaps = value;
+        sendFoxCommand(ScoreField.RED_GREEN_CUBES, MessageType.SET, value);
+        redGreenCubes = value;
     }
-    public void addRedLowCap() {
-        setRedLowCaps(redLowCaps + 1);
+    public void addRedGreenCube() {
+        setRedGreenCubes(redGreenCubes + 1);
     }
-    public void removeRedLowCap() {
-        setRedLowCaps(redLowCaps - 1);
-    }
-
-    public void setRedParking(int robot, ParkingState value) {
-        ScoreField field = ScoreField.RED_PARKING_1;
-        switch(robot) {
-            case 0: field = ScoreField.RED_PARKING_1; break;
-            case 1: field = ScoreField.RED_PARKING_2; break;
-        }
-        sendFoxCommand(field, MessageType.SET, value.getValue());
-        redParking[robot] = value;
+    public void removeRedGreenCube() {
+        setRedGreenCubes(redGreenCubes - 1);
     }
 
-    public void setBlueHighCaps(int value) {
+    public void setRedPurpleCubes(int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.BLUE_HIGH_CAPS, MessageType.SET, value);
-        blueHighCaps = value;
+        sendFoxCommand(ScoreField.RED_PURPLE_CUBES, MessageType.SET, value);
+        redPurpleCubes = value;
     }
-    public void addBlueHighCap() {
-        setBlueHighCaps(blueHighCaps + 1);
+    public void addRedPurpleCube() {
+        setRedPurpleCubes(redPurpleCubes + 1);
     }
-    public void removeBlueHighCap() {
-        setBlueHighCaps(blueHighCaps - 1);
+    public void removeRedPurpleCube() {
+        setRedPurpleCubes(redPurpleCubes - 1);
     }
 
-    public void setBlueLowCaps(int value) {
+    public void setBlueOrangeCubes(int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.BLUE_LOW_CAPS, MessageType.SET, value);
-        blueLowCaps = value;
+        sendFoxCommand(ScoreField.RED_ORANGE_CUBES, MessageType.SET, value);
+        blueOrangeCubes = value;
     }
-    public void addBlueLowCap() {
-        setBlueLowCaps(blueLowCaps + 1);
+    public void addBlueOrangeCube() {
+        setBlueOrangeCubes(blueOrangeCubes + 1);
     }
-    public void removeBlueLowCap() {
-        setBlueLowCaps(blueLowCaps - 1);
-    }
-
-    public void setBlueParking(int robot, ParkingState value) {
-        ScoreField field = ScoreField.BLUE_PARKING_1;
-        switch(robot) {
-            case 0: field = ScoreField.BLUE_PARKING_1; break;
-            case 1: field = ScoreField.BLUE_PARKING_2; break;
-        }
-        sendFoxCommand(field, MessageType.SET, value.getValue());
-        blueParking[robot] = value;
+    public void removeBlueOrangeCube() {
+        setBlueOrangeCubes(blueOrangeCubes - 1);
     }
 
-    public void setRedAuton(boolean auton) {
-        sendFoxCommand(ScoreField.RED_AUTON, MessageType.SET, auton ? 1 : 0);
-        redAuton = auton;
-
-        if(auton && blueAuton) {
-            setBlueAuton(false);
-        }
+    public void setBlueGreenCubes(int value) {
+        value = value < 0 ? 0 : value;
+        sendFoxCommand(ScoreField.RED_GREEN_CUBES, MessageType.SET, value);
+        blueGreenCubes = value;
+    }
+    public void addBlueGreenCube() {
+        setBlueGreenCubes(blueGreenCubes + 1);
+    }
+    public void removeBlueGreenCube() {
+        setBlueGreenCubes(blueGreenCubes - 1);
     }
 
-    public void setBlueAuton(boolean auton) {
-        sendFoxCommand(ScoreField.BLUE_AUTON, MessageType.SET, auton ? 1 : 0);
-        blueAuton = auton;
-
-        if(auton && redAuton) {
-            setRedAuton(false);
-        }
+    public void setBluePurpleCubes(int value) {
+        value = value < 0 ? 0 : value;
+        sendFoxCommand(ScoreField.RED_PURPLE_CUBES, MessageType.SET, value);
+        bluePurpleCubes = value;
+    }
+    public void addBluePurpleCube() {
+        setBluePurpleCubes(bluePurpleCubes + 1);
+    }
+    public void removeBluePurpleCube() {
+        setBluePurpleCubes(bluePurpleCubes - 1);
     }
 
     public void setHideFox(boolean hide) {
