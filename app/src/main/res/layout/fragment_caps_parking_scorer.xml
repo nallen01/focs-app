@@ -1,0 +1,362 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CapsAndParkingScorerFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.1"
+            android:weightSum="8">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="Red"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text=""
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="Blue"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text=""
+            android:layout_weight="0.05"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.25"
+            android:weightSum="8">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:weightSum="3"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/red_high_caps_remove"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="-"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="35dp" />
+
+                <TextView
+                    android:id="@+id/red_high_caps"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="25dp" />
+
+                <Button
+                    android:id="@+id/red_high_caps_add"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="+"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="25dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="High Caps"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="15dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_weight="3"
+                android:weightSum="3"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/blue_high_caps_remove"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="-"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="35dp" />
+
+                <TextView
+                    android:id="@+id/blue_high_caps"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="25dp" />
+
+                <Button
+                    android:id="@+id/blue_high_caps_add"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="+"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="25dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text=""
+            android:layout_weight="0.05"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.25"
+            android:weightSum="8">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:weightSum="3"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/red_low_caps_remove"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="-"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="35dp" />
+
+                <TextView
+                    android:id="@+id/red_low_caps"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="25dp" />
+
+                <Button
+                    android:id="@+id/red_low_caps_add"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="+"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="25dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="Low Caps"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="15dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_weight="3"
+                android:weightSum="3"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/blue_low_caps_remove"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="-"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="35dp" />
+
+                <TextView
+                    android:id="@+id/blue_low_caps"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="25dp" />
+
+                <Button
+                    android:id="@+id/blue_low_caps_add"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="+"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="25dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text=""
+            android:layout_weight="0.05"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.25"
+            android:weightSum="8">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:weightSum="2"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <SeekBar
+                        android:id="@+id/red_parking_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/Widget.AppCompat.SeekBar.Discrete"
+                        android:max="2" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <SeekBar
+                        android:id="@+id/red_parking_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/Widget.AppCompat.SeekBar.Discrete"
+                        android:max="2" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="Parking"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="15dp" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:weightSum="2"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <SeekBar
+                        android:id="@+id/blue_parking_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/Widget.AppCompat.SeekBar.Discrete"
+                        android:rotation="180"
+                        android:max="2" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <SeekBar
+                        android:id="@+id/blue_parking_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/Widget.AppCompat.SeekBar.Discrete"
+                        android:rotation="180"
+                        android:max="2" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

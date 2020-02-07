@@ -1,29 +1,27 @@
 package me.nallen.fox.app;
 
 public enum ScoreField {
-    RED_BASE_ONE_CONES(0),
-    RED_BASE_TWO_CONES(1),
-    RED_BASE_THREE_CONES(2),
-    RED_BASE_FOUR_CONES(3),
-    RED_BASE_ONE_ZONE(4),
-    RED_BASE_TWO_ZONE(5),
-    RED_BASE_THREE_ZONE(6),
-    RED_BASE_FOUR_ZONE(7),
-    RED_STATIONARY_CONES(8),
-    RED_PARKING(9),
-    RED_AUTON(10),
+    HIGH_FLAG_1_1(0),
+    HIGH_FLAG_1_2(1),
+    HIGH_FLAG_1_3(2),
+    HIGH_FLAG_2_1(3),
+    HIGH_FLAG_2_2(4),
+    HIGH_FLAG_2_3(5),
+    LOW_FLAG_1(6),
+    LOW_FLAG_2(7),
+    LOW_FLAG_3(8),
 
-    BLUE_BASE_ONE_CONES(11),
-    BLUE_BASE_TWO_CONES(12),
-    BLUE_BASE_THREE_CONES(13),
-    BLUE_BASE_FOUR_CONES(14),
-    BLUE_BASE_ONE_ZONE(15),
-    BLUE_BASE_TWO_ZONE(16),
-    BLUE_BASE_THREE_ZONE(17),
-    BLUE_BASE_FOUR_ZONE(18),
-    BLUE_STATIONARY_CONES(19),
-    BLUE_PARKING(20),
-    BLUE_AUTON(21),
+    RED_HIGH_CAPS(9),
+    RED_LOW_CAPS(10),
+    RED_PARKING_1(11),
+    RED_PARKING_2(12),
+    RED_AUTON(13),
+
+    BLUE_HIGH_CAPS(14),
+    BLUE_LOW_CAPS(15),
+    BLUE_PARKING_1(16),
+    BLUE_PARKING_2(17),
+    BLUE_AUTON(18),
 
     PAUSED(22),
     HISTORY(23),
@@ -39,9 +37,9 @@ public enum ScoreField {
     public int getValue() { return id; }
     public static ScoreField fromInt(int id) {
         ScoreField[] values = ScoreField.values();
-        for(int i=0; i<values.length; i++) {
-            if(values[i].getValue() == id)
-                return values[i];
+        for (ScoreField value : values) {
+            if (value.getValue() == id)
+                return value;
         }
         return null;
     }
