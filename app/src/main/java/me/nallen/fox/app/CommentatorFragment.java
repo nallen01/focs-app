@@ -75,6 +75,15 @@ public class CommentatorFragment extends Fragment implements DataListener {
             }
         });
 
+        rootView.findViewById(R.id.button_tie_auton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setAutonWinner(AutonWinner.TIE);
+
+                updateUI();
+            }
+        });
+
         rootView.findViewById(R.id.button_no_auton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -235,16 +244,25 @@ public class CommentatorFragment extends Fragment implements DataListener {
                     ((Button)rootView.findViewById(R.id.button_red_auton)).setText("[[Red]]");
                     ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("Blue");
                     ((Button)rootView.findViewById(R.id.button_no_auton)).setText("None");
+                    ((Button)rootView.findViewById(R.id.button_tie_auton)).setText("Tied");
                 }
                 else if(tcpClient.autonWinner == AutonWinner.BLUE) {
                     ((Button)rootView.findViewById(R.id.button_red_auton)).setText("Red");
                     ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("[[Blue]]");
                     ((Button)rootView.findViewById(R.id.button_no_auton)).setText("None");
+                    ((Button)rootView.findViewById(R.id.button_tie_auton)).setText("Tied");
+                }
+                else if(tcpClient.autonWinner == AutonWinner.NONE) {
+                    ((Button)rootView.findViewById(R.id.button_red_auton)).setText("Red");
+                    ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("Blue");
+                    ((Button)rootView.findViewById(R.id.button_no_auton)).setText("[[None]]");
+                    ((Button)rootView.findViewById(R.id.button_tie_auton)).setText("Tied");
                 }
                 else {
                     ((Button)rootView.findViewById(R.id.button_red_auton)).setText("Red");
                     ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("Blue");
-                    ((Button)rootView.findViewById(R.id.button_no_auton)).setText("[[None]]");
+                    ((Button)rootView.findViewById(R.id.button_no_auton)).setText("None");
+                    ((Button)rootView.findViewById(R.id.button_tie_auton)).setText("[[Tied]]");
                 }
             }
         });

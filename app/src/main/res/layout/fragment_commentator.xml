@@ -46,6 +46,15 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
+                    android:text="Tied Auton"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:id="@+id/button_tie_auton"
+                    android:layout_gravity="center_horizontal" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
                     android:text="Blue Auton"
                     android:textColor="@color/vexBlue"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
