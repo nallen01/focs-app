@@ -60,7 +60,7 @@ public class CommentatorFragment extends Fragment implements DataListener {
         rootView.findViewById(R.id.button_red_auton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tcpClient.setRedAuton(true);
+                tcpClient.setAutonWinner(AutonWinner.RED);
 
                 updateUI();
             }
@@ -69,7 +69,7 @@ public class CommentatorFragment extends Fragment implements DataListener {
         rootView.findViewById(R.id.button_blue_auton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tcpClient.setBlueAuton(true);
+                tcpClient.setAutonWinner(AutonWinner.BLUE);
 
                 updateUI();
             }
@@ -78,8 +78,7 @@ public class CommentatorFragment extends Fragment implements DataListener {
         rootView.findViewById(R.id.button_no_auton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tcpClient.setRedAuton(false);
-                tcpClient.setBlueAuton(false);
+                tcpClient.setAutonWinner(AutonWinner.NONE);
 
                 updateUI();
             }
@@ -227,12 +226,12 @@ public class CommentatorFragment extends Fragment implements DataListener {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(tcpClient.redAuton) {
+                if(tcpClient.autonWinner == AutonWinner.RED) {
                     ((Button)rootView.findViewById(R.id.button_red_auton)).setText("[[Red]]");
                     ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("Blue");
                     ((Button)rootView.findViewById(R.id.button_no_auton)).setText("None");
                 }
-                else if(tcpClient.blueAuton) {
+                else if(tcpClient.autonWinner == AutonWinner.BLUE) {
                     ((Button)rootView.findViewById(R.id.button_red_auton)).setText("Red");
                     ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("[[Blue]]");
                     ((Button)rootView.findViewById(R.id.button_no_auton)).setText("None");

@@ -20,4 +20,15 @@ public enum CubeType {
         }
         return null;
     }
+
+    public int getColor() {
+        switch(this) {
+            case NONE: return Color.rgb(189, 189, 189);
+            case ORANGE: return Color.rgb(251, 140, 0);
+            case GREEN: return Color.rgb(67, 160, 71);
+            case PURPLE: return Color.rgb(142, 36, 170);
+        }
+
+        return Color.rgb(255, 255, 255);
+    }
 }

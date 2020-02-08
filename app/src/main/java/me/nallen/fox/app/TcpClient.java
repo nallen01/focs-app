@@ -35,19 +35,19 @@ public class TcpClient {
     private LinkedList<DataListener> _listeners = new LinkedList<DataListener>();
     private boolean isConnected = false;
 
-    private CubeType[] towerCubes = {
+    public CubeType[] towerCubes = {
             CubeType.NONE, CubeType.NONE, CubeType.NONE, CubeType.NONE, CubeType.NONE, CubeType.NONE, CubeType.NONE
     };
 
-    private AutonWinner autonWinner = AutonWinner.NONE;
+    public AutonWinner autonWinner = AutonWinner.NONE;
 
-    private int redOrangeCubes = 0;
-    private int redGreenCubes = 0;
-    private int redPurpleCubes = 0;
+    public int redOrangeCubes = 0;
+    public int redGreenCubes = 0;
+    public int redPurpleCubes = 0;
 
-    private int blueOrangeCubes = 0;
-    private int blueGreenCubes = 0;
-    private int bluePurpleCubes = 0;
+    public int blueOrangeCubes = 0;
+    public int blueGreenCubes = 0;
+    public int bluePurpleCubes = 0;
 
     private TcpClient() {
     }
