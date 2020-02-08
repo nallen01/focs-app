@@ -20,6 +20,8 @@
             android:weightSum="8">
 
             <TextView
+                android:background="@color/vexRed"
+                android:textColor="@color/white"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
@@ -37,6 +39,8 @@
                 android:textSize="15dp" />
 
             <TextView
+                android:background="@color/vexBlue"
+                android:textColor="@color/white"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -99,6 +103,8 @@
             </LinearLayout>
 
             <TextView
+                android:background="@color/vexOrange"
+                android:textColor="@color/white"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -199,6 +205,8 @@
             </LinearLayout>
 
             <TextView
+                android:background="@color/vexGreen"
+                android:textColor="@color/white"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -299,6 +307,8 @@
             </LinearLayout>
 
             <TextView
+                android:background="@color/vexPurple"
+                android:textColor="@color/white"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
