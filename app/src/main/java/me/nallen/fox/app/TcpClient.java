@@ -413,7 +413,7 @@ public class TcpClient {
 
     public void setBlueOrangeCubes(int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.RED_ORANGE_CUBES, MessageType.SET, value);
+        sendFoxCommand(ScoreField.BLUE_ORANGE_CUBES, MessageType.SET, value);
         blueOrangeCubes = value;
     }
     public void addBlueOrangeCube() {
@@ -425,7 +425,7 @@ public class TcpClient {
 
     public void setBlueGreenCubes(int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.RED_GREEN_CUBES, MessageType.SET, value);
+        sendFoxCommand(ScoreField.BLUE_GREEN_CUBES, MessageType.SET, value);
         blueGreenCubes = value;
     }
     public void addBlueGreenCube() {
@@ -437,7 +437,7 @@ public class TcpClient {
 
     public void setBluePurpleCubes(int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.RED_PURPLE_CUBES, MessageType.SET, value);
+        sendFoxCommand(ScoreField.BLUE_PURPLE_CUBES, MessageType.SET, value);
         bluePurpleCubes = value;
     }
     public void addBluePurpleCube() {
