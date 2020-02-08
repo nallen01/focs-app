@@ -84,26 +84,31 @@ public class CommentatorFragment extends Fragment implements DataListener {
             }
         });
 
-        rootView.findViewById(R.id.button_small_history).setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.button_corner_history).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tcpClient.setLargeHistory(false);
-                tcpClient.setHistoryVisible(true);
+                tcpClient.setHistoryMethod(HistoryMethod.CORNER);
             }
         });
 
-        rootView.findViewById(R.id.button_large_history).setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.button_side_history).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tcpClient.setLargeHistory(true);
-                tcpClient.setHistoryVisible(true);
+                tcpClient.setHistoryMethod(HistoryMethod.SIDE);
+            }
+        });
+
+        rootView.findViewById(R.id.button_full_history).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setHistoryMethod(HistoryMethod.FULL);
             }
         });
 
         rootView.findViewById(R.id.button_hide_history).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tcpClient.setHistoryVisible(false);
+                tcpClient.setHistoryMethod(HistoryMethod.NONE);
             }
         });
 

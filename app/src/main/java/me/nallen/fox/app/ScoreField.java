@@ -20,8 +20,7 @@ public enum ScoreField {
     BLUE_PURPLE_CUBES(13),
 
     PAUSED(22),
-    HISTORY(23),
-    LARGE_HISTORY(24),
+    HISTORY_METHOD(23),
     HIDE(25),
 
     THREE_TEAM(26),

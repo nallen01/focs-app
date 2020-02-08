@@ -339,12 +339,8 @@ public class TcpClient {
         return isConnected;
     }
 
-    public void setLargeHistory(boolean isLarge) {
-        sendFoxCommand(ScoreField.LARGE_HISTORY, MessageType.SET, isLarge ? 1 : 0);
-    }
-
-    public void setHistoryVisible(boolean isVisible) {
-        sendFoxCommand(ScoreField.HISTORY, MessageType.SET, isVisible ? 1 : 0);
+    public void setHistoryMethod(HistoryMethod method) {
+        sendFoxCommand(ScoreField.HISTORY_METHOD, MessageType.SET, method.getValue());
     }
 
     public void clearAllScores() {

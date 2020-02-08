@@ -74,17 +74,26 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:text="Small Worm"
-                android:id="@+id/button_small_history"
+                android:text="Corner Worm"
+                android:id="@+id/button_corner_history"
                 android:layout_gravity="center_horizontal" />
 
             <Button
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:text="Large Worm"
+                android:text="Side Worm"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:id="@+id/button_large_history"
+                android:id="@+id/button_side_history"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Full Worm"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:id="@+id/button_full_history"
                 android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
