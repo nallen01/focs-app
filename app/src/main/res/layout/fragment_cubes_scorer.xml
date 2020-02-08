@@ -20,6 +20,7 @@
             android:weightSum="8">
 
             <TextView
+                android:id="@+id/red_label"
                 android:background="@color/vexRed"
                 android:textColor="@color/white"
                 android:layout_width="0dp"
@@ -39,6 +40,7 @@
                 android:textSize="15dp" />
 
             <TextView
+                android:id="@+id/blue_label"
                 android:background="@color/vexBlue"
                 android:textColor="@color/white"
                 android:layout_width="0dp"

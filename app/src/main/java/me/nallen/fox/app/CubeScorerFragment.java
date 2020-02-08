@@ -84,6 +84,37 @@ public class CubeScorerFragment extends Fragment implements DataListener {
         rootView.findViewById(R.id.blue_purple_cubes_add).setOnClickListener(cubeListener);
         rootView.findViewById(R.id.blue_purple_cubes_remove).setOnClickListener(cubeListener);
 
+        if(scorerLocation == ScorerLocation.CUBES_RED) {
+            rootView.findViewById(R.id.blue_label).setVisibility(View.INVISIBLE);
+
+            rootView.findViewById(R.id.blue_orange_cubes_add).setVisibility(View.INVISIBLE);
+            rootView.findViewById(R.id.blue_orange_cubes_remove).setVisibility(View.INVISIBLE);
+            rootView.findViewById(R.id.blue_orange_cubes).setVisibility(View.INVISIBLE);
+
+            rootView.findViewById(R.id.blue_green_cubes_add).setVisibility(View.INVISIBLE);
+            rootView.findViewById(R.id.blue_green_cubes_remove).setVisibility(View.INVISIBLE);
+            rootView.findViewById(R.id.blue_green_cubes).setVisibility(View.INVISIBLE);
+
+            rootView.findViewById(R.id.blue_purple_cubes_add).setVisibility(View.INVISIBLE);
+            rootView.findViewById(R.id.blue_purple_cubes_remove).setVisibility(View.INVISIBLE);
+            rootView.findViewById(R.id.blue_purple_cubes).setVisibility(View.INVISIBLE);
+        }
+        else if(scorerLocation == ScorerLocation.CUBES_BLUE) {
+            rootView.findViewById(R.id.red_label).setVisibility(View.INVISIBLE);
+
+            rootView.findViewById(R.id.red_orange_cubes_add).setVisibility(View.INVISIBLE);
+            rootView.findViewById(R.id.red_orange_cubes_remove).setVisibility(View.INVISIBLE);
+            rootView.findViewById(R.id.red_orange_cubes).setVisibility(View.INVISIBLE);
+
+            rootView.findViewById(R.id.red_green_cubes_add).setVisibility(View.INVISIBLE);
+            rootView.findViewById(R.id.red_green_cubes_remove).setVisibility(View.INVISIBLE);
+            rootView.findViewById(R.id.red_green_cubes).setVisibility(View.INVISIBLE);
+
+            rootView.findViewById(R.id.red_purple_cubes_add).setVisibility(View.INVISIBLE);
+            rootView.findViewById(R.id.red_purple_cubes_remove).setVisibility(View.INVISIBLE);
+            rootView.findViewById(R.id.red_purple_cubes).setVisibility(View.INVISIBLE);
+        }
+
         updateUI();
 
         return rootView;
