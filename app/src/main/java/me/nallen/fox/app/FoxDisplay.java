@@ -8,11 +8,11 @@ public enum FoxDisplay {
     private final int id;
     FoxDisplay(int id) { this.id = id; }
     public int getValue() { return id; }
-    public static ScoringZone fromInt(int id) {
-        ScoringZone[] values = ScoringZone.values();
-        for(int i=0; i<values.length; i++) {
-            if(values[i].getValue() == id)
-                return values[i];
+    public static FoxDisplay fromInt(int id) {
+        FoxDisplay[] values = FoxDisplay.values();
+        for (FoxDisplay value : values) {
+            if (value.getValue() == id)
+                return value;
         }
         return null;
     }

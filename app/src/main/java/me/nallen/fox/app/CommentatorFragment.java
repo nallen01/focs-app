@@ -60,7 +60,7 @@ public class CommentatorFragment extends Fragment implements DataListener {
         rootView.findViewById(R.id.button_red_auton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tcpClient.setRedAuton(true);
+                tcpClient.setAutonWinner(AutonWinner.RED);
 
                 updateUI();
             }
@@ -69,7 +69,16 @@ public class CommentatorFragment extends Fragment implements DataListener {
         rootView.findViewById(R.id.button_blue_auton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tcpClient.setBlueAuton(true);
+                tcpClient.setAutonWinner(AutonWinner.BLUE);
+
+                updateUI();
+            }
+        });
+
+        rootView.findViewById(R.id.button_tie_auton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setAutonWinner(AutonWinner.TIE);
 
                 updateUI();
             }
@@ -78,33 +87,37 @@ public class CommentatorFragment extends Fragment implements DataListener {
         rootView.findViewById(R.id.button_no_auton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tcpClient.setRedAuton(false);
-                tcpClient.setBlueAuton(false);
+                tcpClient.setAutonWinner(AutonWinner.NONE);
 
                 updateUI();
             }
         });
 
-        rootView.findViewById(R.id.button_small_history).setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.button_corner_history).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tcpClient.setLargeHistory(false);
-                tcpClient.setHistoryVisible(true);
+                tcpClient.setHistoryMethod(HistoryMethod.CORNER);
             }
         });
 
-        rootView.findViewById(R.id.button_large_history).setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.button_side_history).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tcpClient.setLargeHistory(true);
-                tcpClient.setHistoryVisible(true);
+                tcpClient.setHistoryMethod(HistoryMethod.SIDE);
+            }
+        });
+
+        rootView.findViewById(R.id.button_full_history).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tcpClient.setHistoryMethod(HistoryMethod.FULL);
             }
         });
 
         rootView.findViewById(R.id.button_hide_history).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tcpClient.setHistoryVisible(false);
+                tcpClient.setHistoryMethod(HistoryMethod.NONE);
             }
         });
 
@@ -227,20 +240,29 @@ public class CommentatorFragment extends Fragment implements DataListener {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(tcpClient.redAuton) {
+                if(tcpClient.autonWinner == AutonWinner.RED) {
                     ((Button)rootView.findViewById(R.id.button_red_auton)).setText("[[Red]]");
                     ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("Blue");
                     ((Button)rootView.findViewById(R.id.button_no_auton)).setText("None");
+                    ((Button)rootView.findViewById(R.id.button_tie_auton)).setText("Tied");
                 }
-                else if(tcpClient.blueAuton) {
+                else if(tcpClient.autonWinner == AutonWinner.BLUE) {
                     ((Button)rootView.findViewById(R.id.button_red_auton)).setText("Red");
                     ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("[[Blue]]");
                     ((Button)rootView.findViewById(R.id.button_no_auton)).setText("None");
+                    ((Button)rootView.findViewById(R.id.button_tie_auton)).setText("Tied");
+                }
+                else if(tcpClient.autonWinner == AutonWinner.NONE) {
+                    ((Button)rootView.findViewById(R.id.button_red_auton)).setText("Red");
+                    ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("Blue");
+                    ((Button)rootView.findViewById(R.id.button_no_auton)).setText("[[None]]");
+                    ((Button)rootView.findViewById(R.id.button_tie_auton)).setText("Tied");
                 }
                 else {
                     ((Button)rootView.findViewById(R.id.button_red_auton)).setText("Red");
                     ((Button)rootView.findViewById(R.id.button_blue_auton)).setText("Blue");
-                    ((Button)rootView.findViewById(R.id.button_no_auton)).setText("[[None]]");
+                    ((Button)rootView.findViewById(R.id.button_no_auton)).setText("None");
+                    ((Button)rootView.findViewById(R.id.button_tie_auton)).setText("[[Tied]]");
                 }
             }
         });

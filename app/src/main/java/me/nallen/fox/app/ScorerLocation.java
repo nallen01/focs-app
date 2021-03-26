@@ -1,11 +1,10 @@
 package me.nallen.fox.app;
 
 public enum ScorerLocation {
-    RED_ALL(8),
-    BLUE_ALL(9),
-    RED_BASES(0),
-    BLUE_BASES(1),
-    STATIONARY(2),
+    TOWERS(8),
+    CUBES(9),
+    CUBES_RED(10),
+    CUBES_BLUE(11),
     COMMENTATOR_AUTOMATION(5),
     COMMENTATOR(4);
 
@@ -14,20 +13,19 @@ public enum ScorerLocation {
     public int getValue() { return id; }
     public static ScorerLocation fromInt(int id) {
         ScorerLocation[] values = ScorerLocation.values();
-        for(int i=0; i<values.length; i++) {
-            if(values[i].getValue() == id)
-                return values[i];
+        for (ScorerLocation value : values) {
+            if (value.getValue() == id)
+                return value;
         }
         return null;
     }
 
     public String getName() {
         switch(this) {
-            case RED_ALL: return "Red (Everything)";
-            case BLUE_ALL: return "Blue (Everything)";
-            case RED_BASES: return "Red Bases";
-            case BLUE_BASES: return "Blue Bases";
-            case STATIONARY: return "Stationary and Parking";
+            case TOWERS: return "Towers";
+            case CUBES: return "Cubes";
+            case CUBES_RED: return "Cubes (Red)";
+            case CUBES_BLUE: return "Cubes (Blue)";
             case COMMENTATOR: return "Commentator";
             case COMMENTATOR_AUTOMATION: return "Commentator with Automation";
         }
@@ -37,11 +35,10 @@ public enum ScorerLocation {
 
     public static ScorerLocation[] getValues() {
         ScorerLocation[] values = {
-            RED_ALL,
-            BLUE_ALL,
-            RED_BASES,
-            BLUE_BASES,
-            STATIONARY,
+            TOWERS,
+            CUBES,
+            CUBES_RED,
+            CUBES_BLUE,
             COMMENTATOR
         };
 
