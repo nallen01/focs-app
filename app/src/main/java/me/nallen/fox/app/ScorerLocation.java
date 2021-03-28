@@ -1,10 +1,10 @@
 package me.nallen.fox.app;
 
 public enum ScorerLocation {
-    TOWERS(8),
-    CUBES(9),
-    CUBES_RED(10),
-    CUBES_BLUE(11),
+    GOALS(8),
+    BALLS(9),
+    BALLS_RED(10),
+    BALLS_BLUE(11),
     COMMENTATOR_AUTOMATION(5),
     COMMENTATOR(4);
 
@@ -22,10 +22,10 @@ public enum ScorerLocation {
 
     public String getName() {
         switch(this) {
-            case TOWERS: return "Towers";
-            case CUBES: return "Cubes";
-            case CUBES_RED: return "Cubes (Red)";
-            case CUBES_BLUE: return "Cubes (Blue)";
+            case GOALS: return "Goals";
+            case BALLS: return "Balls";
+            case BALLS_RED: return "Balls (Red)";
+            case BALLS_BLUE: return "Balls (Blue)";
             case COMMENTATOR: return "Commentator";
             case COMMENTATOR_AUTOMATION: return "Commentator with Automation";
         }
@@ -35,10 +35,10 @@ public enum ScorerLocation {
 
     public static ScorerLocation[] getValues() {
         ScorerLocation[] values = {
-            TOWERS,
-            CUBES,
-            CUBES_RED,
-            CUBES_BLUE,
+            GOALS,
+            BALLS,
+            BALLS_RED,
+            BALLS_BLUE,
             COMMENTATOR
         };
 

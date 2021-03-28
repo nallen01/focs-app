@@ -1,0 +1,149 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BallScorerFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.5"
+            android:weightSum="8">
+
+            <TextView
+                android:id="@+id/red_label"
+                android:background="@color/vexRed"
+                android:textColor="@color/white"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="Red"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text=""
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/blue_label"
+                android:background="@color/vexBlue"
+                android:textColor="@color/white"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="Blue"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.5"
+            android:weightSum="8">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:weightSum="3"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/red_balls_remove"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="-"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="35dp" />
+
+                <TextView
+                    android:id="@+id/red_balls"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="25dp" />
+
+                <Button
+                    android:id="@+id/red_balls_add"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="+"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="25dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="Balls"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textSize="15dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_weight="3"
+                android:weightSum="3"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/blue_balls_remove"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="-"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="35dp" />
+
+                <TextView
+                    android:id="@+id/blue_balls"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="25dp" />
+
+                <Button
+                    android:id="@+id/blue_balls_add"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="+"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="25dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,19 +1,17 @@
 package me.nallen.fox.app;
 
 import android.graphics.Color;
-import android.support.v4.content.res.ResourcesCompat;
 
-public enum CubeType {
+public enum BallType {
     NONE(0),
-    ORANGE(1),
-    GREEN(2),
-    PURPLE(3);
+    RED(1),
+    BLUE(2);
 
     private final int id;
-    CubeType(int id) { this.id = id; }
+    BallType(int id) { this.id = id; }
     public int getValue() { return id; }
-    public static CubeType fromInt(int id) {
-        CubeType[] values = CubeType.values();
+    public static BallType fromInt(int id) {
+        BallType[] values = BallType.values();
         for(int i=0; i<values.length; i++) {
             if(values[i].getValue() == id)
                 return values[i];
@@ -24,9 +22,8 @@ public enum CubeType {
     public int getColor() {
         switch(this) {
             case NONE: return Color.rgb(189, 189, 189);
-            case ORANGE: return Color.rgb(251, 140, 0);
-            case GREEN: return Color.rgb(67, 160, 71);
-            case PURPLE: return Color.rgb(142, 36, 170);
+            case RED: return Color.rgb(244, 67, 54);
+            case BLUE: return Color.rgb(33, 150, 243);
         }
 
         return Color.rgb(255, 255, 255);

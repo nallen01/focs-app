@@ -72,11 +72,11 @@ public class MainActivity extends AppCompatActivity implements DataListener {
 
         setTitle(scorer_location.getName());
 
-        if(scorer_location == ScorerLocation.TOWERS) {
-            fragment = TowerScorerFragment.newInstance(scorer_location);
+        if(scorer_location == ScorerLocation.GOALS) {
+            fragment = GoalScorerFragment.newInstance(scorer_location);
         }
-        else if(scorer_location == ScorerLocation.CUBES || scorer_location == ScorerLocation.CUBES_RED || scorer_location == ScorerLocation.CUBES_BLUE) {
-            fragment = CubeScorerFragment.newInstance(scorer_location);
+        else if(scorer_location == ScorerLocation.BALLS || scorer_location == ScorerLocation.BALLS_RED || scorer_location == ScorerLocation.BALLS_BLUE) {
+            fragment = BallScorerFragment.newInstance(scorer_location);
         }
         else if(scorer_location == ScorerLocation.COMMENTATOR || scorer_location == ScorerLocation.COMMENTATOR_AUTOMATION) {
             fragment = CommentatorFragment.newInstance(scorer_location);

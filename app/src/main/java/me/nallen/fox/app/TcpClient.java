@@ -35,19 +35,21 @@ public class TcpClient {
     private LinkedList<DataListener> _listeners = new LinkedList<DataListener>();
     private boolean isConnected = false;
 
-    public CubeType[] towerCubes = {
-            CubeType.NONE, CubeType.NONE, CubeType.NONE, CubeType.NONE, CubeType.NONE, CubeType.NONE, CubeType.NONE
+    public BallType[][] goalOwnership = {
+        {
+                BallType.NONE, BallType.NONE, BallType.NONE
+        },{
+                BallType.NONE, BallType.NONE, BallType.NONE
+        },{
+                BallType.NONE, BallType.NONE, BallType.NONE
+        }
     };
 
     public AutonWinner autonWinner = AutonWinner.NONE;
 
-    public int redOrangeCubes = 0;
-    public int redGreenCubes = 0;
-    public int redPurpleCubes = 0;
+    public int redBalls = 0;
 
-    public int blueOrangeCubes = 0;
-    public int blueGreenCubes = 0;
-    public int bluePurpleCubes = 0;
+    public int blueBalls = 0;
 
     private TcpClient() {
     }
@@ -185,102 +187,70 @@ public class TcpClient {
                                 MessageType type = MessageType.fromInt(Integer.parseInt(parts[1]));
                                 int num = Integer.parseInt(parts[2]);
 
-                                if(field == ScoreField.TOWER_CUBE_1
-                                        || field == ScoreField.TOWER_CUBE_2
-                                        || field == ScoreField.TOWER_CUBE_3
-                                        || field == ScoreField.TOWER_CUBE_4
-                                        || field == ScoreField.TOWER_CUBE_5
-                                        || field == ScoreField.TOWER_CUBE_6
-                                        || field == ScoreField.TOWER_CUBE_7) {
-                                    int pos = 0;
+                                if(field == ScoreField.GOAL_OWNERSHIP_0_0
+                                        || field == ScoreField.GOAL_OWNERSHIP_0_1
+                                        || field == ScoreField.GOAL_OWNERSHIP_0_2
+                                        || field == ScoreField.GOAL_OWNERSHIP_1_0
+                                        || field == ScoreField.GOAL_OWNERSHIP_1_1
+                                        || field == ScoreField.GOAL_OWNERSHIP_1_2
+                                        || field == ScoreField.GOAL_OWNERSHIP_2_0
+                                        || field == ScoreField.GOAL_OWNERSHIP_2_1
+                                        || field == ScoreField.GOAL_OWNERSHIP_2_2) {
+                                    int x = 0, y = 0;
                                     switch(field) {
-                                        case TOWER_CUBE_1: pos = 0; break;
-                                        case TOWER_CUBE_2: pos = 1; break;
-                                        case TOWER_CUBE_3: pos = 2; break;
-                                        case TOWER_CUBE_4: pos = 3; break;
-                                        case TOWER_CUBE_5: pos = 4; break;
-                                        case TOWER_CUBE_6: pos = 5; break;
-                                        case TOWER_CUBE_7: pos = 6; break;
+                                        case GOAL_OWNERSHIP_0_0: x = 0; y = 0; break;
+                                        case GOAL_OWNERSHIP_0_1: x = 0; y = 1; break;
+                                        case GOAL_OWNERSHIP_0_2: x = 0; y = 2; break;
+                                        case GOAL_OWNERSHIP_1_0: x = 1; y = 0; break;
+                                        case GOAL_OWNERSHIP_1_1: x = 1; y = 1; break;
+                                        case GOAL_OWNERSHIP_1_2: x = 1; y = 2; break;
+                                        case GOAL_OWNERSHIP_2_0: x = 2; y = 0; break;
+                                        case GOAL_OWNERSHIP_2_1: x = 2; y = 1; break;
+                                        case GOAL_OWNERSHIP_2_2: x = 2; y = 2; break;
                                         default: break;
                                     }
 
-                                    towerCubes[pos] = CubeType.fromInt(num);
+                                    goalOwnership[x][y] = BallType.fromInt(num);
                                 }
                                 else if(field == ScoreField.AUTON) {
                                     autonWinner = AutonWinner.fromInt(num);
                                 }
-                                else if(field == ScoreField.RED_ORANGE_CUBES) {
+                                else if(field == ScoreField.RED_BALLS) {
                                     if(type == MessageType.ADD) {
-                                        num = redOrangeCubes + num;
+                                        num = redBalls + num;
                                     }
                                     else if(type == MessageType.SUBTRACT) {
-                                        num = redOrangeCubes - num;
+                                        num = redBalls - num;
                                     }
 
-                                    redOrangeCubes = num;
+                                    redBalls = num;
                                 }
-                                else if(field == ScoreField.RED_GREEN_CUBES) {
+                                else if(field == ScoreField.BLUE_BALLS) {
                                     if(type == MessageType.ADD) {
-                                        num = redGreenCubes + num;
+                                        num = blueBalls + num;
                                     }
                                     else if(type == MessageType.SUBTRACT) {
-                                        num = redGreenCubes - num;
+                                        num = blueBalls - num;
                                     }
 
-                                    redGreenCubes = num;
-                                }
-                                else if(field == ScoreField.RED_PURPLE_CUBES) {
-                                    if(type == MessageType.ADD) {
-                                        num = redPurpleCubes + num;
-                                    }
-                                    else if(type == MessageType.SUBTRACT) {
-                                        num = redPurpleCubes - num;
-                                    }
-
-                                    redPurpleCubes = num;
-                                }
-                                else if(field == ScoreField.BLUE_ORANGE_CUBES) {
-                                    if(type == MessageType.ADD) {
-                                        num = blueOrangeCubes + num;
-                                    }
-                                    else if(type == MessageType.SUBTRACT) {
-                                        num = blueOrangeCubes - num;
-                                    }
-
-                                    blueOrangeCubes = num;
-                                }
-                                else if(field == ScoreField.BLUE_GREEN_CUBES) {
-                                    if(type == MessageType.ADD) {
-                                        num = blueGreenCubes + num;
-                                    }
-                                    else if(type == MessageType.SUBTRACT) {
-                                        num = blueGreenCubes - num;
-                                    }
-
-                                    blueGreenCubes = num;
-                                }
-                                else if(field == ScoreField.BLUE_PURPLE_CUBES) {
-                                    if(type == MessageType.ADD) {
-                                        num = bluePurpleCubes + num;
-                                    }
-                                    else if(type == MessageType.SUBTRACT) {
-                                        num = bluePurpleCubes - num;
-                                    }
-
-                                    bluePurpleCubes = num;
+                                    blueBalls = num;
                                 }
                                 else if(field == ScoreField.CLEAR) {
-                                    Arrays.fill(towerCubes, CubeType.NONE);
+                                    goalOwnership[0][0] = BallType.RED;
+                                    goalOwnership[0][1] = BallType.BLUE;
+                                    goalOwnership[0][2] = BallType.BLUE;
+                                    goalOwnership[1][0] = BallType.RED;
+                                    goalOwnership[1][1] = BallType.NONE;
+                                    goalOwnership[1][2] = BallType.BLUE;
+                                    goalOwnership[2][0] = BallType.RED;
+                                    goalOwnership[2][1] = BallType.RED;
+                                    goalOwnership[2][2] = BallType.BLUE;
 
                                     autonWinner = AutonWinner.NONE;
 
-                                    redOrangeCubes = 0;
-                                    redGreenCubes = 0;
-                                    redPurpleCubes = 0;
+                                    redBalls = 9;
 
-                                    blueOrangeCubes = 0;
-                                    blueGreenCubes = 0;
-                                    bluePurpleCubes = 0;
+                                    blueBalls = 9;
 
                                     updateGUI();
                                 }
@@ -351,19 +321,21 @@ public class TcpClient {
         sendFoxCommand(ScoreField.PAUSED, MessageType.SET, isPaused ? 1 : 0);
     }
 
-    public void setTowerCube(int pos, CubeType value) {
-        ScoreField field = ScoreField.TOWER_CUBE_1;
-        switch(pos) {
-            case 0: field = ScoreField.TOWER_CUBE_1; break;
-            case 1: field = ScoreField.TOWER_CUBE_2; break;
-            case 2: field = ScoreField.TOWER_CUBE_3; break;
-            case 3: field = ScoreField.TOWER_CUBE_4; break;
-            case 4: field = ScoreField.TOWER_CUBE_5; break;
-            case 5: field = ScoreField.TOWER_CUBE_6; break;
-            case 6: field = ScoreField.TOWER_CUBE_7; break;
+    public void setGoalOwnership(int x, int y, BallType value) {
+        ScoreField field = ScoreField.GOAL_OWNERSHIP_0_0;
+        switch(x*3+y) {
+            case 0: field = ScoreField.GOAL_OWNERSHIP_0_0; break;
+            case 1: field = ScoreField.GOAL_OWNERSHIP_0_1; break;
+            case 2: field = ScoreField.GOAL_OWNERSHIP_0_2; break;
+            case 3: field = ScoreField.GOAL_OWNERSHIP_1_0; break;
+            case 4: field = ScoreField.GOAL_OWNERSHIP_1_1; break;
+            case 5: field = ScoreField.GOAL_OWNERSHIP_1_2; break;
+            case 6: field = ScoreField.GOAL_OWNERSHIP_2_0; break;
+            case 7: field = ScoreField.GOAL_OWNERSHIP_2_1; break;
+            case 8: field = ScoreField.GOAL_OWNERSHIP_2_2; break;
         }
         sendFoxCommand(field, MessageType.SET, value.getValue());
-        towerCubes[pos] = value;
+        goalOwnership[x][y] = value;
     }
 
     public void setAutonWinner(AutonWinner value) {
@@ -371,76 +343,28 @@ public class TcpClient {
         autonWinner = value;
     }
 
-    public void setRedOrangeCubes(int value) {
+    public void setRedBalls(int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.RED_ORANGE_CUBES, MessageType.SET, value);
-        redOrangeCubes = value;
+        sendFoxCommand(ScoreField.RED_BALLS, MessageType.SET, value);
+        redBalls = value;
     }
-    public void addRedOrangeCube() {
-        setRedOrangeCubes(redOrangeCubes + 1);
+    public void addRedBall() {
+        setRedBalls(redBalls + 1);
     }
-    public void removeRedOrangeCube() {
-        setRedOrangeCubes(redOrangeCubes - 1);
+    public void removeRedBall() {
+        setRedBalls(redBalls - 1);
     }
 
-    public void setRedGreenCubes(int value) {
+    public void setBlueBalls(int value) {
         value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.RED_GREEN_CUBES, MessageType.SET, value);
-        redGreenCubes = value;
+        sendFoxCommand(ScoreField.BLUE_BALLS, MessageType.SET, value);
+        blueBalls = value;
     }
-    public void addRedGreenCube() {
-        setRedGreenCubes(redGreenCubes + 1);
+    public void addBlueBall() {
+        setBlueBalls(blueBalls + 1);
     }
-    public void removeRedGreenCube() {
-        setRedGreenCubes(redGreenCubes - 1);
-    }
-
-    public void setRedPurpleCubes(int value) {
-        value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.RED_PURPLE_CUBES, MessageType.SET, value);
-        redPurpleCubes = value;
-    }
-    public void addRedPurpleCube() {
-        setRedPurpleCubes(redPurpleCubes + 1);
-    }
-    public void removeRedPurpleCube() {
-        setRedPurpleCubes(redPurpleCubes - 1);
-    }
-
-    public void setBlueOrangeCubes(int value) {
-        value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.BLUE_ORANGE_CUBES, MessageType.SET, value);
-        blueOrangeCubes = value;
-    }
-    public void addBlueOrangeCube() {
-        setBlueOrangeCubes(blueOrangeCubes + 1);
-    }
-    public void removeBlueOrangeCube() {
-        setBlueOrangeCubes(blueOrangeCubes - 1);
-    }
-
-    public void setBlueGreenCubes(int value) {
-        value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.BLUE_GREEN_CUBES, MessageType.SET, value);
-        blueGreenCubes = value;
-    }
-    public void addBlueGreenCube() {
-        setBlueGreenCubes(blueGreenCubes + 1);
-    }
-    public void removeBlueGreenCube() {
-        setBlueGreenCubes(blueGreenCubes - 1);
-    }
-
-    public void setBluePurpleCubes(int value) {
-        value = value < 0 ? 0 : value;
-        sendFoxCommand(ScoreField.BLUE_PURPLE_CUBES, MessageType.SET, value);
-        bluePurpleCubes = value;
-    }
-    public void addBluePurpleCube() {
-        setBluePurpleCubes(bluePurpleCubes + 1);
-    }
-    public void removeBluePurpleCube() {
-        setBluePurpleCubes(bluePurpleCubes - 1);
+    public void removeBlueBall() {
+        setBlueBalls(blueBalls - 1);
     }
 
     public void setHideFox(boolean hide) {

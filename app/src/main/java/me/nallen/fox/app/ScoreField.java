@@ -1,23 +1,21 @@
 package me.nallen.fox.app;
 
 public enum ScoreField {
-    TOWER_CUBE_1(0),
-    TOWER_CUBE_2(1),
-    TOWER_CUBE_3(2),
-    TOWER_CUBE_4(3),
-    TOWER_CUBE_5(4),
-    TOWER_CUBE_6(5),
-    TOWER_CUBE_7(6),
+    GOAL_OWNERSHIP_0_0(0),
+    GOAL_OWNERSHIP_0_1(1),
+    GOAL_OWNERSHIP_0_2(2),
+    GOAL_OWNERSHIP_1_0(3),
+    GOAL_OWNERSHIP_1_1(4),
+    GOAL_OWNERSHIP_1_2(5),
+    GOAL_OWNERSHIP_2_0(6),
+    GOAL_OWNERSHIP_2_1(7),
+    GOAL_OWNERSHIP_2_2(8),
 
-    AUTON(7),
+    AUTON(9),
 
-    RED_ORANGE_CUBES(8),
-    RED_GREEN_CUBES(9),
-    RED_PURPLE_CUBES(10),
+    RED_BALLS(10),
 
-    BLUE_ORANGE_CUBES(11),
-    BLUE_GREEN_CUBES(12),
-    BLUE_PURPLE_CUBES(13),
+    BLUE_BALLS(11),
 
     PAUSED(22),
     HISTORY_METHOD(23),
