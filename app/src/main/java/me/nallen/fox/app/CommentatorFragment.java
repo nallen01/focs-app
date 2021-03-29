@@ -13,7 +13,7 @@ import android.widget.Button;
 
 public class CommentatorFragment extends Fragment implements DataListener {
     private ScorerLocation scorerLocation;
-    private TcpClient tcpClient;
+    private final TcpClient tcpClient;
     private View rootView;
     private boolean showAuton = false;
 

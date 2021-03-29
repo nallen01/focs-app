@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class BallScorerFragment extends Fragment implements DataListener {
     private ScorerLocation scorerLocation;
-    private TcpClient tcpClient;
+    private final TcpClient tcpClient;
     private View rootView;
 
     public static BallScorerFragment newInstance(ScorerLocation scorerLocation) {
@@ -43,7 +43,7 @@ public class BallScorerFragment extends Fragment implements DataListener {
         tcpClient.removeDataListener(this);
     }
 
-    private View.OnClickListener ballListener = new View.OnClickListener() {
+    private final View.OnClickListener ballListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch(v.getId()) {

@@ -1,7 +1,5 @@
 package me.nallen.fox.app;
 
-import android.graphics.Color;
-
 public enum HistoryMethod {
     NONE(0),
     CORNER(1),

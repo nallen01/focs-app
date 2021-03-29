@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -22,7 +21,7 @@ public class TcpClient {
     public static final int FOX_PORT = 5005;
     public static final int AUTOMATION_PORT = 5006;
 
-    private static TcpClient singleton = new TcpClient();
+    private static final TcpClient singleton = new TcpClient();
 
     private Socket fox_socket = null;
     private BufferedReader fox_in = null;
@@ -32,10 +31,10 @@ public class TcpClient {
     private BufferedReader automation_in = null;
     private BufferedWriter automation_out = null;
 
-    private LinkedList<DataListener> _listeners = new LinkedList<DataListener>();
+    private final LinkedList<DataListener> _listeners = new LinkedList<DataListener>();
     private boolean isConnected = false;
 
-    public BallType[][] goalOwnership = {
+    public final BallType[][] goalOwnership = {
         {
                 BallType.NONE, BallType.NONE, BallType.NONE
         },{
@@ -84,14 +83,14 @@ public class TcpClient {
 
         try {
             fox_socket.close();
-        } catch (Exception e) { }
+        } catch (Exception ignored) { }
         fox_socket = null;
         fox_in = null;
         fox_out = null;
 
         try {
             automation_socket.close();
-        } catch (Exception e) { }
+        } catch (Exception ignored) { }
         automation_socket = null;
         automation_in = null;
         automation_out = null;
@@ -141,10 +140,6 @@ public class TcpClient {
         sendAutomationMessage("" + value);
     }
 
-    private Thread foxListener;
-
-    private Thread automationListener;
-
     public int connect(String fox_ip, ScorerLocation location, String automation_ip) {
         if(!isConnected()) {
             try {
@@ -171,23 +166,23 @@ public class TcpClient {
                 }
             }
 
-            foxListener = new Thread(new Runnable() {
+            Thread foxListener = new Thread(new Runnable() {
                 public void run() {
                     while (true) {
                         try {
                             String str = fox_in.readLine();
 
-                            if(str == null) {
+                            if (str == null) {
                                 throw new Exception("Connection Dropped");
                             }
 
-                            String[] parts = str.split("" + ((char)29), -1);
-                            if(parts.length == 3) {
+                            String[] parts = str.split("" + ((char) 29), -1);
+                            if (parts.length == 3) {
                                 ScoreField field = ScoreField.fromInt(Integer.parseInt(parts[0]));
                                 MessageType type = MessageType.fromInt(Integer.parseInt(parts[1]));
                                 int num = Integer.parseInt(parts[2]);
 
-                                if(field == ScoreField.GOAL_OWNERSHIP_0_0
+                                if (field == ScoreField.GOAL_OWNERSHIP_0_0
                                         || field == ScoreField.GOAL_OWNERSHIP_0_1
                                         || field == ScoreField.GOAL_OWNERSHIP_0_2
                                         || field == ScoreField.GOAL_OWNERSHIP_1_0
@@ -197,45 +192,67 @@ public class TcpClient {
                                         || field == ScoreField.GOAL_OWNERSHIP_2_1
                                         || field == ScoreField.GOAL_OWNERSHIP_2_2) {
                                     int x = 0, y = 0;
-                                    switch(field) {
-                                        case GOAL_OWNERSHIP_0_0: x = 0; y = 0; break;
-                                        case GOAL_OWNERSHIP_0_1: x = 0; y = 1; break;
-                                        case GOAL_OWNERSHIP_0_2: x = 0; y = 2; break;
-                                        case GOAL_OWNERSHIP_1_0: x = 1; y = 0; break;
-                                        case GOAL_OWNERSHIP_1_1: x = 1; y = 1; break;
-                                        case GOAL_OWNERSHIP_1_2: x = 1; y = 2; break;
-                                        case GOAL_OWNERSHIP_2_0: x = 2; y = 0; break;
-                                        case GOAL_OWNERSHIP_2_1: x = 2; y = 1; break;
-                                        case GOAL_OWNERSHIP_2_2: x = 2; y = 2; break;
-                                        default: break;
+                                    switch (field) {
+                                        case GOAL_OWNERSHIP_0_0:
+                                            x = 0;
+                                            y = 0;
+                                            break;
+                                        case GOAL_OWNERSHIP_0_1:
+                                            x = 0;
+                                            y = 1;
+                                            break;
+                                        case GOAL_OWNERSHIP_0_2:
+                                            x = 0;
+                                            y = 2;
+                                            break;
+                                        case GOAL_OWNERSHIP_1_0:
+                                            x = 1;
+                                            y = 0;
+                                            break;
+                                        case GOAL_OWNERSHIP_1_1:
+                                            x = 1;
+                                            y = 1;
+                                            break;
+                                        case GOAL_OWNERSHIP_1_2:
+                                            x = 1;
+                                            y = 2;
+                                            break;
+                                        case GOAL_OWNERSHIP_2_0:
+                                            x = 2;
+                                            y = 0;
+                                            break;
+                                        case GOAL_OWNERSHIP_2_1:
+                                            x = 2;
+                                            y = 1;
+                                            break;
+                                        case GOAL_OWNERSHIP_2_2:
+                                            x = 2;
+                                            y = 2;
+                                            break;
+                                        default:
+                                            break;
                                     }
 
                                     goalOwnership[x][y] = BallType.fromInt(num);
-                                }
-                                else if(field == ScoreField.AUTON) {
+                                } else if (field == ScoreField.AUTON) {
                                     autonWinner = AutonWinner.fromInt(num);
-                                }
-                                else if(field == ScoreField.RED_BALLS) {
-                                    if(type == MessageType.ADD) {
+                                } else if (field == ScoreField.RED_BALLS) {
+                                    if (type == MessageType.ADD) {
                                         num = redBalls + num;
-                                    }
-                                    else if(type == MessageType.SUBTRACT) {
+                                    } else if (type == MessageType.SUBTRACT) {
                                         num = redBalls - num;
                                     }
 
                                     redBalls = num;
-                                }
-                                else if(field == ScoreField.BLUE_BALLS) {
-                                    if(type == MessageType.ADD) {
+                                } else if (field == ScoreField.BLUE_BALLS) {
+                                    if (type == MessageType.ADD) {
                                         num = blueBalls + num;
-                                    }
-                                    else if(type == MessageType.SUBTRACT) {
+                                    } else if (type == MessageType.SUBTRACT) {
                                         num = blueBalls - num;
                                     }
 
                                     blueBalls = num;
-                                }
-                                else if(field == ScoreField.CLEAR) {
+                                } else if (field == ScoreField.CLEAR) {
                                     goalOwnership[0][0] = BallType.RED;
                                     goalOwnership[0][1] = BallType.BLUE;
                                     goalOwnership[0][2] = BallType.BLUE;
@@ -257,10 +274,9 @@ public class TcpClient {
                             }
 
                             Thread.sleep(10);
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
                             Log.d("Fox", e.getMessage());
-                            if(isConnected) {
+                            if (isConnected) {
                                 logout();
                                 connectionDropped();
                             }
@@ -272,20 +288,19 @@ public class TcpClient {
             foxListener.start();
 
             if(location == ScorerLocation.COMMENTATOR_AUTOMATION) {
-                automationListener = new Thread(new Runnable() {
+                Thread automationListener = new Thread(new Runnable() {
                     public void run() {
                         while (true) {
                             try {
                                 String str = automation_in.readLine();
 
-                                if(str == null) {
+                                if (str == null) {
                                     throw new Exception("Connection Dropped");
                                 }
 
                                 Thread.sleep(10);
-                            }
-                            catch (Exception e) {
-                                if(isConnected) {
+                            } catch (Exception e) {
+                                if (isConnected) {
                                     logout();
                                     connectionDropped();
                                 }
@@ -344,7 +359,7 @@ public class TcpClient {
     }
 
     public void setRedBalls(int value) {
-        value = value < 0 ? 0 : value;
+        value = Math.max(value, 0);
         sendFoxCommand(ScoreField.RED_BALLS, MessageType.SET, value);
         redBalls = value;
     }
@@ -356,7 +371,7 @@ public class TcpClient {
     }
 
     public void setBlueBalls(int value) {
-        value = value < 0 ? 0 : value;
+        value = Math.max(value, 0);
         sendFoxCommand(ScoreField.BLUE_BALLS, MessageType.SET, value);
         blueBalls = value;
     }

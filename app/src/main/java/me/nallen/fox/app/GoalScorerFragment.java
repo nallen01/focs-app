@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class GoalScorerFragment extends Fragment implements DataListener {
     private ScorerLocation scorerLocation;
-    private TcpClient tcpClient;
+    private final TcpClient tcpClient;
     private View rootView;
 
     public static GoalScorerFragment newInstance(ScorerLocation scorerLocation) {
@@ -43,7 +43,7 @@ public class GoalScorerFragment extends Fragment implements DataListener {
         tcpClient.removeDataListener(this);
     }
 
-    private Button.OnClickListener goalListener = new Button.OnClickListener() {
+    private final Button.OnClickListener goalListener = new Button.OnClickListener() {
         @Override
         public void onClick(View view) {
             int x = 0, y = 0;

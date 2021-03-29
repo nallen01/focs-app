@@ -34,14 +34,13 @@ public enum ScorerLocation {
     }
 
     public static ScorerLocation[] getValues() {
-        ScorerLocation[] values = {
+
+        return new ScorerLocation[]{
             GOALS,
             BALLS,
             BALLS_RED,
             BALLS_BLUE,
             COMMENTATOR
         };
-
-        return values;
     }
 }
