@@ -97,11 +97,15 @@ public class BallScorerFragment extends Fragment implements DataListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.clear:
-//                tcpClient.setRedBalls(9);
-//                tcpClient.setBlueBalls(9);
 
-                tcpClient.setRedBalls(0);
-                tcpClient.setBlueBalls(0);
+                if(scorerLocation != ScorerLocation.BALLS_RED) {
+//                    tcpClient.setBlueBalls(9);
+                    tcpClient.setBlueBalls(0);
+                }
+                if(scorerLocation != ScorerLocation.BALLS_BLUE) {
+//                    tcpClient.setRedBalls(9);
+                    tcpClient.setRedBalls(0);
+                }
 
                 updateUI();
 
